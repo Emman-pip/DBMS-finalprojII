@@ -53,7 +53,7 @@ class loginWindow extends JPanel {
     public JButton btn_login;
 
     loginWindow() {
-        this.setLayout(new GridLayout(3, 1));
+        this.setLayout(new GridLayout(4, 1));
         JPanel pnl_username = new JPanel();
         JLabel lbl_username = new JLabel("Username:");
         txt_username = new JTextField();
@@ -65,6 +65,7 @@ class loginWindow extends JPanel {
         txt_pass.setColumns(20);
 
         btn_login = new JButton("LOGIN");
+        JButton btn_createAcc = new JButton("Create Account");
 
         btn_login.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
@@ -86,6 +87,12 @@ class loginWindow extends JPanel {
             }
         });
 
+        btn_createAcc.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                new signUp();
+            }
+        });
+
         pnl_username.add(lbl_username);
         pnl_username.add(txt_username);
         pnl_pass.add(lbl_pass);
@@ -94,6 +101,7 @@ class loginWindow extends JPanel {
         this.add(pnl_username);
         this.add(pnl_pass);
         this.add(btn_login);
+        this.add(btn_createAcc);
 
     }
 }
