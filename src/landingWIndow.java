@@ -1,5 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.LinkedList;
 
 public class landingWIndow extends JFrame {
     landingWIndow() {
@@ -45,6 +48,7 @@ class loginWindow extends JPanel {
     public JTextField txt_username;
     public JLabel lbl_pass;
     public JPasswordField txt_pass;
+    public int customerID;
 
     public JButton btn_login;
 
@@ -61,6 +65,26 @@ class loginWindow extends JPanel {
         txt_pass.setColumns(20);
 
         btn_login = new JButton("LOGIN");
+
+        btn_login.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                try {
+                    LinkedList<LinkedList<String>> data = new database().queries("user_accounts");
+                    for (int i = 0; i < data.size(); i++) {
+
+                        if (txt_username.getText().equals(data.get(i).get(1))
+                                && String.valueOf(txt_pass.getPassword()).equals(data.get(i).get(2))) {
+                            customerID = Integer.parseInt(data.get(i).get(0));
+                            System.out.println("YAY ID:" + customerID);
+                        } else {
+                            JOptionPane.showMessageDialog(new JFrame(), "INVALID CREDENTIALS");
+                        }
+                    }
+                } catch (Exception ex) {
+                    System.out.println(ex);
+                }
+            }
+        });
 
         pnl_username.add(lbl_username);
         pnl_username.add(txt_username);
@@ -100,6 +124,21 @@ class adminLogin extends JPanel {
         pnl_username.add(txt_username);
         pnl_pass.add(lbl_pass);
         pnl_pass.add(txt_pass);
+
+        btn_login.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                try {
+                    if (txt_username.getText().equals("ADMIN")
+                            && String.valueOf(txt_pass.getPassword()).equals("ADMIN")) {
+                        System.out.println("YAY WELCOME ADMIN");
+                    } else {
+                        JOptionPane.showMessageDialog(new JFrame(), "INVALID CREDENTIALS");
+                    }
+                } catch (Exception ex) {
+                    System.out.println(ex);
+                }
+            }
+        });
 
         this.add(pnl_username);
         this.add(pnl_pass);
