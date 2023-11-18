@@ -159,6 +159,7 @@ public class database {
                 // System.out.println(rs.getInt(1));
                 // System.out.println(rs.getString(2));
                 output.add((credentials));
+                credentials.removeLast();
             }
         } else {
             System.out.println("ERROR");
