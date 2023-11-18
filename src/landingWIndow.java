@@ -77,9 +77,10 @@ class loginWindow extends JPanel {
                                 && String.valueOf(txt_pass.getPassword()).equals(data.get(i).get(2))) {
                             customerID = Integer.parseInt(data.get(i).get(0));
                             System.out.println("YAY ID:" + customerID);
-                        } else if (!txt_username.getText().equals(data.get(i).get(1))
-                                && !String.valueOf(txt_pass.getPassword()).equals(data.get(i).get(2))
+                        } else if ((!txt_username.getText().equals(data.get(i).get(1))
+                                || !String.valueOf(txt_pass.getPassword()).equals(data.get(i).get(2)))
                                 && i + 1 == data.size()) {
+                            // System.out.println(data);
                             JOptionPane.showMessageDialog(new JFrame(), "INVALID CREDENTIALS");
                         }
                     }

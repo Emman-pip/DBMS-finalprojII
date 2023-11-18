@@ -5,11 +5,13 @@ import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
 public class signUp extends JFrame {
+    JFrame frm = this;
+
     signUp() {
         new flatlaf();
         JPanel pnl = new JPanel();
         pnl.setLayout(new BorderLayout());
-        pnl.add(new signUpForm());
+        pnl.add(new signUpForm(frm));
         this.add(pnl);
         this.setTitle("SIGN UP");
         this.setSize(800, 600);
@@ -27,7 +29,7 @@ class signUpForm extends JPanel {
     JTextField txt_username;
     JPanel pnl = this;
 
-    signUpForm() {
+    signUpForm(JFrame frm) {
         JLabel lbl_username = new JLabel("new username: ");
         txt_username = new JTextField();
         txt_username.setColumns(20);
@@ -76,6 +78,7 @@ class signUpForm extends JPanel {
                         if (txt_username.getText().equals(data.get(i).get(1))) {
                             customerID = Integer.parseInt(data.get(i).get(0));
                             JOptionPane.showMessageDialog(new JFrame(), "pick another username");
+                            return;
                         } else if (txt_username.getText().equals("")
                                 || String.valueOf(txt_password.getPassword()).equals("")) {
                             JOptionPane.showMessageDialog(new JFrame(), "enter a username/password");
@@ -89,8 +92,11 @@ class signUpForm extends JPanel {
                             gbc.ipady = 20;
                             gbc.insets = new Insets(10, 0, 0, 0);
                             gbc.fill = GridBagConstraints.HORIZONTAL;
-
-                            pnl.add(new personalInfoForm(txt_username, txt_password), gbc);
+                            new database().insertUserAccount(txt_username.getText(),
+                                    String.valueOf(txt_password.getPassword()));
+                            txt_username.setEnabled(false);
+                            txt_password.setEnabled(false);
+                            pnl.add(new personalInfoForm(txt_username, txt_password, frm), gbc);
 
                         }
                     }
@@ -104,7 +110,7 @@ class signUpForm extends JPanel {
 
 class personalInfoForm extends JInternalFrame {
     // name gender, age, email, cp, landline, address, nationality, reason
-    personalInfoForm(JTextField username, JPasswordField password) {
+    personalInfoForm(JTextField username, JPasswordField password, JFrame frm) {
         // System.out.println(username.getText() +
         // String.valueOf(password.getPassword()));
         JPanel pnl = new JPanel();
@@ -166,7 +172,33 @@ class personalInfoForm extends JInternalFrame {
         pnl.add(btn_submit, gbc);
         btn_submit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("SIGNUP SUCCESS");
+
+                try {
+                    for (int i = 0; i < fields.length; i++) {
+                        if (fields[i].getText().equals("")) {
+                            throw new Exception("PLEASE RECHECK ALL THE FIELDS");
+                        }
+                    }
+                    new database().insertPersonalRecords(
+                            username.getText(),
+                            txt_name.getText(),
+                            txt_gender.getText(),
+                            txt_age.getText(),
+                            txt_email.getText(),
+                            txt_cp.getText(),
+                            txt_landline.getText(),
+                            txt_address.getText(),
+                            txt_nationality.getText(),
+                            txt_reason.getText());
+                    JOptionPane.showMessageDialog(new JFrame(), "SIGN UP SUCCESSFUL\nLOGIN TO PROCEED TO RESERVATION");
+                    frm.dispose();
+                    new landingWIndow();
+                } catch (Exception ex) {
+                    System.err.println(ex);
+                    JOptionPane.showMessageDialog(new JFrame(),
+                            "PLEASE MAKE SURE ALL THE FIELDS ARE FILLED AND YOU HAVE ENTERED THE RIGHT DATA.");
+                }
+
             }
         });
         this.add(pnl);

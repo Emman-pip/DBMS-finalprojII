@@ -114,7 +114,6 @@ public class database {
         // while statement will have different versions based on what table is chosen by
         // the function;
         LinkedList<LinkedList<String>> output = new LinkedList<LinkedList<String>>();
-        LinkedList<String> credentials = new LinkedList<String>();
 
         if (tableName == "ClientInfo") {
             while (rs.next()) {
@@ -151,6 +150,8 @@ public class database {
 
         } else if (tableName == "user_accounts") {
             while (rs.next()) {
+                LinkedList<String> credentials = new LinkedList<String>();
+
                 String userID = Integer.toString(rs.getInt(1));
                 credentials.add(userID);
 
@@ -160,11 +161,12 @@ public class database {
                 // System.out.println(rs.getInt(1));
                 // System.out.println(rs.getString(2));
                 output.add((credentials));
-                credentials.removeLast();
+                ;
             }
         } else {
             System.out.println("ERROR");
         }
+        // System.out.println(output);
         con.close();
         return output;
 
@@ -192,10 +194,7 @@ public class database {
         return ID;
     }
 
-    // primary key
-    public void insertPersonalRecords(String user, String password, String name, String gender, String age,
-            String email, String cp, String landline, String address, String nationality, String reason)
-            throws Exception {
+    public void insertUserAccount(String user, String password) throws Exception {
         database db = new database();
         String url = db.url;
         String username = db.username;
@@ -207,13 +206,40 @@ public class database {
         String qr2 = "INSERT INTO user_accounts(username, password) VALUES ('" + user + "', '" + password + "');";
         // QUERY TO GET THE ID
         int accountID = searchAccountID(user);
+        int rs = st.executeUpdate(qr2);
+    }
+
+    // primary key
+    public void insertPersonalRecords(String user, String name, String gender, String age,
+            String email, String cp, String landline, String address, String nationality, String reason)
+            throws Exception {
+        database db = new database();
+        String url = db.url;
+        String username = db.username;
+        String pass = db.pass;
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection(url, username, pass);
+        Statement st = con.createStatement();
+        // String qr2 = "INSERT INTO user_accounts(username, password) VALUES ('" + user
+        // + "', '" + password + "');";
+        // QUERY TO GET THE ID
+        int accountID = searchAccountID(user);
+        // int rs = st.executeUpdate(qr2);
+        // try {
+        // } catch (Exception e) {
+        // System.out.println(e);
+        // return;
+        // }
+        // FIX THE ERROR HERE: ERROR IS WHEN DATA IS INSERTED, EVERYTHING GETS MESSED
+        // UP, STUFF HAVE TO BE CLICKED TWICE TO WORK
+        System.out.println(accountID);
         String qr = "INSERT INTO \n" + //
-                "clientInfo(clientName, gender, age, email, cpNumber, landline, address, nationality, reason, accountNumber) \n"
+                "ClientInfo(clientName, gender, age, email, cpNumber, landline, address, nationality, reason, accountNumber) \n"
                 + //
                 "VALUES ('" + name + "', '" + gender + "', " + age + ", '" + email + "', '" + cp + "', '" + landline
                 + "', '" + address + "', '" + nationality + "', '" + reason + "', " + accountID + ")";
-        ResultSet rs = st.executeQuery(qr2);
-        ResultSet r2 = st.executeQuery(qr);
+        int r2 = st.executeUpdate(qr);
 
         con.close();
     }
