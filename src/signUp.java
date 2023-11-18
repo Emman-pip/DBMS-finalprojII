@@ -164,6 +164,11 @@ class personalInfoForm extends JInternalFrame {
         gbc.ipady = 20;
         gbc.gridwidth = 2;
         pnl.add(btn_submit, gbc);
+        btn_submit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("SIGNUP SUCCESS");
+            }
+        });
         this.add(pnl);
         this.setSize(300, 300);
         this.setVisible(true);
