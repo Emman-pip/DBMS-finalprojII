@@ -1,0 +1,7 @@
+{
+  "java.project.referencedLibraries": [
+    "lib/**/*.jar",
+    "/home/emmanuel/Downloads/mysql-connector-j_8.2.0-1ubuntu22.04_all/usr/share/java/mysql-connector-j-8.2.0.jar",
+    "/home/emmanuel/Downloads/flatlaf-3.2.5.jar"
+  ]
+}
