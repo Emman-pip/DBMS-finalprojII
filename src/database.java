@@ -95,6 +95,7 @@ public class database {
         } else {
             System.out.println("ERROR");
         }
+        con.close();
     }
 
     public static LinkedList<LinkedList<String>> queries(String tableName) throws Exception {
@@ -164,16 +165,65 @@ public class database {
         } else {
             System.out.println("ERROR");
         }
+        con.close();
         return output;
 
     }
 
-    public static void main(String[] args) {
-        // try {
-        // new database().queries("user_accounts");
+    // create a class that searches the user_account based on attributes and not the
+    public int searchAccountID(String user) throws Exception {
+        database db = new database();
+        String url = db.url;
+        String username = db.username;
+        String pass = db.pass;
 
-        // } catch (Exception e) {
-        // System.out.println("ERROR: " + e);
-        // }
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection(url, username, pass);
+        Statement st = con.createStatement();
+
+        String qr = "SELECT accountID FROM user_accounts WHERE username='" + user + "'";
+
+        ResultSet rs = st.executeQuery(qr);
+        int ID = 0;
+        while (rs.next()) {
+            ID = rs.getInt(1);
+        }
+        con.close();
+        return ID;
+    }
+
+    // primary key
+    public void insertPersonalRecords(String user, String password, String name, String gender, String age,
+            String email, String cp, String landline, String address, String nationality, String reason)
+            throws Exception {
+        database db = new database();
+        String url = db.url;
+        String username = db.username;
+        String pass = db.pass;
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection(url, username, pass);
+        Statement st = con.createStatement();
+        String qr2 = "INSERT INTO user_accounts(username, password) VALUES ('" + user + "', '" + password + "');";
+        // QUERY TO GET THE ID
+        int accountID = searchAccountID(user);
+        String qr = "INSERT INTO \n" + //
+                "clientInfo(clientName, gender, age, email, cpNumber, landline, address, nationality, reason, accountNumber) \n"
+                + //
+                "VALUES ('" + name + "', '" + gender + "', " + age + ", '" + email + "', '" + cp + "', '" + landline
+                + "', '" + address + "', '" + nationality + "', '" + reason + "', " + accountID + ")";
+        ResultSet rs = st.executeQuery(qr2);
+        ResultSet r2 = st.executeQuery(qr);
+
+        con.close();
+    }
+
+    public static void main(String[] args) {
+        try {
+            System.out.println(new database().searchAccountID("emman"));
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }
