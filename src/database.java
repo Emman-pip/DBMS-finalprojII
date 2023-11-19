@@ -10,21 +10,21 @@ import java.util.LinkedList;
  * for selecting all elements of a table done -- DONE
  * selecting certain records on certain tables -- DONE
  * deleting records systematically - when account is deleted, all data related
- * to that account will be too --
+ * to that account will be too
  * - make a chained Delete query [once an account is deleted, all user data will
  * be deleted too.]
- * - make another one for deleting/cancelling reservations
- * - remove directly from database
- * updating certain records
- * inserting records
- * method for selecting all records of a certain column in a table
+ * - make another one for deleting/cancelling reservations 
+ * - remove directly from database 
+ * updating certain records 
+ * inserting records 
+ * method for selecting all records of a certain column in a table 
  */
 public class database {
     String url = "jdbc:mysql://localhost:3306/reservationSystem";
     String pass = "108996eE@emman";
     String username = "root";
 
-    public static void queryWithID(int ID, String tableName) throws Exception {
+    public static LinkedList<String> queryWithID(int ID, String tableName, String columnName) throws Exception {
         database db = new database();
         String url = db.url;
         String username = db.username;
@@ -34,38 +34,35 @@ public class database {
         Connection con = DriverManager.getConnection(url, username, pass);
         Statement st = con.createStatement();
         String qr;
-        if (tableName == "ClientInfo") {
-            qr = "SELECT * FROM " + tableName + " WHERE clientId = " + ID + ";";
-
-        } else if (tableName == "Packages") {
-            qr = "SELECT * FROM " + tableName + " WHERE packageId = " + ID + ";";
-
-        } else if (tableName == "Reservations") {
-            qr = "SELECT * FROM " + tableName + " WHERE reservationID = " + ID + ";";
-
-        } else if (tableName == "user_accounts") {
-            qr = "SELECT * FROM " + tableName + " WHERE accountID = " + ID + ";";
-
-        } else {
-            qr = "";
-        }
+        qr = "SELECT * FROM " + tableName + " WHERE " + columnName + " = " + ID + ";";
         ResultSet rs = st.executeQuery(qr);
-
+        LinkedList<String> output = new LinkedList<String>();
         if (tableName == "ClientInfo") {
             while (rs.next()) {
                 // try to find a way to shorten the code with logic (loops or recursion?)
                 // TODO: put into arrays (2D) and return?
+                output.add(String.valueOf(rs.getInt(1)));
+                // System.out.println(rs.getInt(1) + " ");
+                output.add(String.valueOf(rs.getString(2)));
+                output.add(String.valueOf(rs.getString(3)));
+                output.add(String.valueOf(rs.getInt(4)));
+                output.add(String.valueOf(rs.getString(5)));
+                output.add(String.valueOf(rs.getString(6)));
+                output.add(String.valueOf(rs.getString(7)));
+                output.add(String.valueOf(rs.getString(8)));
+                output.add(String.valueOf(rs.getString(9)));
+                output.add(String.valueOf(rs.getString(10)));
 
-                System.out.println(rs.getInt(1) + "  ");
-                System.out.print(rs.getString(2) + "  ");
-                System.out.print(rs.getString(3) + "  ");
-                System.out.print(rs.getInt(4) + "  ");
-                System.out.print(rs.getString(5) + "  ");
-                System.out.print(rs.getString(6) + "  ");
-                System.out.print(rs.getString(7) + "  ");
-                System.out.print(rs.getString(8) + "  ");
-                System.out.print(rs.getString(9) + "  ");
-                System.out.println(rs.getString(10));
+                // return output;
+                // System.out.print(rs.getString(2) + " ");
+                // System.out.print(rs.getString(3) + " ");
+                // System.out.print(rs.getInt(4) + " ");
+                // System.out.print(rs.getString(5) + " ");
+                // System.out.print(rs.getString(6) + " ");
+                // System.out.print(rs.getString(7) + " ");
+                // System.out.print(rs.getString(8) + " ");
+                // System.out.print(rs.getString(9) + " ");
+                // System.out.println(rs.getString(10));
             }
         } else if (tableName == "Packages") {
             if (rs.next()) {
@@ -77,12 +74,13 @@ public class database {
             }
         } else if (tableName == "Reservations") {
             if (rs.next()) {
-                System.out.println(rs.getInt(1));
-                System.out.println(rs.getString(2));
-                System.out.println(rs.getInt(3));
-                System.out.println(rs.getDate(4));
-                System.out.println(rs.getDate(5));
-                System.out.println(rs.getInt(6));
+                output.add(String.valueOf(rs.getInt(1)));
+                output.add(rs.getString(2));
+                output.add(String.valueOf(rs.getInt(3)));
+                output.add(String.valueOf(rs.getDate(4)));
+                output.add(String.valueOf(rs.getDate(5)));
+                output.add(String.valueOf(rs.getInt(6)));
+
             }
 
         } else if (tableName == "user_accounts") {
@@ -96,6 +94,7 @@ public class database {
             System.out.println("ERROR");
         }
         con.close();
+        return output;
     }
 
     public static LinkedList<LinkedList<String>> queries(String tableName) throws Exception {
@@ -246,7 +245,7 @@ public class database {
 
     public static void main(String[] args) {
         try {
-            System.out.println(new database().searchAccountID("emman"));
+            System.out.println(new database().queryWithID(1, "Reservations", "clientID").size());
 
         } catch (Exception e) {
             System.out.println(e);

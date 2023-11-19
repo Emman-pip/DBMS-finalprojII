@@ -1,12 +1,82 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.LinkedList;
 
 public class userWindow extends JFrame {
+    JFrame frm = this;
+
     userWindow(int ID) {
         new flatlaf();
-        this.add(new reservationForm());
+        // this.setUndecorated(false);
+        JPanel pnl_main = new JPanel();
+        try {
+            LinkedList<String> dataCheck = new database().queryWithID(ID, "Reservations", "clientID");
+            if (dataCheck.size() == 0) {
+                JPanel pnl_form = new JPanel();
+                pnl_form.add(new JLabel("You don't have a reservation yet. Make one with us!"));
+                pnl_form.add(new reservationForm());
+                pnl_main.add(pnl_form);
+                pnl_main.setLayout(new BorderLayout());
+            } else {
+                JPanel pnl_layout = new JPanel();
+
+                JPanel pnl_table = new JPanel();
+                String[] column = { "ReservationID", "Type of reservation", "Package ID", "Check in Date",
+                        "Departure Date" };
+                Object[] objArr = dataCheck.toArray();
+                String[] stringArr = new String[objArr.length];
+                for (int i = 0; i < stringArr.length; i++) {
+                    stringArr[i] = String.valueOf(objArr[i]);
+                }
+                String[][] content = { stringArr };
+                System.out.println(column);
+                JTable tbl_reservation = new JTable(content, column);
+
+                JScrollPane sp = new JScrollPane(tbl_reservation);
+                pnl_table.add(sp);
+                JButton btn_edit = new JButton("edit/delete reservation");
+
+                pnl_layout.setLayout(new GridBagLayout());
+                // pnl_layout.setLayout(new BorderLayout());
+
+                GridBagConstraints gbc = new GridBagConstraints();
+                // pnl_layout.add(new JLabel("Your Reservations: "), BorderLayout.NORTH);
+                // pnl_layout.add(tbl_reservation, BorderLayout.CENTER);
+                // pnl_layout.add(btn_edit, BorderLayout.SOUTH);
+                // pnl_layout.setBackground(Color.BLACK);
+
+                gbc.gridx = 0;
+                gbc.gridy = 0;
+                pnl_layout.add(new JLabel("Your Reservation(s):"), gbc);
+
+                gbc.gridx = 0;
+                gbc.gridy = 1;
+                pnl_layout.add(pnl_table, gbc);
+                gbc.gridx = 0;
+                gbc.gridy = 2;
+                pnl_layout.add(btn_edit, gbc);
+                pnl_main.add(pnl_layout, BorderLayout.CENTER);
+                JButton btn_logout = new JButton("Logout");
+
+                gbc.gridx = 0;
+                gbc.gridy = 3;
+                pnl_layout.add(btn_logout, gbc);
+
+                btn_logout.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        frm.dispose();
+                        new landingWIndow();
+                    }
+                });
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        this.add(pnl_main);
         this.setTitle("WELCOME");
-        this.setSize(600, 400);
+        this.setSize(700, 600);
         this.setVisible(true);
     }
 
@@ -15,8 +85,17 @@ public class userWindow extends JFrame {
     }
 }
 
-class reservationForm extends JPanel {
+class userWindowContent extends JPanel {
+    userWindowContent() {
+        System.out.println("pipiopopipi");
+    }
+}
+
+class reservationForm extends JInternalFrame {
+
     reservationForm() {
+        this.setTitle("RESERVATION FORM");
+        this.setVisible(true);
         JPanel pnl_main = new JPanel();
         pnl_main.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -119,6 +198,23 @@ class reservationForm extends JPanel {
         gbc.insets = new Insets(10, 0, 0, 0);
 
         pnl_main.add(pnl_dateCheckin2, gbc);
+
+        JButton btn_submit = new JButton("Submit");
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 2;
+        gbc.ipady = 10;
+        pnl_main.add(btn_submit, gbc);
         this.add(pnl_main);
     }
 }
+
+// TODO:
+// check if account ID is possesed by one record in reservations -- create a
+// query that will return this based on ID
+// if there is none
+// proceed to reservation form
+// else
+// show current reservations
+// IN THE CURRENT RESERVATIONS:
+// THE USER SHOULD BE ABLE TO DELETE AND UPDATE CURRENT RESERVATIONS

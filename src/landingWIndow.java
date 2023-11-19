@@ -77,6 +77,9 @@ class loginWindow extends JPanel {
                                 && String.valueOf(txt_pass.getPassword()).equals(data.get(i).get(2))) {
                             customerID = Integer.parseInt(data.get(i).get(0));
                             System.out.println("YAY ID:" + customerID);
+                            new userWindow(customerID);
+                            frm.dispose();
+                            return;
                         } else if ((!txt_username.getText().equals(data.get(i).get(1))
                                 || !String.valueOf(txt_pass.getPassword()).equals(data.get(i).get(2)))
                                 && i + 1 == data.size()) {
