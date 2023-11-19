@@ -128,7 +128,8 @@ class reservationForm extends JInternalFrame {
         pnl_main.add(types, gbc);
         // packageID
         JLabel lbl_packageChosen = new JLabel("Package: ");
-        String[] packageList = { "Package1", "Package2" };
+        String[] packageList = { "Grange Pool Villa", "Petrus Pool Villa", "Shiraz Suite RoomShiraz Suite Room",
+                "Chardonnay Suite Room", "Sauvignon Grand Villa", "Bordeaux Grand Villa" };
         // edit content based on DB
         JComboBox packagesToChoose = new JComboBox(packageList);
         gbc.gridx = 0;
@@ -215,6 +216,16 @@ class reservationForm extends JInternalFrame {
         gbc.ipady = 10;
         pnl_main.add(btn_submit, gbc);
         this.add(pnl_main);
+
+        btn_submit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+
+                } catch (Exception ex) {
+                    System.out.println(ex);
+                }
+            }
+        });
 
         this.setVisible(true);
 
