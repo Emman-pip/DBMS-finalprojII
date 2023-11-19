@@ -254,10 +254,33 @@ public class database {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, username, pass);
         Statement st = con.createStatement();
-        String qr = "INSERT INTO \n" + //
-                "Reservations(reservationID, typeOfReservation, packageID, checkinDate, departureDate, clientID) \n"
+        String packageToID;
+        if (packageID.equals("Grange Pool Villa")) {
+            packageToID = "1";
+        } else if (packageID.equals("Petrus Pool Villa")) {
+            packageToID = "2";
+        } else if (packageID.equals("Shiraz Suite Room")) {
+            packageToID = "3";
+        } else if (packageID.equals("Chardonnay Suite Room")) {
+            packageToID = "4";
+        } else if (packageID.equals("Sauvignon Grand Villa")) {
+            packageToID = "5";
+        } else {
+            packageToID = "6";
+        }
+        String id = "";
+        try {
+            id = new database().queryWithID(Integer.parseInt(clientID), "ClientInfo", "accountNumber").getFirst();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        System.out.println(id);
+        String qr = "INSERT INTO \n"
+                + "Reservations(typeOfReservation, packageID, checkinDate, departureDate, clientID) \n"
                 + //
-                "VALUES ('" + type + "', " + packageID + ", '" + checkin + "'', '" + depart + "', " + clientID + ")";
+                "VALUES ('" + type + "', " + packageToID + ", '" + checkin + "', '" + depart
+                + "', " + id + ")";
         int r2 = st.executeUpdate(qr);
     }
 

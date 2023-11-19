@@ -13,14 +13,20 @@ public class userWindow extends JFrame {
         JPanel pnl_main = new JPanel();
         // pnl_main.setBackground(Color.GREEN);
         try {
-            LinkedList<String> dataCheck = new database().queryWithID(ID, "Reservations", "clientID");
+            String id = "";
+            try {
+                id = new database().queryWithID(ID, "ClientInfo", "accountNumber").getFirst();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+            LinkedList<String> dataCheck = new database().queryWithID(Integer.parseInt(id), "Reservations", "clientID");
             if (dataCheck.size() == 0) {
                 pnl_main.setLayout(new BorderLayout());
 
                 JPanel pnl_form = new JPanel();
 
                 pnl_form.add(new JLabel("You don't have a reservation yet. Make one with us!"));
-                reservationForm rf = new reservationForm(ID);
+                reservationForm rf = new reservationForm(ID, this);
                 pnl_form.add(rf);
                 pnl_main.add(pnl_form);
             } else {
@@ -90,9 +96,9 @@ public class userWindow extends JFrame {
         this.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new userWindow(2);
-    }
+    // public static void main(String[] args) {
+    // new userWindow(2);
+    // }
 }
 
 class userWindowContent extends JPanel {
@@ -103,7 +109,7 @@ class userWindowContent extends JPanel {
 
 class reservationForm extends JInternalFrame {
 
-    reservationForm(int ID) {
+    reservationForm(int ID, JFrame frm) {
         this.setTitle("RESERVATION FORM");
         JPanel pnl_main = new JPanel();
         pnl_main.setLayout(new GridBagLayout());
@@ -231,9 +237,16 @@ class reservationForm extends JInternalFrame {
                                     String.valueOf(monthsToChoose2.getSelectedItem()) + "-" +
                                     String.valueOf(daysToChoose2.getSelectedItem()),
                             String.valueOf(ID));
+                    JOptionPane.showMessageDialog(new JFrame(),
+                            "RESERVATION SUCCESSFULL. PLEASE LOGIN AGAIN TO CHECK FOR YOUR RESERVATION.");
+                    frm.dispose();
+                    new landingWIndow();
+
                 } catch (Exception ex) {
                     System.out.println(ex);
+                    return;
                 }
+
             }
         });
 
