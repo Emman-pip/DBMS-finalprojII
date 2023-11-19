@@ -8,6 +8,7 @@ public class userWindow extends JFrame {
     JFrame frm = this;
 
     userWindow(int ID) {
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         new flatlaf();
         // this.setUndecorated(false);
         JPanel pnl_main = new JPanel();

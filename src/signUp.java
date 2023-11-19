@@ -8,6 +8,7 @@ public class signUp extends JFrame {
     JFrame frm = this;
 
     signUp() {
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         new flatlaf();
         JPanel pnl = new JPanel();
         pnl.setLayout(new BorderLayout());
