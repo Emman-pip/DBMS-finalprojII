@@ -20,7 +20,7 @@ public class userWindow extends JFrame {
                 JPanel pnl_form = new JPanel();
 
                 pnl_form.add(new JLabel("You don't have a reservation yet. Make one with us!"));
-                reservationForm rf = new reservationForm();
+                reservationForm rf = new reservationForm(ID);
                 pnl_form.add(rf);
                 pnl_main.add(pnl_form);
             } else {
@@ -103,7 +103,7 @@ class userWindowContent extends JPanel {
 
 class reservationForm extends JInternalFrame {
 
-    reservationForm() {
+    reservationForm(int ID) {
         this.setTitle("RESERVATION FORM");
         JPanel pnl_main = new JPanel();
         pnl_main.setLayout(new GridBagLayout());
@@ -220,7 +220,17 @@ class reservationForm extends JInternalFrame {
         btn_submit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
+                    new database().insertReservation(String.valueOf(types.getSelectedItem()),
+                            String.valueOf(packagesToChoose.getSelectedItem()),
+                            String.valueOf(datesToChoose.getSelectedItem()) + "-" +
+                                    String.valueOf(monthsToChoose.getSelectedItem()) + "-" +
+                                    String.valueOf(daysToChoose.getSelectedItem())
 
+                            ,
+                            String.valueOf(datesToChoose2.getSelectedItem()) + "-" +
+                                    String.valueOf(monthsToChoose2.getSelectedItem()) + "-" +
+                                    String.valueOf(daysToChoose2.getSelectedItem()),
+                            String.valueOf(ID));
                 } catch (Exception ex) {
                     System.out.println(ex);
                 }

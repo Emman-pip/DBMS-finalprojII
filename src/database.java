@@ -243,6 +243,24 @@ public class database {
         con.close();
     }
 
+    public void insertReservation(String type, String packageID, String checkin, String depart, String clientID)
+            throws Exception {
+        System.out.println("jaja");
+        database db = new database();
+        String url = db.url;
+        String username = db.username;
+        String pass = db.pass;
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection(url, username, pass);
+        Statement st = con.createStatement();
+        String qr = "INSERT INTO \n" + //
+                "Reservations(reservationID, typeOfReservation, packageID, checkinDate, departureDate, clientID) \n"
+                + //
+                "VALUES ('" + type + "', " + packageID + ", '" + checkin + "'', '" + depart + "', " + clientID + ")";
+        int r2 = st.executeUpdate(qr);
+    }
+
     public static void main(String[] args) {
         try {
             System.out.println(new database().queryWithID(1, "Reservations", "clientID").size());
