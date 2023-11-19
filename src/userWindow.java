@@ -12,18 +12,37 @@ public class userWindow extends JFrame {
         new flatlaf();
         // this.setUndecorated(false);
         JPanel pnl_main = new JPanel();
+        this.add(pnl_main);
+
         // pnl_main.setBackground(Color.GREEN);
         try {
             String id = "";
+            LinkedList<String> dataCheck = new LinkedList<String>();
             try {
                 id = new database().queryWithID(ID, "ClientInfo", "accountNumber").getFirst();
+                dataCheck = new database().queryWithID(Integer.parseInt(id), "Reservations", "clientID");
             } catch (Exception e) {
-                System.out.println(e);
-            }
-            LinkedList<String> dataCheck = new database().queryWithID(Integer.parseInt(id), "Reservations", "clientID");
-            if (dataCheck.size() == 0) {
-                pnl_main.setLayout(new BorderLayout());
+                JOptionPane.showMessageDialog(new JFrame(),
+                        "You do not have a personal data record yet. Please fill out the form.");
+                try {
+                    JTextField user = new JTextField();
+                    user.setText(new database().queryWithID(ID, "user_accounts", "accountID").get(1));
+                    JPasswordField pass = new JPasswordField();
+                    pass.setText(new database().queryWithID(ID, "user_accounts", "accountID").get(2));
+                    JFrame frm_form = new JFrame();
+                    frm_form.add(new personalInfoForm(user, pass, frm_form));
+                    frm_form.setSize(600, 550);
+                    frm_form.setVisible(true);
 
+                } catch (Exception ex) {
+                    System.out.println(ex);
+                }
+                return;
+
+            }
+            if (dataCheck.size() == 0 || id.equals("")) {
+                pnl_main.setLayout(new BorderLayout());
+                System.out.println("YOURE IN!!");
                 JPanel pnl_form = new JPanel();
 
                 pnl_form.add(new JLabel("You don't have a reservation yet. Make one with us!"));
@@ -91,7 +110,6 @@ public class userWindow extends JFrame {
         } catch (Exception e) {
             System.out.println(e);
         }
-        this.add(pnl_main);
         this.setTitle("WELCOME");
         this.setSize(700, 600);
         this.setVisible(true);
@@ -257,11 +275,5 @@ class reservationForm extends JInternalFrame {
 }
 
 // TODO:
-// check if account ID is possesed by one record in reservations -- create a
-// query that will return this based on ID
-// if there is none
-// proceed to reservation form
-// else
-// show current reservations
-// IN THE CURRENT RESERVATIONS:
-// THE USER SHOULD BE ABLE TO DELETE AND UPDATE CURRENT RESERVATIONS
+// add functionality to the edit/delete button
+//

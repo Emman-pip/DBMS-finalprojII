@@ -85,10 +85,11 @@ public class database {
 
         } else if (tableName == "user_accounts") {
             if (rs.next()) {
-                System.out.println(rs.getInt(1));
-                System.out.println(rs.getString(2));
-                System.out.println(rs.getString(3));
-
+                LinkedList<String> records = new LinkedList<String>();
+                output.add(String.valueOf(rs.getInt(1)));
+                output.add(rs.getString(2));
+                output.add(rs.getString(3));
+                // output.add(records);
             }
         } else {
             System.out.println("ERROR");

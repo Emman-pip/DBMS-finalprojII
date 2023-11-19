@@ -1,7 +1,10 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.LinkedList;
 
 public class landingWIndow extends JFrame {
@@ -38,8 +41,27 @@ public class landingWIndow extends JFrame {
 
 class designPanel extends JPanel {
     designPanel() {
-        JLabel lbl_sample = new JLabel("new label");
-        this.add(lbl_sample);
+
+        this.setLayout(new BorderLayout());
+
+        // this.setBackground(Color.black);
+        // this.setBackground();
+        try {
+            JLabel lbl_sample = new JLabel();
+            images imgs = new images();
+            imgs.images();
+            lbl_sample.setIcon(new ImageIcon(imgs.logo));
+            this.add(lbl_sample, BorderLayout.NORTH);
+            // JLabel lbl_outdoor = new JLabel();
+            // lbl_outdoor.setIcon(new ImageIcon(
+            // new images().getScaledImage(imgs.outdoor, lbl_outdoor.getWidth(),
+            // lbl_outdoor.getHeight())));
+            // this.add(lbl_outdoor, BorderLayout.CENTER);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        // BufferedImage myPicture = ImageIO.read(new File("../media/icon.png"));
     }
 }
 
