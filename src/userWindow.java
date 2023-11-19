@@ -11,16 +11,22 @@ public class userWindow extends JFrame {
         new flatlaf();
         // this.setUndecorated(false);
         JPanel pnl_main = new JPanel();
+        // pnl_main.setBackground(Color.GREEN);
         try {
             LinkedList<String> dataCheck = new database().queryWithID(ID, "Reservations", "clientID");
             if (dataCheck.size() == 0) {
-                JPanel pnl_form = new JPanel();
-                pnl_form.add(new JLabel("You don't have a reservation yet. Make one with us!"));
-                pnl_form.add(new reservationForm());
-                pnl_main.add(pnl_form);
                 pnl_main.setLayout(new BorderLayout());
+
+                JPanel pnl_form = new JPanel();
+
+                pnl_form.add(new JLabel("You don't have a reservation yet. Make one with us!"));
+                reservationForm rf = new reservationForm();
+                pnl_form.add(rf);
+                pnl_main.add(pnl_form);
             } else {
+                pnl_main.setLayout(new BorderLayout());
                 JPanel pnl_layout = new JPanel();
+                // pnl_layout.setBackground(Color.GRAY);
 
                 JPanel pnl_table = new JPanel();
                 String[] column = { "ReservationID", "Type of reservation", "Package ID", "Check in Date",
@@ -33,19 +39,18 @@ public class userWindow extends JFrame {
                 String[][] content = { stringArr };
                 System.out.println(column);
                 JTable tbl_reservation = new JTable(content, column);
+                // tbl_reservation.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
                 JScrollPane sp = new JScrollPane(tbl_reservation);
+                pnl_table.setLayout(new BorderLayout());
                 pnl_table.add(sp);
                 JButton btn_edit = new JButton("edit/delete reservation");
-
-                pnl_layout.setLayout(new GridBagLayout());
-                // pnl_layout.setLayout(new BorderLayout());
+                GridBagLayout gbl = new GridBagLayout();
+                pnl_layout.setLayout(gbl);
 
                 GridBagConstraints gbc = new GridBagConstraints();
-                // pnl_layout.add(new JLabel("Your Reservations: "), BorderLayout.NORTH);
-                // pnl_layout.add(tbl_reservation, BorderLayout.CENTER);
-                // pnl_layout.add(btn_edit, BorderLayout.SOUTH);
-                // pnl_layout.setBackground(Color.BLACK);
+                gbc.weightx = 1.0;
+                // gbc.weighty = 1.0;
 
                 gbc.gridx = 0;
                 gbc.gridy = 0;
@@ -53,15 +58,19 @@ public class userWindow extends JFrame {
 
                 gbc.gridx = 0;
                 gbc.gridy = 1;
+                gbc.fill = GridBagConstraints.HORIZONTAL;
                 pnl_layout.add(pnl_table, gbc);
                 gbc.gridx = 0;
                 gbc.gridy = 2;
+                gbc.ipady = 20;
+                gbc.insets = new Insets(10, 0, 0, 0);
                 pnl_layout.add(btn_edit, gbc);
                 pnl_main.add(pnl_layout, BorderLayout.CENTER);
                 JButton btn_logout = new JButton("Logout");
 
                 gbc.gridx = 0;
                 gbc.gridy = 3;
+                gbc.ipady = 10;
                 pnl_layout.add(btn_logout, gbc);
 
                 btn_logout.addActionListener(new ActionListener() {
@@ -69,6 +78,7 @@ public class userWindow extends JFrame {
                         frm.dispose();
                         new landingWIndow();
                     }
+
                 });
             }
         } catch (Exception e) {
@@ -81,7 +91,7 @@ public class userWindow extends JFrame {
     }
 
     public static void main(String[] args) {
-        new userWindow(1);
+        new userWindow(2);
     }
 }
 
@@ -95,7 +105,6 @@ class reservationForm extends JInternalFrame {
 
     reservationForm() {
         this.setTitle("RESERVATION FORM");
-        this.setVisible(true);
         JPanel pnl_main = new JPanel();
         pnl_main.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -206,6 +215,9 @@ class reservationForm extends JInternalFrame {
         gbc.ipady = 10;
         pnl_main.add(btn_submit, gbc);
         this.add(pnl_main);
+
+        this.setVisible(true);
+
     }
 }
 
