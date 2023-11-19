@@ -18,9 +18,9 @@ public class signUp extends JFrame {
         this.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new signUp();
-    }
+    // public static void main(String[] args) {
+    // new signUp();
+    // }
 }
 
 class signUpForm extends JPanel {

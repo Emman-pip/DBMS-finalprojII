@@ -20,7 +20,7 @@ public class landingWIndow extends JFrame {
 
         pnl_left2.add(new adminLogin());
 
-        pnl_left.add(new loginWindow());
+        pnl_left.add(new loginWindow(this));
         pnl_main.add(new designPanel());
         tb.addTab("USER LOGIN", pnl_left);
         tb.addTab("ADMIN LOGIN", pnl_left2);
@@ -31,9 +31,9 @@ public class landingWIndow extends JFrame {
         this.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new landingWIndow();
-    }
+    // public static void main(String[] args) {
+    // new landingWIndow();
+    // }
 }
 
 class designPanel extends JPanel {
@@ -52,7 +52,7 @@ class loginWindow extends JPanel {
 
     public JButton btn_login;
 
-    loginWindow() {
+    loginWindow(JFrame frm) {
         this.setLayout(new GridLayout(4, 1));
         JPanel pnl_username = new JPanel();
         JLabel lbl_username = new JLabel("Username:");
@@ -93,6 +93,7 @@ class loginWindow extends JPanel {
         btn_createAcc.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
                 new signUp();
+                frm.dispose();
             }
         });
 
