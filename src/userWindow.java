@@ -46,6 +46,13 @@ public class userWindow extends JFrame {
                 JPanel pnl_form = new JPanel();
 
                 pnl_form.add(new JLabel("You don't have a reservation yet. Make one with us!"));
+                // pnl_form.add(
+                // new JLabel("Reservations should be, at minimum, one day and has a max
+                // duration of one week."));
+                pnl_form.add(
+                        new JLabel(
+                                "We only entertain same month reservations due to monthly maintenance of the Villas and Resort."));
+
                 reservationForm rf = new reservationForm(ID, this);
                 pnl_form.add(rf);
                 pnl_main.add(pnl_form);
@@ -111,12 +118,12 @@ public class userWindow extends JFrame {
             System.out.println(e);
         }
         this.setTitle("WELCOME");
-        this.setSize(700, 600);
+        this.setSize(650, 850);
         this.setVisible(true);
     }
 
     // public static void main(String[] args) {
-    // new userWindow(2);
+    // new userWindow(18);
     // }
 }
 
@@ -180,6 +187,10 @@ class reservationForm extends JInternalFrame {
 
         String[] daysList = new String[31];
         for (int i = 0; i < 31; i++) {
+            if (i + 1 < 10) {
+                daysList[i] = 0 + String.valueOf(i + 1);
+                continue;
+            }
             daysList[i] = String.valueOf(i + 1);
         }
 
@@ -187,6 +198,10 @@ class reservationForm extends JInternalFrame {
 
         String[] monthsList = new String[12];
         for (int i = 0; i < 12; i++) {
+            if (i + 1 < 10) {
+                monthsList[i] = 0 + String.valueOf(i + 1);
+                continue;
+            }
             monthsList[i] = String.valueOf(i + 1);
         }
         JComboBox monthsToChoose = new JComboBox(monthsList);
@@ -214,10 +229,25 @@ class reservationForm extends JInternalFrame {
         }
 
         JComboBox datesToChoose2 = new JComboBox(datesList);
+        datesToChoose2.setEnabled(false);
+
+        datesToChoose.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                datesToChoose2.setSelectedItem(datesToChoose.getSelectedItem());
+            }
+        });
 
         JComboBox daysToChoose2 = new JComboBox(daysList);
 
         JComboBox monthsToChoose2 = new JComboBox(monthsList);
+
+        monthsToChoose.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                monthsToChoose2.setSelectedItem(monthsToChoose.getSelectedItem());
+            }
+        });
+
+        monthsToChoose2.setEnabled(false);
         JPanel pnl_dateCheckin2 = new JPanel();
         pnl_dateCheckin2.setLayout(new FlowLayout());
         pnl_dateCheckin2.add(monthsToChoose2);
@@ -231,20 +261,88 @@ class reservationForm extends JInternalFrame {
         gbc.gridx = 1;
         gbc.gridy = 3;
         gbc.insets = new Insets(10, 0, 0, 0);
+        String[][] checkSchedList;
+        try {
+            LinkedList<LinkedList<String>> data = new database().queries("Reservations");
+            System.out.println(data.size());
+            JPanel reservedDates = new JPanel();
+            String[] columns = {
+                    "From", "Until"
+            };
+            String[][] content = new String[data.size()][1];
+            for (int i = 0; i < data.size(); i++) {
+                String[] record = new String[2];
+                record[0] = data.get(i).get(3);
+                record[1] = data.get(i).get(4);
+                content[i] = record;
+            }
+            checkSchedList = content.clone();
+            for (String[] i : content) {
+                System.out.println(i);
+            }
+            JTable tbl = new JTable(content, columns);
+            JScrollPane sp = new JScrollPane(tbl);
+            // sp.setBounds(0, 0, WIDTH, 30);
+            reservedDates.setLayout(new BorderLayout());
+            reservedDates.add(new JLabel("Unavailable dates"), BorderLayout.NORTH);
+            reservedDates.add(sp, BorderLayout.CENTER);
+            gbc.gridx = 0;
+            gbc.gridy = 4;
+            gbc.gridwidth = 2;
+            gbc.ipady = 10;
+            pnl_main.add(reservedDates, gbc);
+            // frm.setSize(700, 800);
 
+        } catch (Exception e) {
+            System.out.println(e);
+            checkSchedList = new String[0][0];
+        }
+        if (checkSchedList.length == 0) {
+            try {
+                throw new Exception("ERROR");
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        for (String[] i : checkSchedList) {
+            System.out.println(i[0] + " " + i[1]);
+        }
+        // n*[-]n*[-]n*
+        // REGEX EXPRESSION HERE TO FIND CONFLICTS;
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        gbc.insets = new Insets(10, 0, 0, 0);
         pnl_main.add(pnl_dateCheckin2, gbc);
 
         JButton btn_submit = new JButton("Submit");
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         gbc.gridwidth = 2;
         gbc.ipady = 10;
         pnl_main.add(btn_submit, gbc);
         this.add(pnl_main);
 
+        String[][] allDatesArr = checkSchedList.clone();
+
         btn_submit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
+                    LinkedList<String> allReservedDates = new dates().fillDates(allDatesArr);
+                    // System.err.println(allReservedDates);
+                    if (allReservedDates.contains(String.valueOf(datesToChoose.getSelectedItem()) + "-" +
+                            String.valueOf(monthsToChoose.getSelectedItem()) + "-" +
+                            String.valueOf(daysToChoose.getSelectedItem()))
+                            || allReservedDates.contains(String.valueOf(datesToChoose2.getSelectedItem()) + "-" +
+                                    String.valueOf(monthsToChoose2.getSelectedItem()) + "-" +
+                                    String.valueOf(daysToChoose2.getSelectedItem()))) {
+                        JOptionPane.showMessageDialog(new JFrame(),
+                                "PLEASE RECHECK THE DATES. \nOur system has detected a date conflict.");
+
+                        return;
+                    }
+                    // System.out.println((datesToChoose.getSelectedItem()) + "-" +
+                    // (monthsToChoose.getSelectedItem()) + "-" +
+                    // (daysToChoose.getSelectedItem()));
                     new database().insertReservation(String.valueOf(types.getSelectedItem()),
                             String.valueOf(packagesToChoose.getSelectedItem()),
                             String.valueOf(datesToChoose.getSelectedItem()) + "-" +

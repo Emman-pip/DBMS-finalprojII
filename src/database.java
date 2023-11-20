@@ -140,12 +140,16 @@ public class database {
             }
         } else if (tableName == "Reservations") {
             while (rs.next()) {
-                System.out.println(rs.getInt(1));
-                System.out.println(rs.getString(2));
-                System.out.println(rs.getInt(3));
-                System.out.println(rs.getDate(4));
-                System.out.println(rs.getDate(5));
-                System.out.println(rs.getInt(6));
+                LinkedList<String> reservations = new LinkedList<String>();
+
+                reservations.add(String.valueOf(rs.getInt(1)));
+                reservations.add(String.valueOf(rs.getString(2)));
+                reservations.add(String.valueOf(rs.getInt(3)));
+                reservations.add(String.valueOf(rs.getDate(4)));
+                reservations.add(String.valueOf(rs.getDate(5)));
+                reservations.add(String.valueOf(rs.getInt(6)));
+
+                output.add(reservations);
             }
 
         } else if (tableName == "user_accounts") {
