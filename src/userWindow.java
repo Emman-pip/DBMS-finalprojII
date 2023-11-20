@@ -42,13 +42,13 @@ public class userWindow extends JFrame {
             }
             if (dataCheck.size() == 0 || id.equals("")) {
                 pnl_main.setLayout(new BorderLayout());
-                System.out.println("YOURE IN!!");
+                // System.out.println("YOURE IN!!");
                 JPanel pnl_form = new JPanel();
 
-                pnl_form.add(new JLabel("You don't have a reservation yet. Make one with us!"));
-                // pnl_form.add(
-                // new JLabel("Reservations should be, at minimum, one day and has a max
-                // duration of one week."));
+                pnl_form.add(new JLabel(
+                        "You don't have a reservation yet. Make one with us!"));
+                // pnl_form.add(new JLabel("Each client is limited to one reservation only."));
+
                 pnl_form.add(
                         new JLabel(
                                 "We only entertain same month reservations due to monthly maintenance of the Villas and Resort."));

@@ -136,5 +136,3 @@ public class editDeleteReservation extends JFrame {
     // new editDeleteReservation(18);
     // }
 }
-
-// TODO: each guest is limited to 1 reservation only
