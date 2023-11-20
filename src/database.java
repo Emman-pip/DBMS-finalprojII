@@ -213,6 +213,7 @@ public class database {
         // QUERY TO GET THE ID
         int accountID = searchAccountID(user);
         int rs = st.executeUpdate(qr2);
+        con.close();
     }
 
     // primary key
@@ -252,7 +253,6 @@ public class database {
 
     public void insertReservation(String type, String packageID, String checkin, String depart, String clientID)
             throws Exception {
-        System.out.println("jaja");
         database db = new database();
         String url = db.url;
         String username = db.username;
@@ -289,6 +289,37 @@ public class database {
                 "VALUES ('" + type + "', " + packageToID + ", '" + checkin + "', '" + depart
                 + "', " + id + ")";
         int r2 = st.executeUpdate(qr);
+        con.close();
+    }
+
+    public void updateReservation(String clientID, String type, String packageID, String checkin, String departure)
+            throws Exception {
+        database db = new database();
+        String url = db.url;
+        String username = db.username;
+        String pass = db.pass;
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection(url, username, pass);
+        Statement st = con.createStatement();
+        String qr = "UPDATE Reservations SET typeOfReservation = '" + type + "', packageID = " + packageID
+                + ", checkinDate = '" + checkin + "', departureDate = '" + departure + "' WHERE clientID = " + clientID;
+        int r = st.executeUpdate(qr);
+        con.close();
+    }
+
+    public void deleteReservation(String reservationID) throws Exception {
+        database db = new database();
+        String url = db.url;
+        String username = db.username;
+        String pass = db.pass;
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection(url, username, pass);
+        Statement st = con.createStatement();
+        String qr = "DELETE FROM Reservations WHERE reservationID = " + reservationID;
+        int r = st.executeUpdate(qr);
+        con.close();
     }
 
     public static void main(String[] args) {

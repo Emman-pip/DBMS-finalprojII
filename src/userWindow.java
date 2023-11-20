@@ -128,9 +128,9 @@ public class userWindow extends JFrame {
         this.setVisible(true);
     }
 
-    // public static void main(String[] args) {
-    // new userWindow(18);
-    // }
+    public static void main(String[] args) {
+        new userWindow(18);
+    }
 }
 
 class userWindowContent extends JPanel {

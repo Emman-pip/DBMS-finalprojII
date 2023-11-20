@@ -81,12 +81,44 @@ public class editDeleteReservation extends JFrame {
             pnl_buttons.add(btn_delete);
             pnl_buttons.add(btn_back);
 
+            btn_edit.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        new database().updateReservation(String.valueOf(clientID), txt_type.getText(),
+                                txt_packageName.getText(), txt_checkIn.getText(), txt_departure.getText());
+                        JOptionPane.showMessageDialog(new JFrame(), "RESERVATION UPDATED SUCCESSFULLY.");
+                    } catch (Exception ex) {
+                        System.out.println(ex);
+                        JOptionPane.showMessageDialog(new JFrame(), "AN ERROR OCCURED.");
+
+                    }
+                }
+            });
+
+            btn_delete.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        new database().deleteReservation(
+                                new database().queryWithID(clientID, "Reservations", "clientID").get(0));
+                        JOptionPane.showMessageDialog(new JFrame(), "Reservation cancelled.");
+                        LinkedList<String> accountID = new database().queryWithID(clientID, "ClientInfo", "clientId");
+                        new userWindow(Integer.parseInt(accountID.get(10)));
+                        frm.dispose();
+
+                    } catch (Exception ex) {
+                        System.out.println(ex);
+                        JOptionPane.showMessageDialog(new JFrame(), "AN ERROR OCCURED.");
+
+                    }
+                }
+            });
+
             btn_back.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    frm.dispose();
                     try {
                         LinkedList<String> accountID = new database().queryWithID(clientID, "ClientInfo", "clientId");
                         new userWindow(Integer.parseInt(accountID.get(10)));
+                        frm.dispose();
                     } catch (Exception ex) {
                         System.out.println(ex);
                     }
@@ -100,7 +132,9 @@ public class editDeleteReservation extends JFrame {
         this.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new editDeleteReservation(18);
-    }
+    // public static void main(String[] args) {
+    // new editDeleteReservation(18);
+    // }
 }
+
+// TODO: each guest is limited to 1 reservation only
