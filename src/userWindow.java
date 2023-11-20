@@ -105,7 +105,13 @@ public class userWindow extends JFrame {
                 gbc.gridy = 3;
                 gbc.ipady = 10;
                 pnl_layout.add(btn_logout, gbc);
-
+                int clientID = Integer.parseInt(id);
+                btn_edit.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        new editDeleteReservation(clientID);
+                        frm.dispose();
+                    }
+                });
                 btn_logout.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         frm.dispose();
@@ -374,4 +380,4 @@ class reservationForm extends JInternalFrame {
 
 // TODO:
 // add functionality to the edit/delete button
-//
+// FIX BUG, ONLY CONFLICT IF SAME PACKAGE ID

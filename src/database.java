@@ -52,6 +52,8 @@ public class database {
                 output.add(String.valueOf(rs.getString(8)));
                 output.add(String.valueOf(rs.getString(9)));
                 output.add(String.valueOf(rs.getString(10)));
+                System.out.println(rs.getInt(11));
+                output.add(String.valueOf(rs.getInt(11)));
 
                 // return output;
                 // System.out.print(rs.getString(2) + " ");
