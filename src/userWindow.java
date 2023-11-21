@@ -128,9 +128,9 @@ public class userWindow extends JFrame {
         this.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new userWindow(18);
-    }
+    // public static void main(String[] args) {
+    // new userWindow(18);
+    // }
 }
 
 class userWindowContent extends JPanel {
@@ -310,9 +310,9 @@ class reservationForm extends JInternalFrame {
                 System.out.println(e);
             }
         }
-        for (String[] i : checkSchedList) {
-            System.out.println(i[0] + " " + i[1]);
-        }
+        // for (String[] i : checkSchedList) {
+        // System.out.println(i[0] + " " + i[1]);
+        // }
         // n*[-]n*[-]n*
         // REGEX EXPRESSION HERE TO FIND CONFLICTS;
         gbc.gridx = 1;
@@ -333,7 +333,39 @@ class reservationForm extends JInternalFrame {
         btn_submit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    LinkedList<String> allReservedDates = new dates().fillDates(allDatesArr);
+                    LinkedList<LinkedList<String>> data = new database().queries("Reservations");
+                    LinkedList<LinkedList<String>> relatedData = new LinkedList<LinkedList<String>>();
+                    String packageToID;
+                    String packageID = String.valueOf(packagesToChoose.getSelectedItem());
+                    if (packageID.equals("Grange Pool Villa")) {
+                        packageToID = "1";
+                    } else if (packageID.equals("Petrus Pool Villa")) {
+                        packageToID = "2";
+                    } else if (packageID.equals("Shiraz Suite Room")) {
+                        packageToID = "3";
+                    } else if (packageID.equals("Chardonnay Suite Room")) {
+                        packageToID = "4";
+                    } else if (packageID.equals("Sauvignon Grand Villa")) {
+                        packageToID = "5";
+                    } else {
+                        packageToID = "6";
+                    }
+                    for (int i = 0; i < data.size(); i++) {
+                        if (data.get(i).get(2).equals(packageToID)) {
+                            relatedData.add(data.get(i));
+                        }
+                    }
+                    String[][] content = new String[relatedData.size()][2];
+                    for (int i = 0; i < relatedData.size(); i++) {
+                        String[] record = new String[2];
+                        record[0] = relatedData.get(i).get(3);
+                        record[1] = relatedData.get(i).get(4);
+                        content[i] = record;
+                    }
+                    LinkedList<String> allReservedDates = new dates().fillDates(content);
+                    for (String s : allReservedDates) {
+                        System.out.println(s);
+                    }
                     // System.err.println(allReservedDates);
                     if (allReservedDates.contains(String.valueOf(datesToChoose.getSelectedItem()) + "-" +
                             String.valueOf(monthsToChoose.getSelectedItem()) + "-" +

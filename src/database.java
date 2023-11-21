@@ -291,6 +291,7 @@ public class database {
         int r2 = st.executeUpdate(qr);
         con.close();
     }
+    // can be refactored better: use package name to search for conflicts
 
     public void updateReservation(String clientID, String type, String packageID, String checkin, String departure)
             throws Exception {

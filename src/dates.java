@@ -19,6 +19,10 @@ public class dates {
             datesReserved.add(i[0]);
             datesReserved.add(i[1]);
             for (int v = Integer.parseInt(checkinData.get(2)) + 1; v < Integer.parseInt(departureData.get(2)); v++) {
+                if (v < 10) {
+                    datesReserved.add(checkinData.get(0) + "-" + checkinData.get(1) + "-0" + v);
+                    continue;
+                }
                 datesReserved.add(checkinData.get(0) + "-" + checkinData.get(1) + "-" + v);
             }
         }
@@ -39,5 +43,10 @@ public class dates {
             // System.out.println(start + " " + end);
         }
         return items;
+    }
+
+    public static void main(String[][] args) {
+        String[][] lol = { { "2023-12-20" } };
+        System.out.println(new dates().fillDates(lol));
     }
 }
