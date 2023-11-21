@@ -21,7 +21,7 @@ public class landingWIndow extends JFrame {
 
         JPanel pnl_left2 = new JPanel();
 
-        pnl_left2.add(new adminLogin());
+        pnl_left2.add(new adminLogin(this));
 
         pnl_left.add(new loginWindow(this));
         pnl_main.add(new designPanel());
@@ -143,7 +143,7 @@ class adminLogin extends JPanel {
 
     public JButton btn_login;
 
-    adminLogin() {
+    adminLogin(JFrame frm) {
         this.setLayout(new GridLayout(3, 1));
         JPanel pnl_username = new JPanel();
         JLabel lbl_username = new JLabel("ADMIN:");
@@ -167,7 +167,8 @@ class adminLogin extends JPanel {
                 try {
                     if (txt_username.getText().equals("ADMIN")
                             && String.valueOf(txt_pass.getPassword()).equals("ADMIN")) {
-                        System.out.println("YAY WELCOME ADMIN");
+                        frm.dispose();
+                        new adminWIndow();
                     } else {
                         JOptionPane.showMessageDialog(new JFrame(), "INVALID CREDENTIALS");
                     }
