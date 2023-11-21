@@ -323,12 +323,13 @@ public class database {
         con.close();
     }
 
-    public static void main(String[] args) {
-        try {
-            System.out.println(new database().queryWithID(1, "Reservations", "clientID").size());
+    // public static void main(String[] args) {
+    // try {
+    // System.out.println(new database().queryWithID(1, "Reservations",
+    // "clientID").size());
 
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
+    // } catch (Exception e) {
+    // System.out.println(e);
+    // }
+    // }
 }
