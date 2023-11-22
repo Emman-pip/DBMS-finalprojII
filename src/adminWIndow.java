@@ -82,6 +82,16 @@ class sidePanel extends JPanel {
             }
         });
 
+        btn_edit_delete_update.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                pnl_content.removeAll();
+                // pnl_content.add(new Label("hello world"));
+                pnl_content.add(new editDelete());
+                pnl_content.setVisible(false);
+                pnl_content.setVisible(true);
+            }
+        });
+
         btn_logout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // code to logout admin window and come back to landing page
@@ -108,11 +118,6 @@ class clientInfoDisplay extends JPanel {
                 output[i] = record;
 
             }
-            // for (String[] L : output) {
-            // for (String l : L) {
-            // System.out.println(l);
-            // }
-            // }
 
             String[] columns = { "clientID", "clientName", "Gender", "age", "Email", "CP", "Landline", "Address",
                     "Nantionality", "Reason", "AccountNumber" };
@@ -122,5 +127,42 @@ class clientInfoDisplay extends JPanel {
         } catch (Exception ex) {
             System.out.println("ERROR:" + ex);
         }
+    }
+}
+
+class editDelete extends JPanel {
+    editDelete() {
+        this.setLayout(new BorderLayout());
+        JLabel lbl_id = new JLabel("CLIENT ID: ");
+        JTextField txt_id = new JTextField();
+        txt_id.setColumns(20);
+        JPanel pnl_components = new JPanel();
+        pnl_components.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.ipady = 20;
+        gbc.gridy = 0;
+        pnl_components.add(lbl_id, gbc);
+
+        gbc.gridx = 1;
+        gbc.ipady = 20;
+        gbc.gridy = 0;
+        pnl_components.add(txt_id, gbc);
+
+        JButton btn = new JButton("Search");
+        gbc.gridx = 0;
+
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.ipady = 20;
+        pnl_components.add(btn, gbc);
+
+        this.add(pnl_components, BorderLayout.CENTER);
+        btn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new editDeleteReservation(Integer.parseInt(txt_id.getText()));
+            }
+        });
     }
 }
