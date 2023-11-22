@@ -92,6 +92,44 @@ class sidePanel extends JPanel {
             }
         });
 
+        // btn_addRecords.addActionListener(new ActionListener() {
+        // public void actionPerformed(ActionEvent e) {
+        // pnl_content.removeAll();
+        // pnl_content.add(new Label("hello world"));
+        // JPanel pnl_enter = new JPanel();
+        // JLabel lbl_clientID = new JLabel("Client ID: ");
+        // JTextField txt_clientID = new JTextField();
+        // pnl_enter.add(lbl_clientID);
+        // pnl_enter.add(txt_clientID);
+        // pnl_content.add(pnl_enter);
+
+        // // currently working on getting id of client and getting ang username and
+
+        // try {
+        // String accountNumber = new database()
+        // .queryWithID(Integer.parseInt(txt_clientID.getText()), "ClientInfo",
+        // "clientId").getLast();
+        // LinkedList<String> accountData = new
+        // database().queryWithID(Integer.parseInt(accountNumber),
+        // "user_accounts", "accountID");
+        // String username = accountData.get(1);
+        // String password = accountData.get(2);
+        // JTextField txt_username = new JTextField();
+        // txt_username.setText(username);
+        // JPasswordField txt_password = new JPasswordField();
+        // txt_password.setText(password);
+        // JPanel pnl_container = new JPanel();
+        // pnl_container.add(new personalInfoForm(txt_username, txt_password, frm));
+        // pnl_content.add(pnl_container, BorderLayout.CENTER);
+
+        // } catch (Exception ex) {
+        // System.out.println(ex);
+        // }
+        // pnl_content.setVisible(false);
+        // pnl_content.setVisible(true);
+        // }
+        // });
+
         btn_logout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // code to logout admin window and come back to landing page
@@ -161,7 +199,11 @@ class editDelete extends JPanel {
         this.add(pnl_components, BorderLayout.CENTER);
         btn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new editDeleteReservation(Integer.parseInt(txt_id.getText()));
+                editDeleteReservation ed = new editDeleteReservation(Integer.parseInt(txt_id.getText()));
+                ed.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                ;
+                ed.btn_back.setVisible(false);
+
             }
         });
     }
