@@ -121,17 +121,20 @@ public class database {
             while (rs.next()) {
                 // try to find a way to shorten the code with logic (loops or recursion?)
                 // TODO: put into arrays (2D) and return?
+                LinkedList<String> record = new LinkedList<>();
 
-                System.out.println(rs.getInt(1) + "  ");
-                System.out.print(rs.getString(2) + "  ");
-                System.out.print(rs.getString(3) + "  ");
-                System.out.print(rs.getInt(4) + "  ");
-                System.out.print(rs.getString(5) + "  ");
-                System.out.print(rs.getString(6) + "  ");
-                System.out.print(rs.getString(7) + "  ");
-                System.out.print(rs.getString(8) + "  ");
-                System.out.print(rs.getString(9) + "  ");
-                System.out.println(rs.getString(10));
+                record.add(String.valueOf(rs.getInt(1)));
+                record.add(String.valueOf(rs.getString(2)));
+                record.add(String.valueOf(rs.getString(3)));
+                record.add(String.valueOf(rs.getInt(4)));
+                record.add(String.valueOf(rs.getString(5)));
+                record.add(String.valueOf(rs.getString(6)));
+                record.add(String.valueOf(rs.getString(7)));
+                record.add(String.valueOf(rs.getString(8)));
+                record.add(String.valueOf(rs.getString(9)));
+                record.add(String.valueOf(rs.getString(10)));
+                record.add(String.valueOf(rs.getString(11)));
+                output.add(record);
             }
         } else if (tableName == "Packages") {
             while (rs.next()) {
