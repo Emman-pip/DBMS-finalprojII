@@ -9,8 +9,8 @@ public class adminWIndow extends JFrame {
         new flatlaf();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         JPanel pnl_side = new JPanel();
-        pnl_side.add(new sidePanel(this));
         JPanel pnl_main = new JPanel();
+        pnl_side.add(new sidePanel(this, pnl_main));
         JPanel pnl_containerMain = new JPanel();
 
         pnl_containerMain.setLayout(new BorderLayout());
@@ -43,7 +43,7 @@ public class adminWIndow extends JFrame {
 // add records
 // custom queries
 class sidePanel extends JPanel {
-    sidePanel(JFrame frm) {
+    sidePanel(JFrame frm, JPanel pnl_content) {
         // see client info
         JButton btn_seeClientInfo = new JButton("SEE CLIENT INFO");
         // edit/delete/update
@@ -71,6 +71,8 @@ class sidePanel extends JPanel {
         btn_logout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // code to logout admin window and come back to landing page
+                frm.dispose();
+                new landingWIndow();
             }
         });
         this.add(pnl_button);
