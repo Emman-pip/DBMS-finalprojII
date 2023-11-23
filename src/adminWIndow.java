@@ -144,27 +144,36 @@ class sidePanel extends JPanel {
 class clientInfoDisplay extends JPanel {
     clientInfoDisplay() {
         this.setLayout(new BorderLayout());
+        JPanel pnl_top = new JPanel();
+        String[] tablenameList = { "ClientInfo", "Packages", "user_accounts", "Reservations" };
+        JComboBox combo_tablename = new JComboBox(tablenameList);
+        pnl_top.add(combo_tablename);
+        JPanel pnl_centerJPanel = new JPanel();
+        this.add(pnl_top, BorderLayout.NORTH);
+        pnl_centerJPanel.setLayout(new BorderLayout());
         try {
-            LinkedList<LinkedList<String>> data = new database().queries("ClientInfo");
-            String[][] output = new String[data.size()][data.get(0).size()];
 
-            for (int i = 0; i < data.size(); i++) {
-                String[] record = new String[data.get(0).size()];
-                for (int v = 0; v < data.get(0).size(); v++) {
-                    record[v] = data.get(i).get(v);
-                }
-                output[i] = record;
-
-            }
-
-            String[] columns = { "clientID", "clientName", "Gender", "age", "Email", "CP", "Landline", "Address",
-                    "Nantionality", "Reason", "AccountNumber" };
-            JTable tbl_clientInfo = new JTable(output, columns);
-            JScrollPane sp = new JScrollPane(tbl_clientInfo);
-            this.add(sp, BorderLayout.CENTER);
+            pnl_centerJPanel.add(new customQueries("SELECT * FROM ClientInfo"), BorderLayout.CENTER);
         } catch (Exception ex) {
             System.out.println("ERROR:" + ex);
         }
+        this.add(pnl_centerJPanel, BorderLayout.CENTER);
+
+        combo_tablename.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+
+                    pnl_centerJPanel.removeAll();
+                    pnl_centerJPanel.add(new customQueries("SELECT * FROM " + combo_tablename.getSelectedItem()),
+                            BorderLayout.CENTER);
+                    pnl_centerJPanel.setVisible(false);
+                    pnl_centerJPanel.setVisible(true);
+
+                } catch (Exception ex) {
+                    System.out.println(ex);
+                }
+            }
+        });
     }
 }
 
