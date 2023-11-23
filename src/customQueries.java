@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class customQueries extends JInternalFrame {
-    public customQueries() throws Exception {
+    public customQueries(String qr) throws Exception {
         new flatlaf();
         database db = new database();
         String url = db.url;
@@ -22,7 +22,6 @@ public class customQueries extends JInternalFrame {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, username, pass);
         Statement st = con.createStatement();
-        String qr = "SELECT * FROM Packages;";
 
         ResultSet rs = st.executeQuery(qr);
         ResultSetMetaData md = rs.getMetaData();
@@ -64,7 +63,7 @@ public class customQueries extends JInternalFrame {
         this.setVisible(true);
     }
 
-    public static void main(String[] args) throws Exception {
-        new customQueries();
-    }
+    // public static void main(String[] args) throws Exception {
+    // new customQueries();
+    // }
 }
