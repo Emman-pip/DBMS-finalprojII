@@ -55,7 +55,7 @@ class sidePanel extends JPanel {
         // add records
         JButton btn_addRecords = new JButton("ADD RECORDS");
         // custom queries
-        JButton btn_custom = new JButton("CUSTOM QUERIES");
+        JButton btn_custom = new JButton("CUSTOM SELECT QUERIES");
 
         JButton btn_logout = new JButton("LOGOUT");
 
@@ -92,43 +92,19 @@ class sidePanel extends JPanel {
             }
         });
 
-        // btn_addRecords.addActionListener(new ActionListener() {
-        // public void actionPerformed(ActionEvent e) {
-        // pnl_content.removeAll();
-        // pnl_content.add(new Label("hello world"));
-        // JPanel pnl_enter = new JPanel();
-        // JLabel lbl_clientID = new JLabel("Client ID: ");
-        // JTextField txt_clientID = new JTextField();
-        // pnl_enter.add(lbl_clientID);
-        // pnl_enter.add(txt_clientID);
-        // pnl_content.add(pnl_enter);
+        btn_custom.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                pnl_content.removeAll();
+                // pnl_content.add(new Label("hello world"));
+                // pnl_content.add(pnl_enter);
+                // enter new class here
+                pnl_content.add(new customQuery());
 
-        // // currently working on getting id of client and getting ang username and
-
-        // try {
-        // String accountNumber = new database()
-        // .queryWithID(Integer.parseInt(txt_clientID.getText()), "ClientInfo",
-        // "clientId").getLast();
-        // LinkedList<String> accountData = new
-        // database().queryWithID(Integer.parseInt(accountNumber),
-        // "user_accounts", "accountID");
-        // String username = accountData.get(1);
-        // String password = accountData.get(2);
-        // JTextField txt_username = new JTextField();
-        // txt_username.setText(username);
-        // JPasswordField txt_password = new JPasswordField();
-        // txt_password.setText(password);
-        // JPanel pnl_container = new JPanel();
-        // pnl_container.add(new personalInfoForm(txt_username, txt_password, frm));
-        // pnl_content.add(pnl_container, BorderLayout.CENTER);
-
-        // } catch (Exception ex) {
-        // System.out.println(ex);
-        // }
-        // pnl_content.setVisible(false);
-        // pnl_content.setVisible(true);
-        // }
-        // });
+                // currently working on getting id of client and getting ang username and
+                pnl_content.setVisible(false);
+                pnl_content.setVisible(true);
+            }
+        });
 
         btn_logout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -215,5 +191,54 @@ class editDelete extends JPanel {
 
             }
         });
+    }
+}
+
+class customQuery extends JPanel {
+    customQuery() {
+        this.setLayout(new BorderLayout());
+        JPanel pnl_enter = new JPanel();
+        JPanel pnl_table = new JPanel();
+        pnl_enter.setLayout(new GridBagLayout());
+        pnl_table.setLayout(new BorderLayout());
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        JLabel lbl_clientID = new JLabel("TYPE YOUR QUERY HERE: ");
+        JTextArea txt_clientID = new JTextArea();
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        pnl_enter.add(lbl_clientID, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        pnl_enter.add(txt_clientID, gbc);
+
+        JButton btn_query = new JButton("Execute query");
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+
+        pnl_enter.add(btn_query, gbc);
+
+        btn_query.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                pnl_table.removeAll();
+                try {
+                    customQueries cq = new customQueries(txt_clientID.getText());
+                    // cq.setResizable(true);
+                    pnl_table.add(cq, BorderLayout.CENTER);
+                } catch (Exception ex) {
+                    System.out.println("IN");
+                    JLabel label = new JLabel("INVALID QUERY");
+                    pnl_table.add(label, BorderLayout.CENTER);
+                }
+                pnl_table.setVisible(false);
+                pnl_table.setVisible(true);
+            }
+        });
+
+        this.add(pnl_enter, BorderLayout.NORTH);
+        this.add(pnl_table, BorderLayout.CENTER);
+
     }
 }
