@@ -2,8 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.util.LinkedList;
 
 public class adminWIndow extends JFrame {
     adminWIndow() {
@@ -35,9 +33,9 @@ public class adminWIndow extends JFrame {
         this.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new adminWIndow();
-    }
+    // public static void main(String[] args) {
+    // new adminWIndow();
+    // }
 }
 
 // design on top
@@ -92,6 +90,16 @@ class sidePanel extends JPanel {
             }
         });
 
+        btn_addRecords.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                pnl_content.removeAll();
+                // TODO: sloppy work but will do - want to refactor this?
+                pnl_content.add(new addRecordsForm());
+                pnl_content.setVisible(false);
+                pnl_content.setVisible(true);
+            }
+        });
+
         btn_custom.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 pnl_content.removeAll();
@@ -114,6 +122,14 @@ class sidePanel extends JPanel {
             }
         });
         this.add(pnl_button);
+    }
+}
+
+class addRecordsForm extends JPanel {
+    addRecordsForm() {
+        // pnl_one user account
+        // pnl_two personal info
+        // pnl_three reseration info
     }
 }
 

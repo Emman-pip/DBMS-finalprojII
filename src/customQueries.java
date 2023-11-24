@@ -6,7 +6,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.*;
-import java.awt.*;
 
 public class customQueries extends JInternalFrame {
     public customQueries(String qr) throws Exception {

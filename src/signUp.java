@@ -8,6 +8,7 @@ public class signUp extends JFrame {
     JFrame frm = this;
 
     signUp() {
+        this.setUndecorated(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         new flatlaf();
         JPanel pnl = new JPanel();
@@ -29,6 +30,7 @@ class signUpForm extends JPanel {
     JPasswordField txt_password;
     JTextField txt_username;
     JPanel pnl = this;
+    JButton btn_back;
 
     signUpForm(JFrame frm) {
         JLabel lbl_username = new JLabel("new username: ");
@@ -41,6 +43,7 @@ class signUpForm extends JPanel {
         txt_password.setColumns(20);
 
         JButton btn_signup = new JButton("Sign up");
+        btn_back = new JButton("back");
 
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -67,6 +70,14 @@ class signUpForm extends JPanel {
         gbc.insets = new Insets(10, 0, 0, 0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(btn_signup, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        gbc.ipady = 20;
+        gbc.insets = new Insets(5, 0, 0, 0);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        this.add(btn_back, gbc);
 
         // JInternalFrame internal = new JInternalFrame();
 
@@ -97,6 +108,7 @@ class signUpForm extends JPanel {
                                     String.valueOf(txt_password.getPassword()));
                             txt_username.setEnabled(false);
                             txt_password.setEnabled(false);
+                            btn_back.setEnabled(false);
                             pnl.add(new personalInfoForm(txt_username, txt_password, frm), gbc);
 
                         }
@@ -104,6 +116,12 @@ class signUpForm extends JPanel {
                 } catch (Exception ex) {
                     System.out.println(ex);
                 }
+            }
+        });
+        btn_back.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frm.dispose();
+                new landingWIndow();
             }
         });
     }
