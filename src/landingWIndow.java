@@ -1,5 +1,8 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import net.miginfocom.layout.Grid;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -144,7 +147,9 @@ class adminLogin extends JPanel {
     public JButton btn_login;
 
     adminLogin(JFrame frm) {
-        this.setLayout(new GridLayout(3, 1));
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
         JPanel pnl_username = new JPanel();
         JLabel lbl_username = new JLabel("ADMIN:");
         txt_username = new JTextField();
@@ -156,11 +161,26 @@ class adminLogin extends JPanel {
         txt_pass.setColumns(20);
 
         btn_login = new JButton("LOGIN");
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(10, 0, 0, 0);
 
-        pnl_username.add(lbl_username);
-        pnl_username.add(txt_username);
-        pnl_pass.add(lbl_pass);
-        pnl_pass.add(txt_pass);
+        this.add(lbl_username, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(10, 0, 0, 0);
+
+        this.add(txt_username, gbc);
+        gbc.gridx = 0;
+        gbc.insets = new Insets(10, 0, 0, 0);
+
+        gbc.gridy = 1;
+        this.add(lbl_pass, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.insets = new Insets(10, 0, 0, 0);
+
+        this.add(txt_pass, gbc);
 
         btn_login.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
@@ -177,9 +197,12 @@ class adminLogin extends JPanel {
                 }
             }
         });
-
-        this.add(pnl_username);
-        this.add(pnl_pass);
-        this.add(btn_login);
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(10, 0, 0, 0);
+        gbc.gridwidth = 2;
+        gbc.ipady = 20;
+        this.add(btn_login, gbc);
     }
 }
