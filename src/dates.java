@@ -8,6 +8,8 @@ public class dates {
         LinkedList<String> datesReserved = new LinkedList<String>();
         for (String[] i : data) {
 
+            datesReserved.add(i[0]);
+            datesReserved.add(i[1]);
             // for YYYY/MM/DD
             LinkedList<String> checkinData = new dates().regEx(i[0], "[0-9]+");
             LinkedList<String> departureData = new dates().regEx(i[1], "[0-9]+");
@@ -16,8 +18,6 @@ public class dates {
                 datesReserved.add(checkinData.get(2));
                 continue;
             }
-            datesReserved.add(i[0]);
-            datesReserved.add(i[1]);
             for (int v = Integer.parseInt(checkinData.get(2)) + 1; v < Integer.parseInt(departureData.get(2)); v++) {
                 if (v < 10) {
                     datesReserved.add(checkinData.get(0) + "-" + checkinData.get(1) + "-0" + v);

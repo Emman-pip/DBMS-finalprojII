@@ -1,7 +1,11 @@
 import javax.swing.*;
+
+import org.w3c.dom.events.Event;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 
 public class userWindow extends JFrame {
@@ -124,7 +128,7 @@ public class userWindow extends JFrame {
             System.out.println(e);
         }
         this.setTitle("WELCOME");
-        this.setSize(650, 850);
+        this.setSize(650, 900);
         this.setVisible(true);
     }
 
@@ -267,6 +271,44 @@ class reservationForm extends JInternalFrame {
         gbc.gridx = 1;
         gbc.gridy = 3;
         gbc.insets = new Insets(10, 0, 0, 0);
+
+        // packagesToChoose.addActionListener(new ActionListener() {
+        // public void actionPerformed(ActionEvent e) {
+        // String packageToID;
+        // String packageID = String.valueOf(packagesToChoose.getSelectedItem());
+        // if (packageID.equals("Grange Pool Villa")) {
+        // packageToID = "1";
+        // } else if (packageID.equals("Petrus Pool Villa")) {
+        // packageToID = "2";
+        // } else if (packageID.equals("Shiraz Suite Room")) {
+        // packageToID = "3";
+        // } else if (packageID.equals("Chardonnay Suite Room")) {
+        // packageToID = "4";
+        // } else if (packageID.equals("Sauvignon Grand Villa")) {
+        // packageToID = "5";
+        // } else {
+        // packageToID = "6";
+        // }
+        // try {
+        // JPanel pnl_date = new JPanel();
+        // pnl_date.setLayout(new BorderLayout());
+        // JInternalFrame iF = new customQueries(
+        // "SELECT checkinDate, departureDate FROM Reservations WHERE packageID = " +
+        // packageToID);
+        // pnl_date.add(iF);
+        // gbc.gridx = 0;
+        // gbc.gridy = 4;
+        // gbc.gridwidth = 2;
+        // gbc.ipady = 10;
+        // pnl_main.add(pnl_date, gbc);
+
+        // } catch (Exception ex) {
+        // JOptionPane.showMessageDialog(new JFrame(), "SQL ERROR: " + ex);
+
+        // }
+        // }
+        // });
+
         String[][] checkSchedList;
         try {
             LinkedList<LinkedList<String>> data = new database().queries("Reservations");
@@ -290,13 +332,70 @@ class reservationForm extends JInternalFrame {
             JScrollPane sp = new JScrollPane(tbl);
             // sp.setBounds(0, 0, WIDTH, 30);
             reservedDates.setLayout(new BorderLayout());
-            reservedDates.add(new JLabel("Unavailable dates"), BorderLayout.NORTH);
+            reservedDates.add(new JLabel("Possible unavailable dates"), BorderLayout.NORTH);
             reservedDates.add(sp, BorderLayout.CENTER);
             gbc.gridx = 0;
             gbc.gridy = 4;
             gbc.gridwidth = 2;
             gbc.ipady = 10;
             pnl_main.add(reservedDates, gbc);
+
+            JButton btn_refresh_dates = new JButton("See all scedules for your package");
+            gbc.gridx = 0;
+            gbc.gridy = 5;
+            gbc.gridwidth = 2;
+            gbc.ipady = 10;
+            pnl_main.add(btn_refresh_dates, gbc);
+
+            btn_refresh_dates.addActionListener(new ActionListener() {
+
+                public void actionPerformed(ActionEvent e) {
+                    // if (e.MOUSE_MOTION_EVENT_MASK){}
+                    String packageToID;
+
+                    String packageID = String.valueOf(packagesToChoose.getSelectedItem());
+                    if (packageID.equals("Grange Pool Villa")) {
+                        packageToID = "1";
+                    } else if (packageID.equals("Petrus Pool Villa")) {
+                        packageToID = "2";
+                    } else if (packageID.equals("Shiraz Suite Room")) {
+                        packageToID = "3";
+                    } else if (packageID.equals("Chardonnay Suite Room")) {
+                        packageToID = "4";
+                    } else if (packageID.equals("Sauvignon Grand Villa")) {
+                        packageToID = "5";
+                    } else {
+                        packageToID = "6";
+                    }
+                    JPanel pnl_date = new JPanel();
+                    JInternalFrame iF = new JInternalFrame();
+
+                    try {
+                        // pnl_date.remove(iF);
+                        pnl_date.setLayout(new BorderLayout());
+                        iF = new customQueries(
+                                "SELECT checkinDate, departureDate FROM Reservations WHERE packageID = " + packageToID);
+                        iF.setTitle("Reserved dates for " + String.valueOf(packagesToChoose.getSelectedItem()));
+                        System.out.println(pnl_date.getComponentCount());
+                        pnl_date.add(iF, BorderLayout.CENTER);
+
+                        gbc.gridx = 0;
+                        gbc.gridy = 4;
+                        gbc.gridwidth = 2;
+                        gbc.ipady = 400;
+                        pnl_main.add(pnl_date, gbc);
+                        reservedDates.setVisible(false);
+                        pnl_date.revalidate();
+                        pnl_date.repaint();
+                        pnl_date.validate();
+
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(new JFrame(), "SQL ERROR: " + ex);
+
+                    }
+                }
+            });
+
             // frm.setSize(700, 800);
 
         } catch (Exception e) {
@@ -322,7 +421,7 @@ class reservationForm extends JInternalFrame {
 
         JButton btn_submit = new JButton("Submit");
         gbc.gridx = 0;
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         gbc.gridwidth = 2;
         gbc.ipady = 10;
         pnl_main.add(btn_submit, gbc);
@@ -362,10 +461,9 @@ class reservationForm extends JInternalFrame {
                         record[1] = relatedData.get(i).get(4);
                         content[i] = record;
                     }
+
                     LinkedList<String> allReservedDates = new dates().fillDates(content);
-                    for (String s : allReservedDates) {
-                        System.out.println(s);
-                    }
+                    System.out.println("DATES: " + allReservedDates);
                     // System.err.println(allReservedDates);
                     if (allReservedDates.contains(String.valueOf(datesToChoose.getSelectedItem()) + "-" +
                             String.valueOf(monthsToChoose.getSelectedItem()) + "-" +

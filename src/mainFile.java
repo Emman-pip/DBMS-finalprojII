@@ -34,6 +34,7 @@ public class mainFile extends JFrame {
 }
 
 // TODO:
-// AYUSIN YUNG ADD RECORDS SA ADMIN WINDOW
-// DESIGN THE FRONT END!!!!
+// AYUSIN YUNG ADD RECORDS SA ADMIN WINDOW (layout)
+// DESIGN THE FRONT END!!!! (layout nalang)
 // SYSTEMATIC DELETE
+// fix unavailable dates
