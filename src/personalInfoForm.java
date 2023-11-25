@@ -59,7 +59,7 @@ public class personalInfoForm extends JInternalFrame {
             pnl.add(fields[i], gbc);
         }
         gbc.gridx = 0;
-        gbc.gridy = 9;
+        gbc.gridy = 10;
         gbc.insets = new Insets(10, 0, 0, 0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.ipady = 20;

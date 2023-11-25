@@ -16,7 +16,6 @@ public class landingWIndow extends JFrame {
         this.setSize(800, 600);
 
         JTabbedPane tb = new JTabbedPane();
-
         JPanel pnl_left = new JPanel();
 
         JPanel pnl_left2 = new JPanel();
@@ -43,6 +42,7 @@ class designPanel extends JPanel {
     designPanel() {
 
         this.setLayout(new BorderLayout());
+        this.setBackground(Color.LIGHT_GRAY);
 
         // this.setBackground(Color.black);
         // this.setBackground();

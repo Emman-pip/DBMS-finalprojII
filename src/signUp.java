@@ -108,7 +108,7 @@ class signUpForm extends JPanel {
                                     String.valueOf(txt_password.getPassword()));
                             txt_username.setEnabled(false);
                             txt_password.setEnabled(false);
-                            btn_back.setEnabled(false);
+                            btn_back.setVisible(false);
                             pnl.add(new personalInfoForm(txt_username, txt_password, frm), gbc);
 
                         }

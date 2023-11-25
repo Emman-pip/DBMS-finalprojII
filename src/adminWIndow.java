@@ -98,7 +98,6 @@ class sidePanel extends JPanel {
         btn_addRecords.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 pnl_content.removeAll();
-                // TODO: sloppy work but will do - want to refactor this?
                 pnl_content.add(new addRecordsForm());
                 pnl_content.setVisible(false);
                 pnl_content.setVisible(true);
@@ -122,7 +121,6 @@ class sidePanel extends JPanel {
         btn_customAction.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 pnl_content.removeAll();
-                // TODO: sloppy work but will do - want to refactor this?
                 pnl_content.add(new customActionQuery());
                 pnl_content.setVisible(false);
                 pnl_content.setVisible(true);
