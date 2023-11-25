@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
+import java.util.Vector;
 
 public class adminWIndow extends JFrame {
     adminWIndow() {
@@ -33,9 +35,9 @@ public class adminWIndow extends JFrame {
         this.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new adminWIndow();
-    }
+    // public static void main(String[] args) {
+    // new adminWIndow();
+    // }
 }
 
 // design on top
@@ -139,6 +141,8 @@ class sidePanel extends JPanel {
 }
 
 class addRecordsForm extends JPanel {
+    JPanel master = this;
+
     addRecordsForm() {
         this.setLayout(new BorderLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -163,6 +167,8 @@ class addRecordsForm extends JPanel {
         JTextField txt_nationality = new JTextField();
         JTextArea txt_reason = new JTextArea();
         JTextField txt_accNum = new JTextField();
+        JButton btn_setPersonalInfo = new JButton("Set Personal Info");
+        btn_setPersonalInfo.setEnabled(false);
 
         // pnl_three reseration info
         JPanel pnl_reservation = new JPanel();
@@ -172,11 +178,148 @@ class addRecordsForm extends JPanel {
         JTextField txt_checkIn = new JTextField();
         JTextField txt_depart = new JTextField();
         JTextField txt_clientID = new JTextField();
+        JButton btn_reserve = new JButton("Reserve");
+        btn_reserve.setEnabled(false);
 
         JTextField[] txt_list = {
                 txt_username, txt_password, txt_name, txt_gender, txt_age, txt_email, txt_cp, txt_landline, txt_address,
                 txt_nationality, txt_accNum, txt_type, txt_package, txt_checkIn, txt_depart, txt_clientID
         };
+
+        JTextField[] txt_accounts = {
+                txt_username, txt_password
+        };
+
+        JTextField[] txt_personalInfo = {
+                txt_name, txt_gender, txt_age, txt_email, txt_cp, txt_landline, txt_address,
+                txt_nationality, txt_accNum
+        };
+
+        JTextField[] txt_reservation = {
+                txt_type, txt_package, txt_checkIn, txt_depart, txt_clientID
+        };
+
+        btn_createAccount.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if ((txt_username.getText().equals(""))
+                            || (String.valueOf(txt_password.getPassword()).equals(""))) {
+                        throw new Exception();
+                    }
+                    new database().insertUserAccount(txt_username.getText(),
+                            String.valueOf(txt_password.getPassword()));
+
+                    for (JTextField txt : txt_personalInfo) {
+                        txt.setEnabled(true);
+                        txt_reason.setEnabled(true);
+                    }
+                    btn_setPersonalInfo.setEnabled(true);
+
+                    for (JTextField txt : txt_accounts) {
+                        txt.setEnabled(false);
+                        btn_createAccount.setEnabled(false);
+                    }
+                    txt_accNum.setText(String.valueOf(new database().searchAccountID(txt_username.getText())));
+                    txt_accNum.setEnabled(false);
+
+                    JOptionPane.showMessageDialog(new JFrame(), "DATABASE INSERTION SUCCESS");
+
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(new JFrame(), "DATABASE INSERTION FAILED: " + ex);
+                }
+            }
+        });
+
+        btn_setPersonalInfo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    for (JTextField txt : txt_personalInfo) {
+                        if (txt.getText().isBlank() || txt_reason.getText().isEmpty()) {
+                            throw new Exception("Blank fields");
+                        }
+
+                    }
+                    new database().insertPersonalRecords(
+                            txt_username.getText(),
+                            txt_name.getText(),
+                            txt_gender.getText(),
+                            txt_age.getText(),
+                            txt_email.getText(),
+                            txt_cp.getText(),
+                            txt_landline.getText(),
+                            txt_address.getText(),
+                            txt_nationality.getText(),
+                            txt_reason.getText());
+
+                    if ((txt_username.getText().equals(""))
+                            || (String.valueOf(txt_password.getPassword()).equals(""))) {
+                        throw new Exception();
+                    }
+
+                    for (JTextField txt : txt_personalInfo) {
+                        txt.setEnabled(false);
+                        txt_reason.setEnabled(false);
+                    }
+                    btn_setPersonalInfo.setEnabled(false);
+                    // btn_createAccount.setEnabled(false);
+
+                    for (JTextField txt : txt_reservation) {
+                        txt.setEnabled(true);
+                        btn_reserve.setEnabled(true);
+                    }
+
+                    txt_clientID.setEnabled(false);
+
+                    // HERE set text to client ID
+                    String ID = new database()
+                            .queryWithID(Integer.parseInt(txt_accNum.getText()), "ClientInfo", "accountNumber").get(0);
+                    // System.out.println("ID: " + ID);
+                    txt_clientID.setText(ID);
+
+                    JOptionPane.showMessageDialog(new JFrame(), "DATABASE INSERTION SUCCESS");
+
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(new JFrame(), "DATABASE INSERTION FAILED: " + ex);
+                }
+                // TODO: FIX BUG SA ACTION QUERIES
+            }
+        });
+
+        // btn_reserve
+        btn_reserve.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    // System.out.println(txt_type.getText() +
+                    // txt_package.getText() +
+                    // txt_checkIn.getText() +
+                    // txt_depart.getText() +
+                    // txt_clientID.getText());
+                    new database().insertReservation2(
+                            txt_type.getText(),
+                            txt_package.getText(),
+                            txt_checkIn.getText(),
+                            txt_depart.getText(),
+                            txt_clientID.getText());
+                    for (JTextField txt : txt_reservation) {
+                        txt.setEnabled(false);
+                        btn_reserve.setEnabled(false);
+                    }
+                    JOptionPane.showMessageDialog(new JFrame(),
+                            "RESERVATION SUCCESS. RECLICK THE ADD RECORDS BUTTON IN SIDE PANEL TO RESET THIS PAGE.");
+
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(new JFrame(), "RESERVATION FAIL: " + ex);
+                }
+            }
+        });
+        for (JTextField txt : txt_personalInfo) {
+            txt.setEnabled(false);
+            txt_reason.setEnabled(false);
+        }
+
+        for (JTextField txt : txt_reservation) {
+            txt.setEnabled(false);
+        }
 
         for (JTextField txt : txt_list) {
             txt.setColumns(20);
@@ -223,6 +366,12 @@ class addRecordsForm extends JPanel {
         gbc.gridx = 1;
         gbc.gridy = 4;
         pnl_reservation.add(txt_clientID, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 5;
+        // gbc.gridwidth = 2;
+        // gbc.fill = GridBagConstraints.HORIZONTAL;
+        pnl_reservation.add(btn_reserve, gbc);
 
         // ipasok ang mga gui
         gbc.gridx = 0;
@@ -306,6 +455,10 @@ class addRecordsForm extends JPanel {
         gbc.gridx = 1;
         gbc.gridy = 9;
         pnl_personalInfo.add(txt_accNum, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 10;
+        pnl_personalInfo.add(btn_setPersonalInfo, gbc);
         //
 
         gbc.gridx = 0;

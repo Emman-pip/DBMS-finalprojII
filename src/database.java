@@ -220,8 +220,17 @@ public class database {
     }
 
     // primary key
-    public void insertPersonalRecords(String user, String name, String gender, String age,
-            String email, String cp, String landline, String address, String nationality, String reason)
+    public void insertPersonalRecords(
+            String user,
+            String name,
+            String gender,
+            String age,
+            String email,
+            String cp,
+            String landline,
+            String address,
+            String nationality,
+            String reason)
             throws Exception {
         database db = new database();
         String url = db.url;
@@ -294,6 +303,26 @@ public class database {
         int r2 = st.executeUpdate(qr);
         con.close();
     }
+
+    public void insertReservation2(String type, String packageID, String checkin, String depart, String clientID)
+            throws Exception {
+        database db = new database();
+        String url = db.url;
+        String username = db.username;
+        String pass = db.pass;
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection(url, username, pass);
+        Statement st = con.createStatement();
+
+        String qr = "INSERT INTO \n"
+                + "Reservations(typeOfReservation, packageID, checkinDate, departureDate, clientID) \n"
+                + //
+                "VALUES ('" + type + "', " + packageID + ", '" + checkin + "', '" + depart
+                + "', " + clientID + ")";
+        int r2 = st.executeUpdate(qr);
+        con.close();
+    }
     // can be refactored better: use package name to search for conflicts
 
     public void updateReservation(String clientID, String type, String packageID, String checkin, String departure)
@@ -338,4 +367,8 @@ public class database {
         int r = st.executeUpdate(query);
         con.close();
     }
+
+    // public String findClientID(){
+
+    // }
 }

@@ -166,7 +166,7 @@ class reservationForm extends JInternalFrame {
         pnl_main.add(types, gbc);
         // packageID
         JLabel lbl_packageChosen = new JLabel("Package: ");
-        String[] packageList = { "Grange Pool Villa", "Petrus Pool Villa", "Shiraz Suite RoomShiraz Suite Room",
+        String[] packageList = { "Grange Pool Villa", "Petrus Pool Villa", "Shiraz Suite Room",
                 "Chardonnay Suite Room", "Sauvignon Grand Villa", "Bordeaux Grand Villa" };
         // edit content based on DB
         JComboBox packagesToChoose = new JComboBox(packageList);
