@@ -33,9 +33,9 @@ public class adminWIndow extends JFrame {
         this.setVisible(true);
     }
 
-    // public static void main(String[] args) {
-    // new adminWIndow();
-    // }
+    public static void main(String[] args) {
+        new adminWIndow();
+    }
 }
 
 // design on top
@@ -47,7 +47,7 @@ class sidePanel extends JPanel {
     sidePanel(JFrame frm, JPanel pnl_content) {
         // this.setLayout(new BorderLayout());
         // see client info
-        JButton btn_seeClientInfo = new JButton("SEE CLIENT INFO");
+        JButton btn_seeClientInfo = new JButton("SEE DATABASE TABLES");
         // edit/delete/update
         JButton btn_edit_delete_update = new JButton("EDIT/DELETE/UPDATE");
         // add records
@@ -55,12 +55,15 @@ class sidePanel extends JPanel {
         // custom queries
         JButton btn_custom = new JButton("CUSTOM SELECT QUERIES");
 
+        JButton btn_customAction = new JButton("CUSTOM ACTION QUERIES");
+
         JButton btn_logout = new JButton("LOGOUT");
 
         JPanel pnl_button = new JPanel();
         pnl_button.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        JButton[] arr_btn = { btn_seeClientInfo, btn_edit_delete_update, btn_addRecords, btn_custom, btn_logout };
+        JButton[] arr_btn = { btn_seeClientInfo, btn_edit_delete_update, btn_addRecords, btn_custom, btn_customAction,
+                btn_logout };
         for (int i = 0; i < arr_btn.length; i++) {
             gbc.gridy = i;
             gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -114,6 +117,16 @@ class sidePanel extends JPanel {
             }
         });
 
+        btn_customAction.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                pnl_content.removeAll();
+                // TODO: sloppy work but will do - want to refactor this?
+                pnl_content.add(new customActionQuery());
+                pnl_content.setVisible(false);
+                pnl_content.setVisible(true);
+            }
+        });
+
         btn_logout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // code to logout admin window and come back to landing page
@@ -127,9 +140,213 @@ class sidePanel extends JPanel {
 
 class addRecordsForm extends JPanel {
     addRecordsForm() {
+        this.setLayout(new BorderLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
         // pnl_one user account
+        JPanel pnl_account = new JPanel();
+        pnl_account.setLayout(new GridBagLayout());
+        JTextField txt_username = new JTextField();
+        JPasswordField txt_password = new JPasswordField();
+        JButton btn_createAccount = new JButton("Create account");
+
         // pnl_two personal info
+        JPanel pnl_personalInfo = new JPanel();
+        pnl_personalInfo.setLayout(new GridBagLayout());
+        JTextField txt_name = new JTextField();
+        JTextField txt_gender = new JTextField();
+        JTextField txt_age = new JTextField();
+        JTextField txt_email = new JTextField();
+        JTextField txt_cp = new JTextField();
+        JTextField txt_landline = new JTextField();
+        JTextField txt_address = new JTextField();
+        JTextField txt_nationality = new JTextField();
+        JTextArea txt_reason = new JTextArea();
+        JTextField txt_accNum = new JTextField();
+
         // pnl_three reseration info
+        JPanel pnl_reservation = new JPanel();
+        pnl_reservation.setLayout(new GridBagLayout());
+        JTextField txt_type = new JTextField();
+        JTextField txt_package = new JTextField();
+        JTextField txt_checkIn = new JTextField();
+        JTextField txt_depart = new JTextField();
+        JTextField txt_clientID = new JTextField();
+
+        JTextField[] txt_list = {
+                txt_username, txt_password, txt_name, txt_gender, txt_age, txt_email, txt_cp, txt_landline, txt_address,
+                txt_nationality, txt_accNum, txt_type, txt_package, txt_checkIn, txt_depart, txt_clientID
+        };
+
+        for (JTextField txt : txt_list) {
+            txt.setColumns(20);
+        }
+
+        // reservation components
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        pnl_reservation.add(new JLabel("Package type: "), gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        pnl_reservation.add(new JLabel("Package ID: "), gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        pnl_reservation.add(new JLabel("Check In Date: "), gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        pnl_reservation.add(new JLabel("Departure Date: "), gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        pnl_reservation.add(new JLabel("Client ID: "), gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        pnl_reservation.add(txt_type, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        pnl_reservation.add(txt_package, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        pnl_reservation.add(txt_checkIn, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        pnl_reservation.add(txt_depart, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        pnl_reservation.add(txt_clientID, gbc);
+
+        // ipasok ang mga gui
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        pnl_personalInfo.add(new JLabel("Name: "), gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        pnl_personalInfo.add(new JLabel("Gender: "), gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        pnl_personalInfo.add(new JLabel("Age: "), gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        pnl_personalInfo.add(new JLabel("Email: "), gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        pnl_personalInfo.add(new JLabel("Mobile number: "), gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        pnl_personalInfo.add(new JLabel("Landline: "), gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        pnl_personalInfo.add(new JLabel("Address: "), gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 7;
+        pnl_personalInfo.add(new JLabel("Nationality: "), gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 8;
+        pnl_personalInfo.add(new JLabel("Reason: "), gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 9;
+        pnl_personalInfo.add(new JLabel("Account Number: "), gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        pnl_personalInfo.add(txt_name, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        pnl_personalInfo.add(txt_gender, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        pnl_personalInfo.add(txt_age, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        pnl_personalInfo.add(txt_email, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        pnl_personalInfo.add(txt_cp, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 5;
+        pnl_personalInfo.add(txt_landline, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 6;
+        pnl_personalInfo.add(txt_address, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 7;
+        pnl_personalInfo.add(txt_nationality, gbc);
+
+        gbc.gridx = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridy = 8;
+        txt_reason.setWrapStyleWord(true);
+        pnl_personalInfo.add(txt_reason, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 9;
+        pnl_personalInfo.add(txt_accNum, gbc);
+        //
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        pnl_account.add(new JLabel("username: "), gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        pnl_account.add(txt_username, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        pnl_account.add(new JLabel("password: "), gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        pnl_account.add(txt_password, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridwidth = 2;
+        pnl_account.add(btn_createAccount, gbc);
+
+        // gbc.gridx = 0;
+        // gbc.gridy = 0;
+        JPanel pnl_pnls = new JPanel();
+        // pnl_pnls.setPreferredSize(pnl_personalInfo.getSize());
+
+        pnl_pnls.add(pnl_account);
+
+        // gbc.gridx = 1;
+        // gbc.gridy = 0;
+        pnl_pnls.add(pnl_personalInfo);
+
+        // gbc.gridx = 2;
+        // gbc.gridy = 0;
+        pnl_pnls.add(pnl_reservation);
+
+        this.add(pnl_pnls, BorderLayout.CENTER);
+
     }
 }
 
@@ -247,6 +464,54 @@ class customQuery extends JPanel {
                     System.out.println("IN");
                     JLabel label = new JLabel("INVALID QUERY");
                     pnl_table.add(label, BorderLayout.CENTER);
+                }
+                pnl_table.setVisible(false);
+                pnl_table.setVisible(true);
+            }
+        });
+
+        this.add(pnl_enter, BorderLayout.NORTH);
+        this.add(pnl_table, BorderLayout.CENTER);
+
+    }
+}
+
+class customActionQuery extends JPanel {
+    customActionQuery() {
+        this.setLayout(new BorderLayout());
+        JPanel pnl_enter = new JPanel();
+        JPanel pnl_table = new JPanel();
+        pnl_enter.setLayout(new GridBagLayout());
+        pnl_table.setLayout(new BorderLayout());
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        JLabel lbl_clientID = new JLabel("TYPE YOUR INSERT/UPDATE/DELETE QUERY HERE: ");
+        JTextArea txt_clientID = new JTextArea();
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        pnl_enter.add(lbl_clientID, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        pnl_enter.add(txt_clientID, gbc);
+
+        JButton btn_query = new JButton("Execute query");
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+
+        pnl_enter.add(btn_query, gbc);
+
+        btn_query.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                pnl_table.removeAll();
+                try {
+                    new database().customActionQuery(txt_clientID.getText());
+                    // pnl_table.add(cq, BorderLayout.CENTER);
+                    JOptionPane.showMessageDialog(new JFrame(), "QUERY SUCCESSFUL");
+
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(new JFrame(), "PLEASE RECHECK YOUR QUERY");
                 }
                 pnl_table.setVisible(false);
                 pnl_table.setVisible(true);

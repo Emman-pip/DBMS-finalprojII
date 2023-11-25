@@ -325,4 +325,17 @@ public class database {
         int r = st.executeUpdate(qr);
         con.close();
     }
+
+    public void customActionQuery(String query) throws Exception {
+        database db = new database();
+        String url = db.url;
+        String username = db.username;
+        String pass = db.pass;
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection(url, username, pass);
+        Statement st = con.createStatement();
+        int r = st.executeUpdate(query);
+        con.close();
+    }
 }
