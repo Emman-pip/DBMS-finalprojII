@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -143,6 +145,7 @@ class addRecordsForm extends JPanel {
 
     addRecordsForm() {
         this.setLayout(new BorderLayout());
+        this.setBorder(new EmptyBorder(80, 20, 20, 20));
         GridBagConstraints gbc = new GridBagConstraints();
 
         // pnl_one user account
