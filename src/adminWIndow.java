@@ -35,9 +35,9 @@ public class adminWIndow extends JFrame {
         this.setVisible(true);
     }
 
-    // public static void main(String[] args) {
-    // new adminWIndow();
-    // }
+    public static void main(String[] args) {
+        new adminWIndow();
+    }
 }
 
 // design on top
@@ -507,6 +507,7 @@ class clientInfoDisplay extends JPanel {
         JPanel pnl_top = new JPanel();
         String[] tablenameList = { "ClientInfo", "Packages", "user_accounts", "Reservations" };
         JComboBox combo_tablename = new JComboBox(tablenameList);
+        combo_tablename.setFont(new Font(null, Font.BOLD, 30));
         pnl_top.add(combo_tablename);
         JPanel pnl_centerJPanel = new JPanel();
         this.add(pnl_top, BorderLayout.NORTH);
