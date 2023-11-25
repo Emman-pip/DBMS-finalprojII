@@ -569,6 +569,26 @@ class editDelete extends JPanel {
         gbc.ipady = 20;
         pnl_components.add(btn, gbc);
 
+        JButton btn_delete = new JButton("DELETE ALL RECORDS OF USER");
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.ipady = 20;
+        pnl_components.add(btn_delete, gbc);
+
+        btn_delete.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    new deleteUserData().deleteAll(txt_id.getText());
+                    JOptionPane.showMessageDialog(new JFrame(), "All data related to the user ID was deleted.");
+
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(new JFrame(), "FAILED TO DELETE RECORDS:" + ex);
+                }
+            }
+        });
+
         this.add(pnl_components, BorderLayout.CENTER);
         btn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -579,6 +599,15 @@ class editDelete extends JPanel {
 
             }
         });
+    }
+}
+
+class deleteUserData {
+    public void deleteAll(String ID) throws Exception {
+        new database().customActionQuery("DELETE FROM Reservations WHERE clientID = " + ID);
+        new database()
+                .customActionQuery("DELETE FROM Reservations WHERE clientID = " + new database().searchAccountID(ID));
+        new database().customActionQuery("DELETE FROM ClientInfo WHERE clientId = " + ID);
     }
 }
 
