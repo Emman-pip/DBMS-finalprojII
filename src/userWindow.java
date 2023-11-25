@@ -272,43 +272,6 @@ class reservationForm extends JInternalFrame {
         gbc.gridy = 3;
         gbc.insets = new Insets(10, 0, 0, 0);
 
-        // packagesToChoose.addActionListener(new ActionListener() {
-        // public void actionPerformed(ActionEvent e) {
-        // String packageToID;
-        // String packageID = String.valueOf(packagesToChoose.getSelectedItem());
-        // if (packageID.equals("Grange Pool Villa")) {
-        // packageToID = "1";
-        // } else if (packageID.equals("Petrus Pool Villa")) {
-        // packageToID = "2";
-        // } else if (packageID.equals("Shiraz Suite Room")) {
-        // packageToID = "3";
-        // } else if (packageID.equals("Chardonnay Suite Room")) {
-        // packageToID = "4";
-        // } else if (packageID.equals("Sauvignon Grand Villa")) {
-        // packageToID = "5";
-        // } else {
-        // packageToID = "6";
-        // }
-        // try {
-        // JPanel pnl_date = new JPanel();
-        // pnl_date.setLayout(new BorderLayout());
-        // JInternalFrame iF = new customQueries(
-        // "SELECT checkinDate, departureDate FROM Reservations WHERE packageID = " +
-        // packageToID);
-        // pnl_date.add(iF);
-        // gbc.gridx = 0;
-        // gbc.gridy = 4;
-        // gbc.gridwidth = 2;
-        // gbc.ipady = 10;
-        // pnl_main.add(pnl_date, gbc);
-
-        // } catch (Exception ex) {
-        // JOptionPane.showMessageDialog(new JFrame(), "SQL ERROR: " + ex);
-
-        // }
-        // }
-        // });
-
         String[][] checkSchedList;
         try {
             LinkedList<LinkedList<String>> data = new database().queries("Reservations");
@@ -347,7 +310,15 @@ class reservationForm extends JInternalFrame {
             gbc.ipady = 10;
             pnl_main.add(btn_refresh_dates, gbc);
 
+            gbc.gridx = 1;
+            gbc.gridy = 8;
+            // gbc.gridwidth = 1;
+            JPanel pnl_price = new JPanel();
+            pnl_main.add(pnl_price, gbc);
+
             btn_refresh_dates.addActionListener(new ActionListener() {
+
+                JPanel pnl_date = new JPanel();
 
                 public void actionPerformed(ActionEvent e) {
                     // if (e.MOUSE_MOTION_EVENT_MASK){}
@@ -367,9 +338,9 @@ class reservationForm extends JInternalFrame {
                     } else {
                         packageToID = "6";
                     }
-                    JPanel pnl_date = new JPanel();
                     JInternalFrame iF = new JInternalFrame();
 
+                    pnl_date.removeAll();
                     try {
                         // pnl_date.remove(iF);
                         pnl_date.setLayout(new BorderLayout());
@@ -385,9 +356,16 @@ class reservationForm extends JInternalFrame {
                         gbc.ipady = 400;
                         pnl_main.add(pnl_date, gbc);
                         reservedDates.setVisible(false);
-                        pnl_date.revalidate();
-                        pnl_date.repaint();
-                        pnl_date.validate();
+                        pnl_date.setVisible(false);
+                        pnl_date.setVisible(true);
+
+                        pnl_price.removeAll();
+                        pnl_price.add(new JLabel("Total price: " + new database()
+                                .queryWithID(Integer.parseInt(packageToID), "Packages", "packageId").getLast()
+                                + " x days stayed"));
+
+                        pnl_price.setVisible(false);
+                        pnl_price.setVisible(true);
 
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(new JFrame(), "SQL ERROR: " + ex);

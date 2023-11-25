@@ -68,10 +68,10 @@ public class database {
             }
         } else if (tableName == "Packages") {
             if (rs.next()) {
-                System.out.print(rs.getInt(1));
-                System.out.print(rs.getString(2));
-                System.out.print(rs.getString(3));
-                System.out.println(rs.getInt(4));
+                output.add(String.valueOf(rs.getInt(1)));
+                output.add(rs.getString(2));
+                output.add(rs.getString(3));
+                output.add(String.valueOf(rs.getInt(4)));
 
             }
         } else if (tableName == "Reservations") {

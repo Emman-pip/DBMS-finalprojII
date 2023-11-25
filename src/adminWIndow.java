@@ -37,9 +37,9 @@ public class adminWIndow extends JFrame {
         this.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new adminWIndow();
-    }
+    // public static void main(String[] args) {
+    // new adminWIndow();
+    // }
 }
 
 // design on top

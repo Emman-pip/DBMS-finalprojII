@@ -34,7 +34,8 @@ public class mainFile extends JFrame {
 }
 
 // TODO:
-// AYUSIN YUNG ADD RECORDS SA ADMIN WINDOW (layout)
-// DESIGN THE FRONT END!!!! (layout nalang)
-// SYSTEMATIC DELETE
-// fix unavailable dates
+// DESIGN THE FRONT END!!!! (layout nalang) - partially done
+// thumbnail para sa landing page
+// gawing full screen yung admin page na home
+// ADD PRICE SA RESERVATION
+// ADD MENU PARA MAGAMIT YUNG MGA DESCRIPTION PER PACKAGE
