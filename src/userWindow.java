@@ -1,11 +1,8 @@
 import javax.swing.*;
 
-import org.w3c.dom.events.Event;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 
 public class userWindow extends JFrame {
@@ -407,7 +404,7 @@ class reservationForm extends JInternalFrame {
         pnl_main.add(btn_submit, gbc);
         this.add(pnl_main);
 
-        String[][] allDatesArr = checkSchedList.clone();
+        // String[][] allDatesArr = checkSchedList.clone();
 
         btn_submit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -487,7 +484,3 @@ class reservationForm extends JInternalFrame {
 
     }
 }
-
-// TODO:
-// add functionality to the edit/delete button
-// FIX BUG, ONLY CONFLICT IF SAME PACKAGE ID

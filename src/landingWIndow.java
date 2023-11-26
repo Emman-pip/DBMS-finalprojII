@@ -1,13 +1,7 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
-
-import net.miginfocom.layout.Grid;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.LinkedList;
 
 public class landingWIndow extends JFrame {
@@ -51,7 +45,7 @@ class designPanel extends JPanel {
         // this.setBackground();
         try {
             JLabel lbl_sample = new JLabel();
-            images imgs = new images();
+            imagesObj imgs = new imagesObj();
             imgs.images();
             lbl_sample.setIcon(new ImageIcon(imgs.logo));
             this.add(lbl_sample, BorderLayout.NORTH);

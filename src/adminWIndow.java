@@ -16,7 +16,7 @@ public class adminWIndow extends JFrame {
         try {
             JLabel lbl_icon = new JLabel();
             lbl_icon.setHorizontalAlignment(JLabel.CENTER);
-            images imgs = new images();
+            imagesObj imgs = new imagesObj();
             imgs.images();
             Image imgmain = imgs.getScaledImage(imgs.outdoor, 1300, 800);
             lbl_icon.setIcon(new ImageIcon(imgmain));

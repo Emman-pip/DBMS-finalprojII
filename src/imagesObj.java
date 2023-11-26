@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
-public class images {
+public class imagesObj {
     public Image logo;
     public Image outdoor;
     public Image packageicon;

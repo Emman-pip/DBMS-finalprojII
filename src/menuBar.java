@@ -1,4 +1,3 @@
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,7 +11,7 @@ public class menuBar {
         JMenuBar mb = new JMenuBar();
         JMenu menu = new JMenu("Packages Info");
         try {
-            images imgs = new images();
+            imagesObj imgs = new imagesObj();
             imgs.images();
             menu.setIcon(new ImageIcon(imgs.getScaledImage(imgs.packageicon, 50, 50)));
         } catch (Exception e) {
@@ -22,7 +21,7 @@ public class menuBar {
 
         JMenuItem menu_item1 = new JMenuItem("Grange Pool Villa (1)");
         try {
-            images imgs = new images();
+            imagesObj imgs = new imagesObj();
             imgs.images();
             menu_item1.setIcon(new ImageIcon(imgs.getScaledImage(imgs.grange, imgW, imgH)));
 
@@ -44,7 +43,7 @@ public class menuBar {
 
         JMenuItem menu_item2 = new JMenuItem("Petrus Pool Villa (2)");
         try {
-            images imgs = new images();
+            imagesObj imgs = new imagesObj();
             imgs.images();
             menu_item2.setIcon(new ImageIcon(imgs.getScaledImage(imgs.petrus, imgW, imgH)));
 
@@ -64,7 +63,7 @@ public class menuBar {
         });
         JMenuItem menu_item3 = new JMenuItem("Shiraz Suite Room (3)");
         try {
-            images imgs = new images();
+            imagesObj imgs = new imagesObj();
             imgs.images();
             menu_item3.setIcon(new ImageIcon(imgs.getScaledImage(imgs.shiraz, imgW, imgH)));
 
@@ -84,7 +83,7 @@ public class menuBar {
         });
         JMenuItem menu_item4 = new JMenuItem("Chardonnay Suite Room (4)");
         try {
-            images imgs = new images();
+            imagesObj imgs = new imagesObj();
             imgs.images();
             menu_item4.setIcon(new ImageIcon(imgs.getScaledImage(imgs.chardonn, imgW, imgH)));
 
@@ -104,7 +103,7 @@ public class menuBar {
         });
         JMenuItem menu_item5 = new JMenuItem("Sauvignon Grand Villa (5)");
         try {
-            images imgs = new images();
+            imagesObj imgs = new imagesObj();
             imgs.images();
             menu_item5.setIcon(new ImageIcon(imgs.getScaledImage(imgs.sauvig, imgW, imgH)));
 
@@ -124,7 +123,7 @@ public class menuBar {
         });
         JMenuItem menu_item6 = new JMenuItem("Bordeaux Grand Villa (6)");
         try {
-            images imgs = new images();
+            imagesObj imgs = new imagesObj();
             imgs.images();
             menu_item6.setIcon(new ImageIcon(imgs.getScaledImage(imgs.bordeaux, imgW, imgH)));
 
