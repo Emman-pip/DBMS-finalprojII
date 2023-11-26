@@ -15,7 +15,19 @@ public class adminWIndow extends JFrame {
         JPanel pnl_main = new JPanel();
         pnl_main.setLayout(new BorderLayout());
         pnl_side.add(new sidePanel(this, pnl_main));
-        pnl_main.add(new JLabel("HELLO"));
+        try {
+            JLabel lbl_icon = new JLabel();
+            lbl_icon.setHorizontalAlignment(JLabel.CENTER);
+            images imgs = new images();
+            imgs.images();
+            Image imgmain = imgs.getScaledImage(imgs.outdoor, 1300, 800);
+            lbl_icon.setIcon(new ImageIcon(imgmain));
+
+            pnl_main.add(lbl_icon, BorderLayout.CENTER);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
         JPanel pnl_containerMain = new JPanel();
 
         pnl_containerMain.setLayout(new BorderLayout());

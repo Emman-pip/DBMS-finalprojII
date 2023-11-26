@@ -16,6 +16,7 @@ public class userWindow extends JFrame {
         new flatlaf();
         // this.setUndecorated(false);
         JPanel pnl_main = new JPanel();
+        this.add(new JLabel("hello"));
         this.add(pnl_main);
 
         // pnl_main.setBackground(Color.GREEN);
