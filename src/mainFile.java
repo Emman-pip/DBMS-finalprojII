@@ -35,7 +35,6 @@ public class mainFile extends JFrame {
 
 // TODO:
 // DESIGN THE FRONT END!!!! (layout nalang) - partially done
-// thumbnail para sa landing page
 // gawing full screen yung admin page na home
 // ADD PRICE SA RESERVATION - partial done
 // ADD MENU PARA MAGAMIT YUNG MGA DESCRIPTION PER PACKAGE - sa admin and sa user

@@ -4,8 +4,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.LinkedList;
-import java.util.Vector;
 
 public class adminWIndow extends JFrame {
     adminWIndow() {
@@ -45,7 +43,8 @@ public class adminWIndow extends JFrame {
         pnl_containerMain.add(pnl_main, BorderLayout.CENTER);
         this.add(pnl_containerMain);
         this.setTitle("WELCOME ADMIN!");
-        this.setSize(2000, 1500);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setMinimumSize(new Dimension(1000, 800));
         this.setVisible(true);
     }
 
