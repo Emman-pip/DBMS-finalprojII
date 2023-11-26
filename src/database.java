@@ -25,10 +25,7 @@ public class database {
         LinkedList<String> output = new LinkedList<String>();
         if (tableName == "ClientInfo") {
             while (rs.next()) {
-                // try to find a way to shorten the code with logic (loops or recursion?)
-                // TODO: put into arrays (2D) and return?
                 output.add(String.valueOf(rs.getInt(1)));
-                // System.out.println(rs.getInt(1) + " ");
                 output.add(String.valueOf(rs.getString(2)));
                 output.add(String.valueOf(rs.getString(3)));
                 output.add(String.valueOf(rs.getInt(4)));

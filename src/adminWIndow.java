@@ -586,6 +586,7 @@ class editDelete extends JPanel {
                     JOptionPane.showMessageDialog(new JFrame(), "All data related to the user ID was deleted.");
 
                 } catch (Exception ex) {
+                    System.out.println("DELETE ERR: " + ex);
                     JOptionPane.showMessageDialog(new JFrame(), "FAILED TO DELETE RECORDS:" + ex);
                 }
             }
@@ -606,10 +607,15 @@ class editDelete extends JPanel {
 
 class deleteUserData {
     public void deleteAll(String ID) throws Exception {
-        new database().customActionQuery("DELETE FROM Reservations WHERE clientID = " + ID);
-        new database()
-                .customActionQuery("DELETE FROM Reservations WHERE clientID = " + new database().searchAccountID(ID));
-        new database().customActionQuery("DELETE FROM ClientInfo WHERE clientId = " + ID);
+        try {
+            database db = new database();
+            db.customActionQuery("DELETE FROM Reservations WHERE clientID = " + ID + ";");
+            db.customActionQuery("DELETE FROM user_accounts WHERE accountID = "
+                    + String.valueOf(db.queryWithID(Integer.parseInt(ID), "ClientInfo", "clientId").getLast()));
+            db.customActionQuery("DELETE FROM ClientInfo WHERE clientId = " + ID + ";");
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
     }
 }
 
