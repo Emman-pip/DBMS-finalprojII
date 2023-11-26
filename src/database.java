@@ -5,26 +5,12 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.LinkedList;
 
-/*
- * TODO:
- * for selecting all elements of a table done -- DONE
- * selecting certain records on certain tables -- DONE
- * deleting records systematically - when account is deleted, all data related
- * to that account will be too
- * - make a chained Delete query [once an account is deleted, all user data will
- * be deleted too.]
- * - make another one for deleting/cancelling reservations 
- * - remove directly from database 
- * updating certain records 
- * inserting records 
- * method for selecting all records of a certain column in a table 
- */
 public class database {
     String url = "jdbc:mysql://localhost:3306/reservationSystem";
     String pass = "108996eE@emman";
     String username = "root";
 
-    public static LinkedList<String> queryWithID(int ID, String tableName, String columnName) throws Exception {
+    public LinkedList<String> queryWithID(int ID, String tableName, String columnName) throws Exception {
         database db = new database();
         String url = db.url;
         String username = db.username;
@@ -87,7 +73,6 @@ public class database {
 
         } else if (tableName == "user_accounts") {
             if (rs.next()) {
-                LinkedList<String> records = new LinkedList<String>();
                 output.add(String.valueOf(rs.getInt(1)));
                 output.add(rs.getString(2));
                 output.add(rs.getString(3));
@@ -100,7 +85,7 @@ public class database {
         return output;
     }
 
-    public static LinkedList<LinkedList<String>> queries(String tableName) throws Exception {
+    public LinkedList<LinkedList<String>> queries(String tableName) throws Exception {
         database db = new database();
         String url = db.url;
         String username = db.username;
@@ -120,7 +105,6 @@ public class database {
         if (tableName == "ClientInfo") {
             while (rs.next()) {
                 // try to find a way to shorten the code with logic (loops or recursion?)
-                // TODO: put into arrays (2D) and return?
                 LinkedList<String> record = new LinkedList<>();
 
                 record.add(String.valueOf(rs.getInt(1)));
@@ -214,8 +198,7 @@ public class database {
         Statement st = con.createStatement();
         String qr2 = "INSERT INTO user_accounts(username, password) VALUES ('" + user + "', '" + password + "');";
         // QUERY TO GET THE ID
-        int accountID = searchAccountID(user);
-        int rs = st.executeUpdate(qr2);
+        st.executeUpdate(qr2);
         con.close();
     }
 
@@ -258,7 +241,7 @@ public class database {
                 + //
                 "VALUES ('" + name + "', '" + gender + "', " + age + ", '" + email + "', '" + cp + "', '" + landline
                 + "', '" + address + "', '" + nationality + "', '" + reason + "', " + accountID + ")";
-        int r2 = st.executeUpdate(qr);
+        st.executeUpdate(qr);
 
         con.close();
     }
@@ -300,7 +283,7 @@ public class database {
                 + //
                 "VALUES ('" + type + "', " + packageToID + ", '" + checkin + "', '" + depart
                 + "', " + id + ")";
-        int r2 = st.executeUpdate(qr);
+        st.executeUpdate(qr);
         con.close();
     }
 
@@ -320,7 +303,7 @@ public class database {
                 + //
                 "VALUES ('" + type + "', " + packageID + ", '" + checkin + "', '" + depart
                 + "', " + clientID + ")";
-        int r2 = st.executeUpdate(qr);
+        st.executeUpdate(qr);
         con.close();
     }
     // can be refactored better: use package name to search for conflicts
@@ -337,7 +320,7 @@ public class database {
         Statement st = con.createStatement();
         String qr = "UPDATE Reservations SET typeOfReservation = '" + type + "', packageID = " + packageID
                 + ", checkinDate = '" + checkin + "', departureDate = '" + departure + "' WHERE clientID = " + clientID;
-        int r = st.executeUpdate(qr);
+        st.executeUpdate(qr);
         con.close();
     }
 
@@ -351,7 +334,7 @@ public class database {
         Connection con = DriverManager.getConnection(url, username, pass);
         Statement st = con.createStatement();
         String qr = "DELETE FROM Reservations WHERE reservationID = " + reservationID;
-        int r = st.executeUpdate(qr);
+        st.executeUpdate(qr);
         con.close();
     }
 
@@ -364,7 +347,7 @@ public class database {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, username, pass);
         Statement st = con.createStatement();
-        int r = st.executeUpdate(query);
+        st.executeUpdate(query);
         con.close();
     }
 
