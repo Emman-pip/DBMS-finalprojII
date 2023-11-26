@@ -12,10 +12,14 @@ public class editDeleteReservation extends JFrame {
     editDeleteReservation(int clientID) {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         new flatlaf();
+        JPanel pnl_master = new JPanel();
+        pnl_master.setLayout(new BorderLayout());
+        pnl_master.add(new menuBar().menuB(), BorderLayout.NORTH);
         JPanel pnl_main = new JPanel();
         pnl_main.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        this.add(pnl_main);
+        pnl_master.add(pnl_main, BorderLayout.CENTER);
+        this.add(pnl_master);
         this.setTitle("Edit reservation");
         try {
             LinkedList<String> reservation = new database().queryWithID(clientID, "Reservations", "clientID");

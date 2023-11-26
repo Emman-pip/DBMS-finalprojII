@@ -48,6 +48,7 @@ public class userWindow extends JFrame {
             if (dataCheck.size() == 0 || id.equals("")) {
                 pnl_main.setLayout(new BorderLayout());
                 // System.out.println("YOURE IN!!");
+                pnl_main.add(new menuBar().menuB(), BorderLayout.NORTH);
                 JPanel pnl_form = new JPanel();
 
                 pnl_form.add(new JLabel(
@@ -129,7 +130,7 @@ public class userWindow extends JFrame {
             System.out.println(e);
         }
         this.setTitle("WELCOME");
-        this.setSize(650, 900);
+        this.setSize(650, 1000);
         this.setVisible(true);
     }
 
