@@ -8,12 +8,25 @@ import javax.imageio.ImageIO;
 public class images {
     public Image logo;
     public Image outdoor;
-    public Image logo2;
+    public Image packageicon;
+    public Image grange;
+    public Image petrus;
+    public Image shiraz;
+    public Image chardonn;
+    public Image sauvig;
+    public Image bordeaux;
 
     public void images() throws Exception {
         logo = ImageIO.read(getClass().getResource("./media/icon.png"));
         outdoor = ImageIO.read(getClass().getResource("./media/Untitled.png"));
-        logo2 = ImageIO.read(getClass().getResource("./media/logo.png"));
+        packageicon = ImageIO.read(getClass().getResource("./media/package.png"));
+        grange = ImageIO.read(getClass().getResource("./media/grange.jpg"));
+        petrus = ImageIO.read(getClass().getResource("./media/petrus.jpg"));
+        shiraz = ImageIO.read(getClass().getResource("./media/shiraz.jpg"));
+        chardonn = ImageIO.read(getClass().getResource("./media/chardonn.jpg"));
+        sauvig = ImageIO.read(getClass().getResource("./media/sauvignon.jpg"));
+        bordeaux = ImageIO.read(getClass().getResource("./media/bordeux.jpg"));
+
     }
 
     public Image getScaledImage(Image srcImg, int w, int h) {

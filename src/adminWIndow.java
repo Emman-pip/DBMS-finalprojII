@@ -29,16 +29,39 @@ public class adminWIndow extends JFrame {
         JPanel pnl_containerMain = new JPanel();
 
         pnl_containerMain.setLayout(new BorderLayout());
-        JMenuBar mb = new JMenuBar();
-        JMenu menu = new JMenu("Menu");
-        JMenu menu2 = new JMenu("Menu2");
-        JMenuItem menu_item1 = new JMenuItem("menu item 1");
 
-        menu.add(menu_item1);
-        mb.add(menu);
-        mb.add(menu2);
+        // JMenuBar mb = new JMenuBar();
+        // JMenu menu = new JMenu("Packages Info");
+        // try {
+        // images imgs = new images();
+        // imgs.images();
+        // menu.setIcon(new ImageIcon(imgs.getScaledImage(imgs.packageicon, 50, 50)));
+        // } catch (Exception e) {
+        // System.out.println("FAILED TO LOAD ICONS: " + e);
+        // }
+        // JMenu menu2 = new JMenu("Help");
+
+        // JMenu menu_item1 = new JMenu("Grange Pool Villa (1)");
+        // menu_item1.add(new JMenuItem("try"));
+
+        // JMenu menu_item2 = new JMenu("Petrus Pool Villa (2)");
+        // JMenu menu_item3 = new JMenu("Shiraz Suite Room (3)");
+        // JMenu menu_item4 = new JMenu("Chardonnay Suite Room (4)");
+        // JMenu menu_item5 = new JMenu("Sauvignon Grand Villa (5)");
+        // JMenu menu_item6 = new JMenu("Bordeaux Grand Villa (6)");
+
+        // menu.add(menu_item1);
+        // menu.add(menu_item2);
+        // menu.add(menu_item3);
+        // menu.add(menu_item4);
+        // menu.add(menu_item5);
+        // menu.add(menu_item6);
+
+        // mb.add(menu);
+        // mb.add(menu2);
+
         // this.add(menu);
-        pnl_containerMain.add(mb, BorderLayout.NORTH);
+        pnl_containerMain.add(new menuBar().menuB(), BorderLayout.NORTH);
         pnl_containerMain.add(pnl_side, BorderLayout.WEST);
         pnl_containerMain.add(pnl_main, BorderLayout.CENTER);
         this.add(pnl_containerMain);
@@ -48,9 +71,9 @@ public class adminWIndow extends JFrame {
         this.setVisible(true);
     }
 
-    // public static void main(String[] args) {
-    // new adminWIndow();
-    // }
+    public static void main(String[] args) {
+        new adminWIndow();
+    }
 }
 
 // design on top
