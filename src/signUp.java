@@ -86,16 +86,19 @@ class signUpForm extends JPanel {
                 try {
                     LinkedList<LinkedList<String>> data = new database().queries("user_accounts");
                     for (int i = 0; i < data.size(); i++) {
-
+                        // TODO: LOGIC ERROR HERE MALING LOOP LOGIC
                         if (txt_username.getText().equals(data.get(i).get(1))) {
                             customerID = Integer.parseInt(data.get(i).get(0));
                             JOptionPane.showMessageDialog(new JFrame(), "pick another username");
-                            return;
+                            throw new Exception("ERROR");
                         } else if (txt_username.getText().equals("")
                                 || String.valueOf(txt_password.getPassword()).equals("")) {
                             JOptionPane.showMessageDialog(new JFrame(), "enter a username/password");
+                            throw new Exception("ERROR");
                         } else if (!(txt_username.getText().equals(data.get(i).get(1)))
                                 && i + 1 == data.size()) {
+                            new database().insertUserAccount(txt_username.getText(),
+                                    String.valueOf(txt_password.getPassword()));
                             System.out.println("YAY ID:" + customerID);
                             btn_signup.setEnabled(false);
                             gbc.gridx = 0;
@@ -104,8 +107,6 @@ class signUpForm extends JPanel {
                             gbc.ipady = 20;
                             gbc.insets = new Insets(10, 0, 0, 0);
                             gbc.fill = GridBagConstraints.HORIZONTAL;
-                            new database().insertUserAccount(txt_username.getText(),
-                                    String.valueOf(txt_password.getPassword()));
                             txt_username.setEnabled(false);
                             txt_password.setEnabled(false);
                             btn_back.setVisible(false);
@@ -114,7 +115,7 @@ class signUpForm extends JPanel {
                         }
                     }
                 } catch (Exception ex) {
-                    System.out.println(ex);
+                    JOptionPane.showMessageDialog(new JFrame(), "PLEASE CHOOSE ANOTHER USERNAME");
                 }
             }
         });
