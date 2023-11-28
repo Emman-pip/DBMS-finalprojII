@@ -86,7 +86,6 @@ class signUpForm extends JPanel {
                 try {
                     LinkedList<LinkedList<String>> data = new database().queries("user_accounts");
                     for (int i = 0; i < data.size(); i++) {
-                        // TODO: LOGIC ERROR HERE MALING LOOP LOGIC
                         if (txt_username.getText().equals(data.get(i).get(1))) {
                             customerID = Integer.parseInt(data.get(i).get(0));
                             JOptionPane.showMessageDialog(new JFrame(), "pick another username");
