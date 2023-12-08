@@ -12,12 +12,13 @@ public class userWindow extends JFrame {
     userWindow(int ID) {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         new flatlaf();
-        // this.setUndecorated(false);
+        JPanel pnl_mother = new JPanel();
+        pnl_mother.setLayout(null);
         JPanel pnl_main = new JPanel();
-        this.add(new JLabel("hello"));
-        this.add(pnl_main);
+        pnl_mother.setLayout(new BoxLayout(pnl_mother, BoxLayout.PAGE_AXIS));
+        pnl_mother.add(pnl_main);
+        this.getContentPane().add(pnl_mother);
 
-        // pnl_main.setBackground(Color.GREEN);
         try {
             String id = "";
             LinkedList<String> dataCheck = new LinkedList<String>();
@@ -32,7 +33,6 @@ public class userWindow extends JFrame {
                 try {
                     String name = new database().queryWithID(ID, "user_accounts", "accountID").get(1);
                     user.setText(name);
-                    System.out.println("DITOOOOOOOOOOOOOOOOOOOOOOOOOOO: " + name);
 
                     JPasswordField pass = new JPasswordField();
                     pass.setText(new database().queryWithID(ID, "user_accounts", "accountID").get(2));
@@ -48,21 +48,23 @@ public class userWindow extends JFrame {
 
             }
             if (dataCheck.size() == 0 || id.equals("")) {
+                this.setSize(650, 900);
                 pnl_main.setLayout(new BorderLayout());
                 // System.out.println("YOURE IN!!");
                 pnl_main.add(new menuBar().menuB(), BorderLayout.NORTH);
                 JPanel pnl_form = new JPanel();
 
-                pnl_form.add(new JLabel(
-                        "You don't have a reservation yet. Make one with us!"));
-                // pnl_form.add(new JLabel("Each client is limited to one reservation only."));
-                pnl_form.add(
-                        new JLabel(
-                                "We only entertain same month reservations due to monthly maintenance of the Villas and Resort."));
+                JOptionPane.showMessageDialog(new JFrame(),
+                        "You don't have a reservation yet. Make one with us!");
+                JOptionPane.showMessageDialog(new JFrame(),
+                        "Each client is only entitled to one reservation. Please contact us if you want a custom reservation");
+                JOptionPane.showMessageDialog(new JFrame(),
+                        "We only entertain same month reservations due to monthly maintenance of the Villas and Resort.");
                 reservationForm rf = new reservationForm(ID, this);
-                pnl_form.add(rf);
-                pnl_main.add(pnl_form);
+                pnl_main.add(rf);
             } else {
+                this.setSize(650, 650);
+
                 pnl_main.setLayout(new BorderLayout());
                 JPanel pnl_layout = new JPanel();
                 // pnl_layout.setBackground(Color.GRAY);
@@ -128,7 +130,9 @@ public class userWindow extends JFrame {
         } catch (Exception e) {
             System.out.println(e);
         }
-        this.setSize(650, 700);
+        JScrollPane scrollablePnl = new JScrollPane(pnl_mother);
+        scrollablePnl.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        this.getContentPane().add(scrollablePnl);
         this.setVisible(true);
     }
 
