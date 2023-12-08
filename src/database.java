@@ -37,17 +37,6 @@ public class database {
                 output.add(String.valueOf(rs.getString(10)));
                 System.out.println(rs.getInt(11));
                 output.add(String.valueOf(rs.getInt(11)));
-
-                // return output;
-                // System.out.print(rs.getString(2) + " ");
-                // System.out.print(rs.getString(3) + " ");
-                // System.out.print(rs.getInt(4) + " ");
-                // System.out.print(rs.getString(5) + " ");
-                // System.out.print(rs.getString(6) + " ");
-                // System.out.print(rs.getString(7) + " ");
-                // System.out.print(rs.getString(8) + " ");
-                // System.out.print(rs.getString(9) + " ");
-                // System.out.println(rs.getString(10));
             }
         } else if (tableName == "Packages") {
             if (rs.next()) {
@@ -76,6 +65,29 @@ public class database {
                 // output.add(records);
             }
         } else {
+            System.out.println("ERROR");
+        }
+        con.close();
+        return output;
+    }
+
+    public int queryWithUsername(String username2) throws Exception {
+        database db = new database();
+        String url = db.url;
+        String username = db.username;
+        String pass = db.pass;
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection(url, username, pass);
+        Statement st = con.createStatement();
+        String qr = "SELECT * FROM user_accounts WHERE username = '" + username2 + "';";
+        ResultSet rs = st.executeQuery(qr);
+        int output = 0;
+        try {
+            if (rs.next()) {
+                output = rs.getInt(1);
+            }
+        } catch (Exception err) {
             System.out.println("ERROR");
         }
         con.close();

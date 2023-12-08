@@ -85,9 +85,9 @@ public class personalInfoForm extends JInternalFrame {
                             txt_address.getText(),
                             txt_nationality.getText(),
                             txt_reason.getText());
-                    JOptionPane.showMessageDialog(new JFrame(), "SIGN UP SUCCESSFUL\nLOGIN TO PROCEED TO RESERVATION");
+                    JOptionPane.showMessageDialog(new JFrame(), "SIGN UP SUCCESSFUL\nPLEASE PROCEED TO RESERVATION");
                     frm.dispose();
-                    new landingWIndow();
+                    new userWindow(new database().queryWithUsername(username.getText()));
                 } catch (Exception ex) {
                     System.err.println(ex);
                     JOptionPane.showMessageDialog(new JFrame(),
