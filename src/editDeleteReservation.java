@@ -8,6 +8,7 @@ import javax.swing.*;
 public class editDeleteReservation extends JFrame {
     JFrame frm = this;
     JButton btn_back;
+    JButton btn_delete;
 
     editDeleteReservation(int clientID) {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -68,7 +69,7 @@ public class editDeleteReservation extends JFrame {
 
             JPanel pnl_buttons = new JPanel();
             JButton btn_edit = new JButton("Edit Reservation");
-            JButton btn_delete = new JButton("Delete Reservation");
+            btn_delete = new JButton("Delete Reservation");
             btn_back = new JButton("Back");
 
             gbc.gridx = 0;

@@ -15,15 +15,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-
-import com.jgoodies.common.format.EmptyDateFormat;
 
 public class adminWIndow extends JFrame {
     adminWIndow() {
@@ -58,34 +58,17 @@ public class adminWIndow extends JFrame {
         this.setMinimumSize(new Dimension(1000, 800));
         this.setVisible(true);
     }
-
-    // public static void main(String[] args) {
-    // new adminWIndow();
-    // }
 }
 
-// design on top
-// create see client info
-// create edit/update/delete client info
-// add records
-// custom queries
 class sidePanel extends JPanel {
     sidePanel(JFrame frm, JPanel pnl_content) {
         this.setBorder(new EmptyBorder(10, 10, 10, 10));
-        // this.setLayout(new BorderLayout());
-        // see client info
         JButton btn_seeClientInfo = new JButton("SEE DATABASE TABLES");
-        // edit/delete/update
         JButton btn_edit_delete_update = new JButton("EDIT/DELETE/UPDATE");
-        // add records
         JButton btn_addRecords = new JButton("ADD RECORDS");
-        // custom queries
         JButton btn_custom = new JButton("CUSTOM SELECT QUERIES");
-
         JButton btn_customAction = new JButton("CUSTOM ACTION QUERIES");
-
         JButton btn_logout = new JButton("LOGOUT");
-
         JPanel pnl_button = new JPanel();
         pnl_button.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -113,10 +96,7 @@ class sidePanel extends JPanel {
 
         btn_edit_delete_update.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // pnl_content.removeAll();
-                // pnl_content.add(new Label("hello world"));
-                // pnl_content.setLayout(new BorderLayout());
-                pnl_content.add(new editDelete(), BorderLayout.EAST);
+                pnl_content.add(new editDelete(pnl_content), BorderLayout.EAST);
                 pnl_content.setVisible(false);
                 pnl_content.setVisible(true);
             }
@@ -134,12 +114,8 @@ class sidePanel extends JPanel {
         btn_custom.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 pnl_content.removeAll();
-                // pnl_content.add(new Label("hello world"));
-                // pnl_content.add(pnl_enter);
-                // enter new class here
                 pnl_content.add(new customQuery());
 
-                // currently working on getting id of client and getting ang username and
                 pnl_content.setVisible(false);
                 pnl_content.setVisible(true);
             }
@@ -156,7 +132,6 @@ class sidePanel extends JPanel {
 
         btn_logout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // code to logout admin window and come back to landing page
                 frm.dispose();
                 new landingWIndow();
             }
@@ -299,7 +274,6 @@ class addRecordsForm extends JPanel {
                     // HERE set text to client ID
                     String ID = new database()
                             .queryWithID(Integer.parseInt(txt_accNum.getText()), "ClientInfo", "accountNumber").get(0);
-                    // System.out.println("ID: " + ID);
                     txt_clientID.setText(ID);
 
                     JOptionPane.showMessageDialog(new JFrame(), "DATABASE INSERTION SUCCESS");
@@ -307,7 +281,6 @@ class addRecordsForm extends JPanel {
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(new JFrame(), "DATABASE INSERTION FAILED: " + ex);
                 }
-                // TODO: FIX BUG SA ACTION QUERIES
             }
         });
 
@@ -315,11 +288,6 @@ class addRecordsForm extends JPanel {
         btn_reserve.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    // System.out.println(txt_type.getText() +
-                    // txt_package.getText() +
-                    // txt_checkIn.getText() +
-                    // txt_depart.getText() +
-                    // txt_clientID.getText());
                     new database().insertReservation2(
                             txt_type.getText(),
                             txt_package.getText(),
@@ -402,11 +370,7 @@ class addRecordsForm extends JPanel {
 
         gbc.gridx = 1;
         gbc.gridy = 6;
-        // gbc.gridwidth = 2;
-        // gbc.fill = GridBagConstraints.HORIZONTAL;
         pnl_reservation.add(btn_reserve, gbc);
-
-        // ipasok ang mga gui
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -524,23 +488,16 @@ class addRecordsForm extends JPanel {
         gbc.gridwidth = 2;
         pnl_account.add(btn_createAccount, gbc);
 
-        // gbc.gridx = 0;
-        // gbc.gridy = 0;
         JPanel pnl_pnls = new JPanel();
-        // pnl_pnls.setPreferredSize(pnl_personalInfo.getSize());
 
         pnl_pnls.add(pnl_account);
         pnl_account.setBackground(new Color(35, 0, 35));
         pnl_account.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        // gbc.gridx = 1;
-        // gbc.gridy = 0;
         pnl_pnls.add(pnl_personalInfo);
         pnl_personalInfo.setBackground(new Color(35, 0, 35));
         pnl_personalInfo.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        // gbc.gridx = 2;
-        // gbc.gridy = 0;
         pnl_pnls.add(pnl_reservation);
         pnl_reservation.setBackground(new Color(35, 0, 35));
         pnl_reservation.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -588,7 +545,7 @@ class clientInfoDisplay extends JPanel {
 }
 
 class editDelete extends JPanel {
-    editDelete() {
+    editDelete(JPanel pnl_main) {
         this.setLayout(new BorderLayout());
         JLabel lbl_id = new JLabel("CLIENT ID: ");
         JTextField txt_id = new JTextField();
@@ -617,11 +574,30 @@ class editDelete extends JPanel {
 
         JButton btn_delete = new JButton("DELETE ALL RECORDS OF USER");
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.ipady = 20;
         pnl_components.add(btn_delete, gbc);
+
+        JButton btn_updateReservation = new JButton("Update Reservation");
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.ipady = 20;
+        pnl_components.add(btn_updateReservation, gbc);
+
+        btn_updateReservation.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                editDeleteReservation update = new editDeleteReservation(Integer.parseInt(txt_id.getText()));
+                update.btn_back.setVisible(false);
+                update.btn_delete.setVisible(false);
+
+                update.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+            }
+        });
 
         btn_delete.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -639,10 +615,35 @@ class editDelete extends JPanel {
         this.add(pnl_components, BorderLayout.CENTER);
         btn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                editDeleteReservation ed = new editDeleteReservation(Integer.parseInt(txt_id.getText()));
-                ed.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                ;
-                ed.btn_back.setVisible(false);
+                // gawin to
+                try {
+                    try {
+                        BorderLayout layout = (BorderLayout) pnl_main.getLayout();
+                        pnl_main.remove(layout.getLayoutComponent(BorderLayout.SOUTH));
+                    } catch (Exception err) {
+                        System.out.println(err);
+                    }
+                    JInternalFrame InternalFrm = new customQueries(
+
+                            "SELECT * FROM ClientInfo\n" + //
+                                    "LEFT OUTER JOIN Reservations\n" + //
+                                    "ON Reservations.clientID = ClientInfo.clientId\n" + //
+                                    "LEFT OUTER JOIN user_accounts\n" + //
+                                    "ON ClientInfo.accountNumber = user_accounts.accountID\n" + //
+                                    "WHERE ClientInfo.clientId = \n" + txt_id.getText() + //
+                                    ";");
+                    InternalFrm.setResizable(true);
+                    InternalFrm.setPreferredSize(new Dimension(WIDTH, 100));
+                    InternalFrm.setBorder(new EmptyBorder(0, 0, 0, 0));
+                    InternalFrm.setTitle("Info about Client#" + txt_id.getText());
+                    ;
+                    pnl_main.add(InternalFrm,
+                            BorderLayout.SOUTH);
+
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(new JFrame(),
+                            "AN ERROR OCCURED. MAKE SURE YOU ENTERED A VALID CLIENT ID\n" + ex);
+                }
 
             }
         });
