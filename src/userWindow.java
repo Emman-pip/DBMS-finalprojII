@@ -373,8 +373,6 @@ class reservationForm extends JInternalFrame {
                 }
             });
 
-            // frm.setSize(700, 800);
-
         } catch (Exception e) {
             System.out.println(e);
             checkSchedList = new String[0][0];
@@ -386,11 +384,7 @@ class reservationForm extends JInternalFrame {
                 System.out.println(e);
             }
         }
-        // for (String[] i : checkSchedList) {
-        // System.out.println(i[0] + " " + i[1]);
-        // }
-        // n*[-]n*[-]n*
-        // REGEX EXPRESSION HERE TO FIND CONFLICTS;
+
         gbc.gridx = 1;
         gbc.gridy = 3;
         gbc.insets = new Insets(10, 0, 0, 0);
@@ -403,8 +397,6 @@ class reservationForm extends JInternalFrame {
         gbc.ipady = 10;
         pnl_main.add(btn_submit, gbc);
         this.add(pnl_main);
-
-        // String[][] allDatesArr = checkSchedList.clone();
 
         btn_submit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -441,7 +433,6 @@ class reservationForm extends JInternalFrame {
 
                     LinkedList<String> allReservedDates = new dates().fillDates(content);
                     System.out.println("DATES: " + allReservedDates);
-                    // System.err.println(allReservedDates);
                     if (allReservedDates.contains(String.valueOf(datesToChoose.getSelectedItem()) + "-" +
                             String.valueOf(monthsToChoose.getSelectedItem()) + "-" +
                             String.valueOf(daysToChoose.getSelectedItem()))
@@ -453,9 +444,6 @@ class reservationForm extends JInternalFrame {
 
                         return;
                     }
-                    // System.out.println((datesToChoose.getSelectedItem()) + "-" +
-                    // (monthsToChoose.getSelectedItem()) + "-" +
-                    // (daysToChoose.getSelectedItem()));
                     new database().insertReservation(String.valueOf(types.getSelectedItem()),
                             String.valueOf(packagesToChoose.getSelectedItem()),
                             String.valueOf(datesToChoose.getSelectedItem()) + "-" +
@@ -468,9 +456,9 @@ class reservationForm extends JInternalFrame {
                                     String.valueOf(daysToChoose2.getSelectedItem()),
                             String.valueOf(ID));
                     JOptionPane.showMessageDialog(new JFrame(),
-                            "RESERVATION SUCCESSFULL. PLEASE LOGIN AGAIN TO CHECK FOR YOUR RESERVATION.");
+                            "RESERVATION SUCCESSFULL.");
                     frm.dispose();
-                    new landingWIndow();
+                    new userWindow(ID);
 
                 } catch (Exception ex) {
                     System.out.println(ex);
