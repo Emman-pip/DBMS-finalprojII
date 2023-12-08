@@ -7,6 +7,7 @@ import java.util.LinkedList;
 
 public class userWindow extends JFrame {
     JFrame frm = this;
+    JTextField user = new JTextField();
 
     userWindow(int ID) {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -23,12 +24,16 @@ public class userWindow extends JFrame {
             try {
                 id = new database().queryWithID(ID, "ClientInfo", "accountNumber").getFirst();
                 dataCheck = new database().queryWithID(Integer.parseInt(id), "Reservations", "clientID");
+                this.setTitle("WELCOME " + new database().queryWithID(ID, "user_accounts", "accountID").get(1));
+
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(new JFrame(),
                         "You do not have a personal data record yet. Please fill out the form.");
                 try {
-                    JTextField user = new JTextField();
-                    user.setText(new database().queryWithID(ID, "user_accounts", "accountID").get(1));
+                    String name = new database().queryWithID(ID, "user_accounts", "accountID").get(1);
+                    user.setText(name);
+                    System.out.println("DITOOOOOOOOOOOOOOOOOOOOOOOOOOO: " + name);
+
                     JPasswordField pass = new JPasswordField();
                     pass.setText(new database().queryWithID(ID, "user_accounts", "accountID").get(2));
                     JFrame frm_form = new JFrame();
@@ -51,11 +56,9 @@ public class userWindow extends JFrame {
                 pnl_form.add(new JLabel(
                         "You don't have a reservation yet. Make one with us!"));
                 // pnl_form.add(new JLabel("Each client is limited to one reservation only."));
-
                 pnl_form.add(
                         new JLabel(
                                 "We only entertain same month reservations due to monthly maintenance of the Villas and Resort."));
-
                 reservationForm rf = new reservationForm(ID, this);
                 pnl_form.add(rf);
                 pnl_main.add(pnl_form);
@@ -120,13 +123,11 @@ public class userWindow extends JFrame {
                         frm.dispose();
                         new landingWIndow();
                     }
-
                 });
             }
         } catch (Exception e) {
             System.out.println(e);
         }
-        this.setTitle("WELCOME");
         this.setSize(650, 1000);
         this.setVisible(true);
     }
