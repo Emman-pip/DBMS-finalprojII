@@ -27,6 +27,7 @@ public class landingWIndow extends JFrame {
 
         this.add(pnl_main);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 

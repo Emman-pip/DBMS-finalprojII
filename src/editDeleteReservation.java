@@ -2,6 +2,7 @@ import java.util.LinkedList;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.border.EmptyBorder;
 
 import javax.swing.*;
 
@@ -135,6 +136,8 @@ public class editDeleteReservation extends JFrame {
             System.out.println(e);
         }
         this.setSize(500, 500);
+        pnl_main.setBorder(new EmptyBorder(10, 10, 10, 10));
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 

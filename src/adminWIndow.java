@@ -8,8 +8,6 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.font.TextAttribute;
-import java.util.Collections;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -56,6 +54,7 @@ public class adminWIndow extends JFrame {
         this.setTitle("WELCOME ADMIN!");
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setMinimumSize(new Dimension(1000, 800));
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 }

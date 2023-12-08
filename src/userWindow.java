@@ -39,6 +39,7 @@ public class userWindow extends JFrame {
                     JFrame frm_form = new JFrame();
                     frm_form.add(new personalInfoForm(user, pass, frm_form));
                     frm_form.setSize(600, 550);
+                    this.setLocationRelativeTo(null);
                     frm_form.setVisible(true);
 
                 } catch (Exception ex) {
@@ -133,6 +134,7 @@ public class userWindow extends JFrame {
         JScrollPane scrollablePnl = new JScrollPane(pnl_mother);
         scrollablePnl.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         this.getContentPane().add(scrollablePnl);
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 

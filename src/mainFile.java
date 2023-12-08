@@ -23,6 +23,8 @@ public class mainFile extends JFrame {
         });
         this.add(pnl);
         this.setSize(300, 300);
+        // this.pack();
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 

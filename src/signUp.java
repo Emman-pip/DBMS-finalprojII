@@ -17,6 +17,7 @@ public class signUp extends JFrame {
         this.add(pnl);
         this.setTitle("SIGN UP");
         this.setSize(800, 600);
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 
