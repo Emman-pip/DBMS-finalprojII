@@ -1,9 +1,29 @@
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.font.TextAttribute;
+import java.util.Collections;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+import com.jgoodies.common.format.EmptyDateFormat;
 
 public class adminWIndow extends JFrame {
     adminWIndow() {
@@ -51,6 +71,7 @@ public class adminWIndow extends JFrame {
 // custom queries
 class sidePanel extends JPanel {
     sidePanel(JFrame frm, JPanel pnl_content) {
+        this.setBorder(new EmptyBorder(10, 10, 10, 10));
         // this.setLayout(new BorderLayout());
         // see client info
         JButton btn_seeClientInfo = new JButton("SEE DATABASE TABLES");
@@ -82,7 +103,7 @@ class sidePanel extends JPanel {
         btn_seeClientInfo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 pnl_content.removeAll();
-                pnl_content.setLayout(new BorderLayout());
+                // pnl_content.setLayout(new BorderLayout());
                 pnl_content.add(new clientInfoDisplay(), BorderLayout.CENTER);
 
                 pnl_content.setVisible(false);
@@ -92,7 +113,9 @@ class sidePanel extends JPanel {
 
         btn_edit_delete_update.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                pnl_content.setLayout(new BorderLayout());
+                // pnl_content.removeAll();
+                // pnl_content.add(new Label("hello world"));
+                // pnl_content.setLayout(new BorderLayout());
                 pnl_content.add(new editDelete(), BorderLayout.EAST);
                 pnl_content.setVisible(false);
                 pnl_content.setVisible(true);
@@ -327,161 +350,176 @@ class addRecordsForm extends JPanel {
         for (JTextField txt : txt_list) {
             txt.setColumns(20);
         }
+        JLabel lbl_reserveForm = new JLabel("Reservation Form:");
 
         // reservation components
-
+        GridBagConstraints g = new GridBagConstraints();
+        g.gridx = 0;
+        g.gridy = 0;
+        g.gridwidth = 2;
+        g.fill = GridBagConstraints.HORIZONTAL;
+        lbl_reserveForm.setFont(getFont());
+        pnl_reservation.add(lbl_reserveForm, gbc);
         gbc.gridx = 0;
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         pnl_reservation.add(new JLabel("Package type: "), gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         pnl_reservation.add(new JLabel("Package ID: "), gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         pnl_reservation.add(new JLabel("Check In Date: "), gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         pnl_reservation.add(new JLabel("Departure Date: "), gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         pnl_reservation.add(new JLabel("Client ID: "), gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         pnl_reservation.add(txt_type, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         pnl_reservation.add(txt_package, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         pnl_reservation.add(txt_checkIn, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         pnl_reservation.add(txt_depart, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         pnl_reservation.add(txt_clientID, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         // gbc.gridwidth = 2;
         // gbc.fill = GridBagConstraints.HORIZONTAL;
         pnl_reservation.add(btn_reserve, gbc);
 
         // ipasok ang mga gui
+
         gbc.gridx = 0;
         gbc.gridy = 0;
+        pnl_personalInfo.add(new JLabel("Personal Info Form: "));
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
         pnl_personalInfo.add(new JLabel("Name: "), gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         pnl_personalInfo.add(new JLabel("Gender: "), gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         pnl_personalInfo.add(new JLabel("Age: "), gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         pnl_personalInfo.add(new JLabel("Email: "), gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         pnl_personalInfo.add(new JLabel("Mobile number: "), gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         pnl_personalInfo.add(new JLabel("Landline: "), gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 6;
+        gbc.gridy = 7;
         pnl_personalInfo.add(new JLabel("Address: "), gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 7;
+        gbc.gridy = 8;
         pnl_personalInfo.add(new JLabel("Nationality: "), gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 8;
+        gbc.gridy = 9;
         pnl_personalInfo.add(new JLabel("Reason: "), gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 9;
+        gbc.gridy = 10;
         pnl_personalInfo.add(new JLabel("Account Number: "), gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         pnl_personalInfo.add(txt_name, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         pnl_personalInfo.add(txt_gender, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         pnl_personalInfo.add(txt_age, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         pnl_personalInfo.add(txt_email, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         pnl_personalInfo.add(txt_cp, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         pnl_personalInfo.add(txt_landline, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 6;
+        gbc.gridy = 7;
         pnl_personalInfo.add(txt_address, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 7;
+        gbc.gridy = 8;
         pnl_personalInfo.add(txt_nationality, gbc);
 
         gbc.gridx = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridy = 8;
+        gbc.gridy = 9;
         txt_reason.setWrapStyleWord(true);
         pnl_personalInfo.add(txt_reason, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 9;
+        gbc.gridy = 10;
         pnl_personalInfo.add(txt_accNum, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 10;
+        gbc.gridy = 11;
         pnl_personalInfo.add(btn_setPersonalInfo, gbc);
         //
 
         gbc.gridx = 0;
         gbc.gridy = 0;
+        pnl_account.add(new JLabel("Account Form: "), gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
         pnl_account.add(new JLabel("username: "), gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         pnl_account.add(txt_username, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         pnl_account.add(new JLabel("password: "), gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         pnl_account.add(txt_password, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridwidth = 2;
         pnl_account.add(btn_createAccount, gbc);
@@ -492,14 +530,20 @@ class addRecordsForm extends JPanel {
         // pnl_pnls.setPreferredSize(pnl_personalInfo.getSize());
 
         pnl_pnls.add(pnl_account);
+        pnl_account.setBackground(new Color(35, 0, 35));
+        pnl_account.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         // gbc.gridx = 1;
         // gbc.gridy = 0;
         pnl_pnls.add(pnl_personalInfo);
+        pnl_personalInfo.setBackground(new Color(35, 0, 35));
+        pnl_personalInfo.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         // gbc.gridx = 2;
         // gbc.gridy = 0;
         pnl_pnls.add(pnl_reservation);
+        pnl_reservation.setBackground(new Color(35, 0, 35));
+        pnl_reservation.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         this.add(pnl_pnls, BorderLayout.CENTER);
 
