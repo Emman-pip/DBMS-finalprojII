@@ -128,7 +128,7 @@ public class userWindow extends JFrame {
         } catch (Exception e) {
             System.out.println(e);
         }
-        this.setSize(650, 1000);
+        this.setSize(650, 700);
         this.setVisible(true);
     }
 
