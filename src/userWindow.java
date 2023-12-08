@@ -25,7 +25,7 @@ public class userWindow extends JFrame {
             try {
                 id = new database().queryWithID(ID, "ClientInfo", "accountNumber").getFirst();
                 dataCheck = new database().queryWithID(Integer.parseInt(id), "Reservations", "clientID");
-                this.setTitle("WELCOME " + new database().queryWithID(ID, "user_accounts", "accountID").get(1));
+                this.setTitle("Welcome, " + new database().queryWithID(ID, "user_accounts", "accountID").get(1) + "!");
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(new JFrame(),
@@ -95,7 +95,7 @@ public class userWindow extends JFrame {
 
                 gbc.gridx = 0;
                 gbc.gridy = 0;
-                pnl_layout.add(new JLabel("Your Reservation(s):"), gbc);
+                pnl_layout.add(new JLabel("Your Reservation:"), gbc);
 
                 gbc.gridx = 0;
                 gbc.gridy = 1;
