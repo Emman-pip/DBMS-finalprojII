@@ -82,7 +82,8 @@ class sidePanel extends JPanel {
         btn_seeClientInfo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 pnl_content.removeAll();
-                pnl_content.add(new clientInfoDisplay());
+                pnl_content.setLayout(new BorderLayout());
+                pnl_content.add(new clientInfoDisplay(), BorderLayout.CENTER);
 
                 pnl_content.setVisible(false);
                 pnl_content.setVisible(true);
@@ -91,9 +92,8 @@ class sidePanel extends JPanel {
 
         btn_edit_delete_update.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                pnl_content.removeAll();
-                // pnl_content.add(new Label("hello world"));
-                pnl_content.add(new editDelete());
+                pnl_content.setLayout(new BorderLayout());
+                pnl_content.add(new editDelete(), BorderLayout.EAST);
                 pnl_content.setVisible(false);
                 pnl_content.setVisible(true);
             }

@@ -33,4 +33,6 @@ public class mainFile extends JFrame {
 
 // DESIGN THE FRONT END!!!! (layout nalang) - partially done
 // ADD PRICE SA RESERVATION - partial done
-// MAKE A WAY FOR THE TABLES TO BE SEEN WHEN EDITING/UPDATING/ADDING RECORDS
+// TODO: MAKE A WAY FOR THE TABLES TO BE SEEN WHEN EDITING/UPDATING/ADDING
+// RECORDS (add sa east ng borderlayout)
+// TODO: redesign the add records admin form
