@@ -82,17 +82,6 @@ public class personalInfoForm extends JInternalFrame {
                             + ", '" + txt_email.getText() + "', '" + txt_cp.getText() + "', '" + txt_landline.getText()
                             + "', '" + txt_address.getText() + "', '" + txt_nationality.getText() + "', '"
                             + txt_reason.getText() + "', " + accountID + ")");
-                    // insertPersonalRecords(
-                    // username.getText(),
-                    // txt_name.getText(),
-                    // txt_gender.getText(),
-                    // txt_age.getText(),
-                    // txt_email.getText(),
-                    // txt_cp.getText(),
-                    // txt_landline.getText(),
-                    // txt_address.getText(),
-                    // txt_nationality.getText(),
-                    // txt_reason.getText());
                     JOptionPane.showMessageDialog(new JFrame(), "SIGN UP SUCCESSFUL\nPLEASE PROCEED TO RESERVATION");
                     frm.dispose();
                     new userWindow(Integer.parseInt(String.valueOf(new database().customQueries(
