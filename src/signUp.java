@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class signUp extends JFrame {
     JFrame frm = this;
@@ -79,10 +80,11 @@ class signUpForm extends JPanel {
         btn_signup.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
                 try {
-                    LinkedList<LinkedList<String>> data = new database().queries("user_accounts");
+                    LinkedList<ArrayList<Object>> data = new database().customQueries("SELECT * FROM user_accounts");
+                    // queries("user_accounts");
                     for (int i = 0; i < data.size(); i++) {
                         if (txt_username.getText().equals(data.get(i).get(1))) {
-                            customerID = Integer.parseInt(data.get(i).get(0));
+                            customerID = Integer.parseInt(data.get(i).get(0).toString());
                             JOptionPane.showMessageDialog(new JFrame(), "pick another username");
                             throw new Exception("ERROR");
                         } else if (txt_username.getText().equals("")
