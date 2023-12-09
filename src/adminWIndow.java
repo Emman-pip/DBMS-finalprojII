@@ -219,7 +219,9 @@ class addRecordsForm extends JPanel {
                         txt.setEnabled(false);
                         btn_createAccount.setEnabled(false);
                     }
-                    txt_accNum.setText(String.valueOf(new database().searchAccountID(txt_username.getText())));
+                    txt_accNum.setText(String.valueOf(new database().customQueries(
+                            "SELECT accountID FROM user_accounts WHERE username='" + txt_username.getText() + "'")));
+                    // searchAccountID(txt_username.getText())));
                     txt_accNum.setEnabled(false);
 
                     JOptionPane.showMessageDialog(new JFrame(), "DATABASE INSERTION SUCCESS");
