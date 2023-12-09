@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class landingWIndow extends JFrame {
@@ -76,12 +77,13 @@ class loginWindow extends JPanel {
         btn_login.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
                 try {
-                    LinkedList<LinkedList<String>> data = new database().queries("user_accounts");
+                    LinkedList<ArrayList<Object>> data = new database().customQueries("SELECT * FROM user_accounts");
+                    // queries("user_accounts");
                     for (int i = 0; i < data.size(); i++) {
 
                         if (txt_username.getText().equals(data.get(i).get(1))
                                 && String.valueOf(txt_pass.getPassword()).equals(data.get(i).get(2))) {
-                            customerID = Integer.parseInt(data.get(i).get(0));
+                            customerID = Integer.parseInt(data.get(i).get(0).toString());
                             new userWindow(customerID);
                             frm.dispose();
                             return;
