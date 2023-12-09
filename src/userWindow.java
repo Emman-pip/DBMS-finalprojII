@@ -466,17 +466,35 @@ class reservationForm extends JInternalFrame {
 
                         return;
                     }
-                    new database().insertReservation(String.valueOf(types.getSelectedItem()),
-                            String.valueOf(packagesToChoose.getSelectedItem()),
-                            String.valueOf(datesToChoose.getSelectedItem()) + "-" +
+
+                    String id = String.valueOf(new database()
+                            .customQueries(
+                                    "SELECT clientId FROM ClientInfo WHERE accountNumber = " + String.valueOf(ID))
+                            .get(0).get(0));
+
+                    new database().customActionQuery(
+                            "INSERT INTO \n"
+                                    + "Reservations(typeOfReservation, packageID, checkinDate, departureDate, clientID) \n"
+                                    + "VALUES ('"
+                                    + String.valueOf(types.getSelectedItem()) + "', " + packageToID + ", '" +
+                                    String.valueOf(datesToChoose.getSelectedItem()) + "-" +
                                     String.valueOf(monthsToChoose.getSelectedItem()) + "-" +
                                     String.valueOf(daysToChoose.getSelectedItem())
-
-                            ,
-                            String.valueOf(datesToChoose2.getSelectedItem()) + "-" +
+                                    + "', '" +
+                                    String.valueOf(datesToChoose2.getSelectedItem()) + "-" +
                                     String.valueOf(monthsToChoose2.getSelectedItem()) + "-" +
-                                    String.valueOf(daysToChoose2.getSelectedItem()),
-                            String.valueOf(ID));
+                                    String.valueOf(daysToChoose2.getSelectedItem()) + "', " +
+                                    id + ")");
+
+                    // insertReservation(String.valueOf(types.getSelectedItem()),
+                    // String.valueOf(packagesToChoose.getSelectedItem()),
+                    // String.valueOf(datesToChoose.getSelectedItem()) + "-" +
+                    // String.valueOf(monthsToChoose.getSelectedItem()) + "-" +
+                    // String.valueOf(daysToChoose.getSelectedItem()),
+                    // String.valueOf(datesToChoose2.getSelectedItem()) + "-" +
+                    // String.valueOf(monthsToChoose2.getSelectedItem()) + "-" +
+                    // String.valueOf(daysToChoose2.getSelectedItem()),
+                    // String.valueOf(ID));
                     JOptionPane.showMessageDialog(new JFrame(),
                             "RESERVATION SUCCESSFULL.");
                     frm.dispose();
