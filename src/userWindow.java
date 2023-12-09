@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class userWindow extends JFrame {
@@ -21,21 +22,43 @@ public class userWindow extends JFrame {
 
         try {
             String id = "";
-            LinkedList<String> dataCheck = new LinkedList<String>();
+            ArrayList<Object> dataCheck = new ArrayList<Object>();
             try {
-                id = new database().queryWithID(ID, "ClientInfo", "accountNumber").getFirst();
-                dataCheck = new database().queryWithID(Integer.parseInt(id), "Reservations", "clientID");
-                this.setTitle("Welcome, " + new database().queryWithID(ID, "user_accounts", "accountID").get(1) + "!");
+                System.out.println(String.valueOf(
+                        new database().customQueries("SELECT clientId FROM ClientInfo WHERE accountNumber = " + ID)
+                                .get(0)));
+                id = String.valueOf(
+                        new database().customQueries("SELECT clientId FROM ClientInfo WHERE accountNumber = " + ID)
+                                .get(0).get(0));
+                // queryWithID(ID, "ClientInfo", "accountNumber").getFirst();
+                try {
+                    dataCheck = new database().customQueries("SELECT * FROM Reservations WHERE clientID = " + id)
+                            .get(0);
+                } catch (Exception err) {
+                }
+
+                // queryWithID(Integer.parseInt(id), "Reservations", "clientID");
+                this.setTitle("Welcome, " + String.valueOf(new database()
+                        .customQueries("SELECT username FROM user_accounts WHERE accountID = " + ID).get(0).get(0))
+                        + "!");
+
+                // queryWithID(ID, "user_accounts", "accountID").get(1) + "!");
 
             } catch (Exception e) {
+                System.out.println("ERROR: " + e);
                 JOptionPane.showMessageDialog(new JFrame(),
                         "You do not have a personal data record yet. Please fill out the form.");
                 try {
-                    String name = new database().queryWithID(ID, "user_accounts", "accountID").get(1);
+                    String name = String.valueOf(new database()
+                            .customQueries("SELECT username FROM user_accounts WHERE accountID = " + ID).get(0).get(0));
+                    // queryWithID(ID, "user_accounts", "accountID").get(1);
                     user.setText(name);
 
                     JPasswordField pass = new JPasswordField();
-                    pass.setText(new database().queryWithID(ID, "user_accounts", "accountID").get(2));
+                    pass.setText(String.valueOf(
+                            new database().customQueries("SELECT username FROM user_accounts WHERE accountID = " + ID)
+                                    .get(0).get(0)));
+                    // queryWithID(ID, "user_accounts", "accountID").get(2));
                     JFrame frm_form = new JFrame();
                     frm_form.add(new personalInfoForm(user, pass, frm_form));
                     frm_form.setSize(600, 550);
@@ -353,8 +376,11 @@ class reservationForm extends JInternalFrame {
                         pnl_date.setVisible(true);
 
                         pnl_price.removeAll();
-                        pnl_price.add(new JLabel("Total price: " + new database()
-                                .queryWithID(Integer.parseInt(packageToID), "Packages", "packageId").getLast()
+                        pnl_price.add(new JLabel("Total price: " + String.valueOf(new database()
+                                .customQueries("SELECT price FROM Packages WHERE packageId = " + packageToID).get(0)
+                                .get(0))
+                        // .queryWithID(Integer.parseInt(packageToID), "Packages",
+                        // "packageId").getLast()
                                 + " x days stayed"));
 
                         pnl_price.setVisible(false);
