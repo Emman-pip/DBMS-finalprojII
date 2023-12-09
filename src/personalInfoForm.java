@@ -70,17 +70,29 @@ public class personalInfoForm extends JInternalFrame {
                             throw new Exception("PLEASE RECHECK ALL THE FIELDS");
                         }
                     }
-                    new database().insertPersonalRecords(
-                            username.getText(),
-                            txt_name.getText(),
-                            txt_gender.getText(),
-                            txt_age.getText(),
-                            txt_email.getText(),
-                            txt_cp.getText(),
-                            txt_landline.getText(),
-                            txt_address.getText(),
-                            txt_nationality.getText(),
-                            txt_reason.getText());
+                    int accountID = Integer.parseInt(new database()
+                            .customQueries(
+                                    "SELECT accountID FROM user_accounts WHERE username='" + username.getText() + "'")
+                            .get(0).get(0).toString());
+                    System.out.println(accountID);
+                    new database().customActionQuery("INSERT INTO \n" + //
+                            "ClientInfo(clientName, gender, age, email, cpNumber, landline, address, nationality, reason, accountNumber) \n"
+                            + //
+                            "VALUES ('" + txt_name.getText() + "', '" + txt_gender.getText() + "', " + txt_age.getText()
+                            + ", '" + txt_email.getText() + "', '" + txt_cp.getText() + "', '" + txt_landline.getText()
+                            + "', '" + txt_address.getText() + "', '" + txt_nationality.getText() + "', '"
+                            + txt_reason.getText() + "', " + accountID + ")");
+                    // insertPersonalRecords(
+                    // username.getText(),
+                    // txt_name.getText(),
+                    // txt_gender.getText(),
+                    // txt_age.getText(),
+                    // txt_email.getText(),
+                    // txt_cp.getText(),
+                    // txt_landline.getText(),
+                    // txt_address.getText(),
+                    // txt_nationality.getText(),
+                    // txt_reason.getText());
                     JOptionPane.showMessageDialog(new JFrame(), "SIGN UP SUCCESSFUL\nPLEASE PROCEED TO RESERVATION");
                     frm.dispose();
                     new userWindow(Integer.parseInt(String.valueOf(new database().customQueries(

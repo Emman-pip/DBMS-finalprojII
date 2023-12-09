@@ -220,7 +220,8 @@ class addRecordsForm extends JPanel {
                         btn_createAccount.setEnabled(false);
                     }
                     txt_accNum.setText(String.valueOf(new database().customQueries(
-                            "SELECT accountID FROM user_accounts WHERE username='" + txt_username.getText() + "'")));
+                            "SELECT accountID FROM user_accounts WHERE username='" + txt_username.getText() + "'")
+                            .get(0).get(0)));
                     // searchAccountID(txt_username.getText())));
                     txt_accNum.setEnabled(false);
 
@@ -241,17 +242,22 @@ class addRecordsForm extends JPanel {
                         }
 
                     }
-                    new database().insertPersonalRecords(
-                            txt_username.getText(),
-                            txt_name.getText(),
-                            txt_gender.getText(),
-                            txt_age.getText(),
-                            txt_email.getText(),
-                            txt_cp.getText(),
-                            txt_landline.getText(),
-                            txt_address.getText(),
-                            txt_nationality.getText(),
-                            txt_reason.getText());
+                    int accountID = Integer.parseInt(new database()
+                            .customQueries(
+                                    "SELECT accountID FROM user_accounts WHERE username='" + txt_username.getText()
+                                            + "'")
+                            .get(0).get(0).toString());
+                    System.out.println(accountID);
+
+                    new database().customActionQuery(
+                            "INSERT INTO ClientInfo(clientName, gender, age, email, cpNumber, landline, address,\n" + //
+                                    " nationality, reason, accountNumber) VALUES ('" + txt_name.getText() + "', '"
+                                    + txt_gender.getText()
+                                    + "', " + txt_age.getText() + ", '" + txt_email.getText() + "', '"
+                                    + txt_cp.getText()
+                                    + "', '" + txt_landline.getText() + "', '" + txt_address.getText() + "', '"
+                                    + txt_nationality.getText() + "', '" + txt_reason.getText() + "', " + accountID
+                                    + ")");
 
                     if ((txt_username.getText().equals(""))
                             || (String.valueOf(txt_password.getPassword()).equals(""))) {
