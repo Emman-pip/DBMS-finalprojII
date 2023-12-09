@@ -4,7 +4,6 @@ import java.util.regex.Pattern;
 
 public class dates {
     public LinkedList<String> fillDates(String[][] data) {
-        // String[][] data = { { "2023-12-10", "2023-12-13" } };
         LinkedList<String> datesReserved = new LinkedList<String>();
         for (String[] i : data) {
 
@@ -34,13 +33,9 @@ public class dates {
         Matcher matcher = pattern.matcher(data);
         LinkedList<String> items = new LinkedList<String>();
         while (matcher.find()) {
-            // int start = matcher.start() + 2;
             int start = matcher.start();
-
-            // int end = matcher.end() - 1;
             int end = matcher.end();
             items.add(data.substring(start, end));
-            // System.out.println(start + " " + end);
         }
         return items;
     }
