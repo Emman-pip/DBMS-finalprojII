@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 public class database {
     String url = "jdbc:mysql://localhost:3306/reservationSystem";
-    String pass = "108996eE@emman";
+    String pass = "137666eE";
     String username = "root";
 
     public LinkedList<ArrayList<Object>> customQueries(String qr) throws Exception {
