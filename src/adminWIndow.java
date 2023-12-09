@@ -208,8 +208,6 @@ class addRecordsForm extends JPanel {
                     }
                     new database().customActionQuery("INSERT INTO user_accounts(username, password) VALUES ('"
                             + txt_username.getText() + "', '" + txt_password.getPassword() + "');");
-                    // insertUserAccount(txt_username.getText(),
-                    // String.valueOf(txt_password.getPassword()));
 
                     for (JTextField txt : txt_personalInfo) {
                         txt.setEnabled(true);
@@ -224,7 +222,6 @@ class addRecordsForm extends JPanel {
                     txt_accNum.setText(String.valueOf(new database().customQueries(
                             "SELECT accountID FROM user_accounts WHERE username='" + txt_username.getText() + "'")
                             .get(0).get(0)));
-                    // searchAccountID(txt_username.getText())));
                     txt_accNum.setEnabled(false);
 
                     JOptionPane.showMessageDialog(new JFrame(), "DATABASE INSERTION SUCCESS");
@@ -283,8 +280,6 @@ class addRecordsForm extends JPanel {
                             .customQueries(
                                     "SELECT clientId FROM ClientInfo WHERE accountNumber = " + txt_accNum.getText())
                             .get(0).get(0));
-                    // .queryWithID(Integer.parseInt(txt_accNum.getText()), "ClientInfo",
-                    // "accountNumber").get(0);
                     txt_clientID.setText(ID);
 
                     JOptionPane.showMessageDialog(new JFrame(), "DATABASE INSERTION SUCCESS");
@@ -306,12 +301,6 @@ class addRecordsForm extends JPanel {
                             + txt_checkIn.getText() + "', '" + txt_depart.getText()
                             + "', " + txt_clientID.getText() + ")");
 
-                    // insertReservation2(
-                    // txt_type.getText(),
-                    // txt_package.getText(),
-                    // txt_checkIn.getText(),
-                    // txt_depart.getText(),
-                    // txt_clientID.getText());
                     for (JTextField txt : txt_reservation) {
                         txt.setEnabled(false);
                         btn_reserve.setEnabled(false);
