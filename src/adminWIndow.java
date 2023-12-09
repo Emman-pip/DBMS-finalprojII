@@ -207,7 +207,7 @@ class addRecordsForm extends JPanel {
                         throw new Exception();
                     }
                     new database().customActionQuery("INSERT INTO user_accounts(username, password) VALUES ('"
-                            + txt_username.getText() + "', '" + txt_password.getPassword() + "');");
+                            + txt_username.getText() + "', '" + String.valueOf(txt_password.getPassword()) + "');");
 
                     for (JTextField txt : txt_personalInfo) {
                         txt.setEnabled(true);
