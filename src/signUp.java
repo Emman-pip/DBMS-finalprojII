@@ -93,7 +93,8 @@ class signUpForm extends JPanel {
                         } else if (!(txt_username.getText().equals(data.get(i).get(1)))
                                 && i + 1 == data.size()) {
                             new database().customActionQuery("INSERT INTO user_accounts(username, password) VALUES ('"
-                                    + txt_username.getText() + "', '" + txt_password.getPassword() + "');");
+                                    + txt_username.getText() + "', '" + String.valueOf(txt_password.getPassword())
+                                    + "');");
                             System.out.println("YAY ID:" + customerID);
                             btn_signup.setEnabled(false);
                             gbc.gridx = 0;

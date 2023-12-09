@@ -56,7 +56,7 @@ public class userWindow extends JFrame {
                     JFrame frm_form = new JFrame();
                     frm_form.add(new personalInfoForm(user, pass, frm_form));
                     frm_form.setSize(600, 550);
-                    this.setLocationRelativeTo(null);
+                    frm_form.setLocationRelativeTo(null);
                     frm_form.setVisible(true);
 
                 } catch (Exception ex) {
@@ -429,7 +429,7 @@ class reservationForm extends JInternalFrame {
                         packageToID = "6";
                     }
                     for (int i = 0; i < data.size(); i++) {
-                        if (data.get(i).get(2).equals(packageToID)) {
+                        if (data.get(i).get(2).toString().equals(packageToID)) {
                             relatedData.add(data.get(i));
                         }
                     }
