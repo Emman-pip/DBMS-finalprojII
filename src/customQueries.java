@@ -58,11 +58,6 @@ public class customQueries extends JInternalFrame {
 
         this.add(sp);
 
-        // this.setSize(500, 500);
         this.setVisible(true);
     }
-
-    // public static void main(String[] args) throws Exception {
-    // new customQueries();
-    // }
 }
