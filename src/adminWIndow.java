@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -268,8 +269,12 @@ class addRecordsForm extends JPanel {
 
                     txt_clientID.setEnabled(false);
 
-                    String ID = new database()
-                            .queryWithID(Integer.parseInt(txt_accNum.getText()), "ClientInfo", "accountNumber").get(0);
+                    String ID = String.valueOf(new database()
+                            .customQueries(
+                                    "SELECT clientId FROM ClientInfo WHERE accountNumber = " + txt_accNum.getText())
+                            .get(0).get(0));
+                    // .queryWithID(Integer.parseInt(txt_accNum.getText()), "ClientInfo",
+                    // "accountNumber").get(0);
                     txt_clientID.setText(ID);
 
                     JOptionPane.showMessageDialog(new JFrame(), "DATABASE INSERTION SUCCESS");
@@ -649,9 +654,12 @@ class deleteUserData {
     public void deleteAll(String ID) throws Exception {
         try {
             database db = new database();
+            ArrayList clientInfo = db.customQueries("SELECT accountID FROM ClientInfo WHERE clientId = " + ID).get(0);
+            int listMaxIndex = clientInfo.size() - 1;
             db.customActionQuery("DELETE FROM Reservations WHERE clientID = " + ID + ";");
             db.customActionQuery("DELETE FROM user_accounts WHERE accountID = "
-                    + String.valueOf(db.queryWithID(Integer.parseInt(ID), "ClientInfo", "clientId").getLast()));
+                    + String.valueOf(clientInfo.get(listMaxIndex)));
+            // queryWithID(Integer.parseInt(ID), "ClientInfo", "clientId").getLast()));
             db.customActionQuery("DELETE FROM ClientInfo WHERE clientId = " + ID + ";");
         } catch (Exception ex) {
             System.out.println(ex);
