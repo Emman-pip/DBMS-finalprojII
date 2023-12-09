@@ -4,10 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class personalInfoForm extends JInternalFrame {
-    // name gender, age, email, cp, landline, address, nationality, reason
     personalInfoForm(JTextField username, JPasswordField password, JFrame frm) {
-        // System.out.println(username.getText() +
-        // String.valueOf(password.getPassword()));
         JPanel pnl = new JPanel();
         pnl.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -45,7 +42,6 @@ public class personalInfoForm extends JInternalFrame {
                 lbl_nationality, lbl_reason };
         JTextField[] fields = { txt_name, txt_gender, txt_age, txt_email, txt_cp, txt_landline, txt_address,
                 txt_nationality, txt_reason };
-        // System.out.println(fields.length);
         for (int i = 0; i < labels.length; i++) {
             fields[i].setColumns(20);
             gbc.gridx = 0;
