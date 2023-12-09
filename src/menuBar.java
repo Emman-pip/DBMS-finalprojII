@@ -34,7 +34,10 @@ public class menuBar {
                 try {
                     System.out.println("works");
                     JOptionPane.showMessageDialog(new JFrame(),
-                            new database().queryWithID(1, "Packages", "packageId").get(2));
+                            String.valueOf(new database()
+                                    .customQueries("SELECT packageDescription FROM Packages WHERE packageId = 1")
+                                    .getFirst().get(0)));
+
                 } catch (Exception ev) {
                     System.out.println(ev);
                 }
@@ -55,7 +58,10 @@ public class menuBar {
                 try {
                     System.out.println("works");
                     JOptionPane.showMessageDialog(new JFrame(),
-                            new database().queryWithID(2, "Packages", "packageId").get(2));
+                            String.valueOf(new database()
+                                    .customQueries("SELECT packageDescription FROM Packages WHERE packageId = 2")
+                                    .getFirst().get(0)));
+
                 } catch (Exception ev) {
                     System.out.println(ev);
                 }
@@ -75,7 +81,10 @@ public class menuBar {
                 try {
                     System.out.println("works");
                     JOptionPane.showMessageDialog(new JFrame(),
-                            new database().queryWithID(3, "Packages", "packageId").get(2));
+                            String.valueOf(new database()
+                                    .customQueries("SELECT packageDescription FROM Packages WHERE packageId = 3")
+                                    .getFirst().get(0)));
+
                 } catch (Exception ev) {
                     System.out.println(ev);
                 }
@@ -95,7 +104,10 @@ public class menuBar {
                 try {
                     System.out.println("works");
                     JOptionPane.showMessageDialog(new JFrame(),
-                            new database().queryWithID(4, "Packages", "packageId").get(2));
+                            String.valueOf(new database()
+                                    .customQueries("SELECT packageDescription FROM Packages WHERE packageId = 4")
+                                    .getFirst().get(0)));
+
                 } catch (Exception ev) {
                     System.out.println(ev);
                 }
@@ -115,7 +127,10 @@ public class menuBar {
                 try {
                     System.out.println("works");
                     JOptionPane.showMessageDialog(new JFrame(),
-                            new database().queryWithID(5, "Packages", "packageId").get(2));
+                            String.valueOf(new database()
+                                    .customQueries("SELECT packageDescription FROM Packages WHERE packageId = 5")
+                                    .getFirst().get(0)));
+
                 } catch (Exception ev) {
                     System.out.println(ev);
                 }
@@ -135,7 +150,9 @@ public class menuBar {
                 try {
                     System.out.println("works");
                     JOptionPane.showMessageDialog(new JFrame(),
-                            new database().queryWithID(6, "Packages", "packageId").get(2));
+                            String.valueOf(new database()
+                                    .customQueries("SELECT packageDescription FROM Packages WHERE packageId = 6")
+                                    .getFirst().get(0)));
                 } catch (Exception ev) {
                     System.out.println(ev);
                 }

@@ -28,7 +28,7 @@ public class editDeleteReservation extends JFrame {
             ArrayList<Object> reservation = new database()
                     .customQueries("SELECT * FROM Reservations WHERE clientID =" + clientID).get(0);
             // .queryWithID(clientID, "Reservations", "clientID");
-            System.out.println(reservation);
+            // System.out.println(reservation);
 
             JPanel pnl_fields = new JPanel();
             JTextField txt_type = new JTextField();
@@ -109,12 +109,6 @@ public class editDeleteReservation extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     try {
                         new database().customActionQuery("DELETE FROM Reservations where clientID = " + clientID);
-                        // deleteReservation(
-                        // String.valueOf(new database()
-                        // .customQueries(
-                        // "SELECT accountNumber FROM ClientInfo WHERE clientId =" + clientID)
-                        // .get(0).get(0)));
-                        // queryWithID(clientID, "Reservations", "clientID").get(0));
                         JOptionPane.showMessageDialog(new JFrame(), "Reservation cancelled.");
                         String accountID = String.valueOf(new database()
                                 .customQueries("SELECT accountNumber FROM ClientInfo WHERE clientId =" + clientID)
