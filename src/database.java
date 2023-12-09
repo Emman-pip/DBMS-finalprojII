@@ -62,7 +62,6 @@ public class database {
                 output.add(String.valueOf(rs.getInt(1)));
                 output.add(rs.getString(2));
                 output.add(rs.getString(3));
-                // output.add(records);
             }
         } else {
             System.out.println("ERROR");
@@ -107,13 +106,10 @@ public class database {
         String qr = "SELECT * FROM " + tableName + ";";
         ResultSet rs = st.executeQuery(qr);
 
-        // while statement will have different versions based on what table is chosen by
-        // the function;
         LinkedList<LinkedList<String>> output = new LinkedList<LinkedList<String>>();
 
         if (tableName == "ClientInfo") {
             while (rs.next()) {
-                // try to find a way to shorten the code with logic (loops or recursion?)
                 LinkedList<String> record = new LinkedList<>();
 
                 record.add(String.valueOf(rs.getInt(1)));
@@ -159,9 +155,6 @@ public class database {
 
                 credentials.add(rs.getString(2));
                 credentials.add(rs.getString(3));
-
-                // System.out.println(rs.getInt(1));
-                // System.out.println(rs.getString(2));
                 output.add((credentials));
                 ;
             }
@@ -232,18 +225,7 @@ public class database {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, username, pass);
         Statement st = con.createStatement();
-        // String qr2 = "INSERT INTO user_accounts(username, password) VALUES ('" + user
-        // + "', '" + password + "');";
-        // QUERY TO GET THE ID
         int accountID = searchAccountID(user);
-        // int rs = st.executeUpdate(qr2);
-        // try {
-        // } catch (Exception e) {
-        // System.out.println(e);
-        // return;
-        // }
-        // FIX THE ERROR HERE: ERROR IS WHEN DATA IS INSERTED, EVERYTHING GETS MESSED
-        // UP, STUFF HAVE TO BE CLICKED TWICE TO WORK
         System.out.println(accountID);
         String qr = "INSERT INTO \n" + //
                 "ClientInfo(clientName, gender, age, email, cpNumber, landline, address, nationality, reason, accountNumber) \n"
@@ -315,7 +297,6 @@ public class database {
         st.executeUpdate(qr);
         con.close();
     }
-    // can be refactored better: use package name to search for conflicts
 
     public void updateReservation(String clientID, String type, String packageID, String checkin, String departure)
             throws Exception {
@@ -359,8 +340,4 @@ public class database {
         st.executeUpdate(query);
         con.close();
     }
-
-    // public String findClientID(){
-
-    // }
 }
