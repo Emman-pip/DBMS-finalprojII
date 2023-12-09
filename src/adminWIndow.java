@@ -671,11 +671,11 @@ class deleteUserData {
     public void deleteAll(String ID) throws Exception {
         try {
             database db = new database();
-            ArrayList clientInfo = db.customQueries("SELECT accountID FROM ClientInfo WHERE clientId = " + ID).get(0);
-            int listMaxIndex = clientInfo.size() - 1;
+            String clientInfo = String
+                    .valueOf(db.customQueries("SELECT accountNumber FROM ClientInfo WHERE clientId = " + ID)
+                            .get(0).get(0));
             db.customActionQuery("DELETE FROM Reservations WHERE clientID = " + ID + ";");
-            db.customActionQuery("DELETE FROM user_accounts WHERE accountID = "
-                    + String.valueOf(clientInfo.get(listMaxIndex)));
+            db.customActionQuery("DELETE FROM user_accounts WHERE accountID = " + clientInfo);
             // queryWithID(Integer.parseInt(ID), "ClientInfo", "clientId").getLast()));
             db.customActionQuery("DELETE FROM ClientInfo WHERE clientId = " + ID + ";");
         } catch (Exception ex) {
@@ -766,7 +766,7 @@ class customActionQuery extends JPanel {
                     JOptionPane.showMessageDialog(new JFrame(), "QUERY SUCCESSFUL");
 
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(new JFrame(), "PLEASE RECHECK YOUR QUERY");
+                    JOptionPane.showMessageDialog(new JFrame(), "PLEASE RECHECK YOUR QUERY\nERR: " + ex);
                 }
                 pnl_table.setVisible(false);
                 pnl_table.setVisible(true);
