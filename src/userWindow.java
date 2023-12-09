@@ -294,7 +294,8 @@ class reservationForm extends JInternalFrame {
 
         String[][] checkSchedList;
         try {
-            LinkedList<LinkedList<String>> data = new database().queries("Reservations");
+            LinkedList<ArrayList<Object>> data = new database().customQueries("SELECT * FROM Reservations");
+            // queries("Reservations");
             System.out.println(data.size());
             JPanel reservedDates = new JPanel();
             String[] columns = {
@@ -303,8 +304,8 @@ class reservationForm extends JInternalFrame {
             String[][] content = new String[data.size()][1];
             for (int i = 0; i < data.size(); i++) {
                 String[] record = new String[2];
-                record[0] = data.get(i).get(3);
-                record[1] = data.get(i).get(4);
+                record[0] = data.get(i).get(3).toString();
+                record[1] = data.get(i).get(4).toString();
                 content[i] = record;
             }
             checkSchedList = content.clone();
@@ -421,8 +422,9 @@ class reservationForm extends JInternalFrame {
         btn_submit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    LinkedList<LinkedList<String>> data = new database().queries("Reservations");
-                    LinkedList<LinkedList<String>> relatedData = new LinkedList<LinkedList<String>>();
+                    LinkedList<ArrayList<Object>> data = new database().customQueries("SELECT * FROM Reservations");
+                    // queries("Reservations");
+                    LinkedLis<ArrayList<Object>> relatedData = new LinkedList<ArrayList<Object>>();
                     String packageToID;
                     String packageID = String.valueOf(packagesToChoose.getSelectedItem());
                     if (packageID.equals("Grange Pool Villa")) {
