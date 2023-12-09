@@ -23,7 +23,6 @@ public class mainFile extends JFrame {
         });
         this.add(pnl);
         this.setSize(300, 300);
-        // this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
@@ -32,8 +31,3 @@ public class mainFile extends JFrame {
         new mainFile();
     }
 }
-
-// DESIGN THE FRONT END!!!! (layout nalang) - partially done
-// ADD PRICE SA RESERVATION - partial done
-
-// RECORDS (add sa east ng borderlayout)
