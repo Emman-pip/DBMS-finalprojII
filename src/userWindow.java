@@ -81,7 +81,6 @@ public class userWindow extends JFrame {
                 String[][] content = { stringArr };
                 System.out.println(column);
                 JTable tbl_reservation = new JTable(content, column);
-                // tbl_reservation.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
                 JScrollPane sp = new JScrollPane(tbl_reservation);
                 pnl_table.setLayout(new BorderLayout());
@@ -92,7 +91,6 @@ public class userWindow extends JFrame {
 
                 GridBagConstraints gbc = new GridBagConstraints();
                 gbc.weightx = 1.0;
-                // gbc.weighty = 1.0;
 
                 gbc.gridx = 0;
                 gbc.gridy = 0;
@@ -137,10 +135,6 @@ public class userWindow extends JFrame {
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
-
-    // public static void main(String[] args) {
-    // new userWindow(18);
-    // }
 }
 
 class userWindowContent extends JPanel {
@@ -157,10 +151,8 @@ class reservationForm extends JInternalFrame {
         pnl_main.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        // type of reservation
         JLabel lbl_type = new JLabel("Type of Reservation: ");
         String[] obj = { "Confirmed/Guaranteeed Reservation", "Tentative Reservation" };
-        // tentative reservations will be cut off after 3 days without confirmation
         JComboBox types = new JComboBox(obj);
 
         gbc.gridx = 0;
@@ -171,14 +163,13 @@ class reservationForm extends JInternalFrame {
 
         gbc.gridx = 1;
         gbc.insets = new Insets(10, 0, 0, 0);
-        // gbc.gridwidth = 3;
         gbc.gridy = 0;
         pnl_main.add(types, gbc);
-        // packageID
+
         JLabel lbl_packageChosen = new JLabel("Package: ");
         String[] packageList = { "Grange Pool Villa", "Petrus Pool Villa", "Shiraz Suite Room",
                 "Chardonnay Suite Room", "Sauvignon Grand Villa", "Bordeaux Grand Villa" };
-        // edit content based on DB
+
         JComboBox packagesToChoose = new JComboBox(packageList);
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -299,7 +290,6 @@ class reservationForm extends JInternalFrame {
             }
             JTable tbl = new JTable(content, columns);
             JScrollPane sp = new JScrollPane(tbl);
-            // sp.setBounds(0, 0, WIDTH, 30);
             reservedDates.setLayout(new BorderLayout());
             reservedDates.add(new JLabel("Possible unavailable dates"), BorderLayout.NORTH);
             reservedDates.add(sp, BorderLayout.CENTER);
@@ -318,7 +308,6 @@ class reservationForm extends JInternalFrame {
 
             gbc.gridx = 1;
             gbc.gridy = 8;
-            // gbc.gridwidth = 1;
             JPanel pnl_price = new JPanel();
             pnl_main.add(pnl_price, gbc);
 
@@ -327,7 +316,6 @@ class reservationForm extends JInternalFrame {
                 JPanel pnl_date = new JPanel();
 
                 public void actionPerformed(ActionEvent e) {
-                    // if (e.MOUSE_MOTION_EVENT_MASK){}
                     String packageToID;
 
                     String packageID = String.valueOf(packagesToChoose.getSelectedItem());
@@ -348,7 +336,6 @@ class reservationForm extends JInternalFrame {
 
                     pnl_date.removeAll();
                     try {
-                        // pnl_date.remove(iF);
                         pnl_date.setLayout(new BorderLayout());
                         iF = new customQueries(
                                 "SELECT checkinDate, departureDate FROM Reservations WHERE packageID = " + packageToID);
