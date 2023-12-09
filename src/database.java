@@ -2,7 +2,9 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class database {
@@ -10,64 +12,42 @@ public class database {
     String pass = "108996eE@emman";
     String username = "root";
 
-    public LinkedList<String> queryWithID(int ID, String tableName, String columnName) throws Exception {
+    public LinkedList<ArrayList<Object>> customQueries(String qr) throws Exception {
+        new flatlaf();
         database db = new database();
         String url = db.url;
         String username = db.username;
         String pass = db.pass;
 
+        ArrayList<Object> data = new ArrayList<Object>();
+
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, username, pass);
         Statement st = con.createStatement();
-        String qr;
-        qr = "SELECT * FROM " + tableName + " WHERE " + columnName + " = " + ID + ";";
+
         ResultSet rs = st.executeQuery(qr);
-        LinkedList<String> output = new LinkedList<String>();
-        if (tableName == "ClientInfo") {
-            while (rs.next()) {
-                output.add(String.valueOf(rs.getInt(1)));
-                output.add(String.valueOf(rs.getString(2)));
-                output.add(String.valueOf(rs.getString(3)));
-                output.add(String.valueOf(rs.getInt(4)));
-                output.add(String.valueOf(rs.getString(5)));
-                output.add(String.valueOf(rs.getString(6)));
-                output.add(String.valueOf(rs.getString(7)));
-                output.add(String.valueOf(rs.getString(8)));
-                output.add(String.valueOf(rs.getString(9)));
-                output.add(String.valueOf(rs.getString(10)));
-                System.out.println(rs.getInt(11));
-                output.add(String.valueOf(rs.getInt(11)));
-            }
-        } else if (tableName == "Packages") {
-            if (rs.next()) {
-                output.add(String.valueOf(rs.getInt(1)));
-                output.add(rs.getString(2));
-                output.add(rs.getString(3));
-                output.add(String.valueOf(rs.getInt(4)));
+        ResultSetMetaData md = rs.getMetaData();
+        int columnCount = md.getColumnCount();
 
+        while (rs.next()) {
+            ArrayList<Object> record = new ArrayList<Object>();
+            for (int i = 1; i < columnCount + 1; i++) {
+                record.add(rs.getObject(i));
             }
-        } else if (tableName == "Reservations") {
-            if (rs.next()) {
-                output.add(String.valueOf(rs.getInt(1)));
-                output.add(rs.getString(2));
-                output.add(String.valueOf(rs.getInt(3)));
-                output.add(String.valueOf(rs.getDate(4)));
-                output.add(String.valueOf(rs.getDate(5)));
-                output.add(String.valueOf(rs.getInt(6)));
+            data.add(record);
+        }
+        LinkedList<ArrayList<Object>> dataList = new LinkedList<ArrayList<Object>>();
 
+        for (int i = 0; i < data.size(); i++) {
+            ArrayList subArr = (ArrayList) data.get(i);
+            ArrayList<Object> recordVector = new ArrayList<Object>();
+            for (int v = 0; v < subArr.size(); v++) {
+                recordVector.add(subArr.get(v));
             }
-
-        } else if (tableName == "user_accounts") {
-            if (rs.next()) {
-                output.add(String.valueOf(rs.getInt(1)));
-                output.add(rs.getString(2));
-                output.add(rs.getString(3));
-            }
-        } else {
-            System.out.println("ERROR");
+            dataList.add(recordVector);
         }
         con.close();
-        return output;
+        return dataList;
     }
 
     public int queryWithUsername(String username2) throws Exception {
