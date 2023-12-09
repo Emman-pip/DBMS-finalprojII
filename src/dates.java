@@ -41,6 +41,7 @@ public class dates {
     }
 
     public static void main(String[][] args) {
+        System.out.println("lol here");
         String[][] lol = { { "2023-12-20" } };
         System.out.println(new dates().fillDates(lol));
     }

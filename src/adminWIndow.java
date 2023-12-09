@@ -598,6 +598,7 @@ class editDelete extends JPanel {
         btn_updateReservation.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 editDeleteReservation update = new editDeleteReservation(Integer.parseInt(txt_id.getText()));
+                update.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 update.btn_back.setVisible(false);
                 update.btn_delete.setVisible(false);
 
