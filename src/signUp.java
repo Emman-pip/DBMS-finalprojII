@@ -20,10 +20,6 @@ public class signUp extends JFrame {
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
-
-    // public static void main(String[] args) {
-    // new signUp();
-    // }
 }
 
 class signUpForm extends JPanel {
@@ -79,8 +75,6 @@ class signUpForm extends JPanel {
         gbc.insets = new Insets(5, 0, 0, 0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(btn_back, gbc);
-
-        // JInternalFrame internal = new JInternalFrame();
 
         btn_signup.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
