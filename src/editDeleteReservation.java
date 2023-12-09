@@ -27,8 +27,6 @@ public class editDeleteReservation extends JFrame {
         try {
             ArrayList<Object> reservation = new database()
                     .customQueries("SELECT * FROM Reservations WHERE clientID =" + clientID).get(0);
-            // .queryWithID(clientID, "Reservations", "clientID");
-            // System.out.println(reservation);
 
             JPanel pnl_fields = new JPanel();
             JTextField txt_type = new JTextField();
@@ -98,8 +96,6 @@ public class editDeleteReservation extends JFrame {
                                 + txt_type.getText() + "', packageID = " + txt_packageName.getText()
                                 + ", checkinDate = '" + txt_checkIn.getText() + "', departureDate = '"
                                 + txt_departure.getText() + "' WHERE clientID = " + clientID);
-                        // updateReservation(String.valueOf(clientID), txt_type.getText(),
-                        // txt_packageName.getText(), txt_checkIn.getText(), txt_departure.getText());
                         JOptionPane.showMessageDialog(new JFrame(), "RESERVATION UPDATED SUCCESSFULLY.");
                     } catch (Exception ex) {
                         System.out.println(ex);
@@ -134,7 +130,6 @@ public class editDeleteReservation extends JFrame {
                         String accountID = String.valueOf(new database()
                                 .customQueries("SELECT accountNumber FROM ClientInfo WHERE clientId =" + clientID)
                                 .get(0).get(0));
-                        // queryWithID(clientID, "ClientInfo", "clientId");
                         new userWindow(Integer.parseInt(accountID));
                         frm.dispose();
                     } catch (Exception ex) {
