@@ -424,7 +424,7 @@ class reservationForm extends JInternalFrame {
                 try {
                     LinkedList<ArrayList<Object>> data = new database().customQueries("SELECT * FROM Reservations");
                     // queries("Reservations");
-                    LinkedLis<ArrayList<Object>> relatedData = new LinkedList<ArrayList<Object>>();
+                    LinkedList<ArrayList<Object>> relatedData = new LinkedList<ArrayList<Object>>();
                     String packageToID;
                     String packageID = String.valueOf(packagesToChoose.getSelectedItem());
                     if (packageID.equals("Grange Pool Villa")) {
@@ -448,8 +448,8 @@ class reservationForm extends JInternalFrame {
                     String[][] content = new String[relatedData.size()][2];
                     for (int i = 0; i < relatedData.size(); i++) {
                         String[] record = new String[2];
-                        record[0] = relatedData.get(i).get(3);
-                        record[1] = relatedData.get(i).get(4);
+                        record[0] = relatedData.get(i).get(3).toString();
+                        record[1] = relatedData.get(i).get(4).toString();
                         content[i] = record;
                     }
 
