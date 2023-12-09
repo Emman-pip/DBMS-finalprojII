@@ -85,7 +85,6 @@ class sidePanel extends JPanel {
         btn_seeClientInfo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 pnl_content.removeAll();
-                // pnl_content.setLayout(new BorderLayout());
                 pnl_content.add(new clientInfoDisplay(), BorderLayout.CENTER);
 
                 pnl_content.setVisible(false);
@@ -261,7 +260,6 @@ class addRecordsForm extends JPanel {
                         txt_reason.setEnabled(false);
                     }
                     btn_setPersonalInfo.setEnabled(false);
-                    // btn_createAccount.setEnabled(false);
 
                     for (JTextField txt : txt_reservation) {
                         txt.setEnabled(true);
@@ -270,7 +268,6 @@ class addRecordsForm extends JPanel {
 
                     txt_clientID.setEnabled(false);
 
-                    // HERE set text to client ID
                     String ID = new database()
                             .queryWithID(Integer.parseInt(txt_accNum.getText()), "ClientInfo", "accountNumber").get(0);
                     txt_clientID.setText(ID);
@@ -614,7 +611,6 @@ class editDelete extends JPanel {
         this.add(pnl_components, BorderLayout.CENTER);
         btn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // gawin to
                 try {
                     try {
                         BorderLayout layout = (BorderLayout) pnl_main.getLayout();
@@ -694,7 +690,6 @@ class customQuery extends JPanel {
                 pnl_table.removeAll();
                 try {
                     customQueries cq = new customQueries(txt_clientID.getText());
-                    // cq.setResizable(true);
                     pnl_table.add(cq, BorderLayout.CENTER);
                 } catch (Exception ex) {
                     System.out.println("IN");
@@ -743,7 +738,6 @@ class customActionQuery extends JPanel {
                 pnl_table.removeAll();
                 try {
                     new database().customActionQuery(txt_clientID.getText());
-                    // pnl_table.add(cq, BorderLayout.CENTER);
                     JOptionPane.showMessageDialog(new JFrame(), "QUERY SUCCESSFUL");
 
                 } catch (Exception ex) {
