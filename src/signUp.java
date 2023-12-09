@@ -81,7 +81,6 @@ class signUpForm extends JPanel {
             public void actionPerformed(ActionEvent ev) {
                 try {
                     LinkedList<ArrayList<Object>> data = new database().customQueries("SELECT * FROM user_accounts");
-                    // queries("user_accounts");
                     for (int i = 0; i < data.size(); i++) {
                         if (txt_username.getText().equals(data.get(i).get(1))) {
                             customerID = Integer.parseInt(data.get(i).get(0).toString());
@@ -95,8 +94,6 @@ class signUpForm extends JPanel {
                                 && i + 1 == data.size()) {
                             new database().customActionQuery("INSERT INTO user_accounts(username, password) VALUES ('"
                                     + txt_username.getText() + "', '" + txt_password.getPassword() + "');");
-                            // insertUserAccount(txt_username.getText(),
-                            // String.valueOf(txt_password.getPassword()));
                             System.out.println("YAY ID:" + customerID);
                             btn_signup.setEnabled(false);
                             gbc.gridx = 0;
