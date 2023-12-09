@@ -30,10 +30,6 @@ public class landingWIndow extends JFrame {
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
-
-    // public static void main(String[] args) {
-    // new landingWIndow();
-    // }
 }
 
 class designPanel extends JPanel {
@@ -41,25 +37,15 @@ class designPanel extends JPanel {
 
         this.setLayout(new BorderLayout());
         this.setBackground(Color.LIGHT_GRAY);
-
-        // this.setBackground(Color.black);
-        // this.setBackground();
         try {
             JLabel lbl_sample = new JLabel();
             imagesObj imgs = new imagesObj();
             imgs.images();
             lbl_sample.setIcon(new ImageIcon(imgs.logo));
             this.add(lbl_sample, BorderLayout.NORTH);
-            // JLabel lbl_outdoor = new JLabel();
-            // lbl_outdoor.setIcon(new ImageIcon(
-            // new images().getScaledImage(imgs.outdoor, lbl_outdoor.getWidth(),
-            // lbl_outdoor.getHeight())));
-            // this.add(lbl_outdoor, BorderLayout.CENTER);
         } catch (Exception e) {
             System.out.println(e);
         }
-
-        // BufferedImage myPicture = ImageIO.read(new File("../media/icon.png"));
     }
 }
 
@@ -96,14 +82,12 @@ class loginWindow extends JPanel {
                         if (txt_username.getText().equals(data.get(i).get(1))
                                 && String.valueOf(txt_pass.getPassword()).equals(data.get(i).get(2))) {
                             customerID = Integer.parseInt(data.get(i).get(0));
-                            System.out.println("YAY ID:" + customerID);
                             new userWindow(customerID);
                             frm.dispose();
                             return;
                         } else if ((!txt_username.getText().equals(data.get(i).get(1))
                                 || !String.valueOf(txt_pass.getPassword()).equals(data.get(i).get(2)))
                                 && i + 1 == data.size()) {
-                            // System.out.println(data);
                             JOptionPane.showMessageDialog(new JFrame(), "INVALID CREDENTIALS");
                         }
                     }
@@ -145,12 +129,10 @@ class adminLogin extends JPanel {
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        JPanel pnl_username = new JPanel();
         JLabel lbl_username = new JLabel("ADMIN:");
         txt_username = new JTextField();
         txt_username.setColumns(20);
 
-        JPanel pnl_pass = new JPanel();
         JLabel lbl_pass = new JLabel("PASS:");
         txt_pass = new JPasswordField();
         txt_pass.setColumns(20);
