@@ -31,8 +31,7 @@ public class editDeleteReservation extends JFrame {
             txt_type.setText(reservation.get(1));
             JTextField txt_packageName = new JTextField();
             txt_packageName.setText(reservation.get(2));
-            // continue displaying the data on the text fields so that the user can delete
-            // the records or update.
+
             JTextField txt_checkIn = new JTextField();
             txt_checkIn.setText(reservation.get(3));
             JTextField txt_departure = new JTextField();
@@ -140,8 +139,4 @@ public class editDeleteReservation extends JFrame {
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
-
-    // public static void main(String[] args) {
-    // new editDeleteReservation(18);
-    // }
 }
