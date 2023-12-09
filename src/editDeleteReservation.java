@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -24,19 +25,22 @@ public class editDeleteReservation extends JFrame {
         this.add(pnl_master);
         this.setTitle("Edit reservation");
         try {
-            LinkedList<String> reservation = new database().queryWithID(clientID, "Reservations", "clientID");
+            ArrayList<Object> reservation = new database()
+                    .customQueries("SELECT * FROM Reservations WHERE clientID =" + clientID).get(0);
+            // .queryWithID(clientID, "Reservations", "clientID");
+            System.out.println(reservation);
 
             JPanel pnl_fields = new JPanel();
             JTextField txt_type = new JTextField();
-            txt_type.setText(reservation.get(1));
+            txt_type.setText(String.valueOf(reservation.get(1)));
             JTextField txt_packageName = new JTextField();
-            txt_packageName.setText(reservation.get(2));
+            txt_packageName.setText(String.valueOf(reservation.get(2)));
 
             JTextField txt_checkIn = new JTextField();
-            txt_checkIn.setText(reservation.get(3));
+            txt_checkIn.setText(String.valueOf(reservation.get(3)));
             JTextField txt_departure = new JTextField();
 
-            txt_departure.setText(reservation.get(4));
+            txt_departure.setText(String.valueOf(reservation.get(4)));
             pnl_fields.setLayout(new GridBagLayout());
             gbc.gridx = 0;
             gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -104,11 +108,19 @@ public class editDeleteReservation extends JFrame {
             btn_delete.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     try {
-                        new database().deleteReservation(
-                                new database().queryWithID(clientID, "Reservations", "clientID").get(0));
+                        new database().customActionQuery("DELETE FROM Reservations where clientID = " + clientID);
+                        // deleteReservation(
+                        // String.valueOf(new database()
+                        // .customQueries(
+                        // "SELECT accountNumber FROM ClientInfo WHERE clientId =" + clientID)
+                        // .get(0).get(0)));
+                        // queryWithID(clientID, "Reservations", "clientID").get(0));
                         JOptionPane.showMessageDialog(new JFrame(), "Reservation cancelled.");
-                        LinkedList<String> accountID = new database().queryWithID(clientID, "ClientInfo", "clientId");
-                        new userWindow(Integer.parseInt(accountID.get(10)));
+                        String accountID = String.valueOf(new database()
+                                .customQueries("SELECT accountNumber FROM ClientInfo WHERE clientId =" + clientID)
+                                .get(0).get(0));
+                        // queryWithID(clientID, "ClientInfo", "clientId");
+                        new userWindow(Integer.parseInt(accountID));
                         frm.dispose();
 
                     } catch (Exception ex) {
@@ -122,8 +134,11 @@ public class editDeleteReservation extends JFrame {
             btn_back.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     try {
-                        LinkedList<String> accountID = new database().queryWithID(clientID, "ClientInfo", "clientId");
-                        new userWindow(Integer.parseInt(accountID.get(10)));
+                        String accountID = String.valueOf(new database()
+                                .customQueries("SELECT accountNumber FROM ClientInfo WHERE clientId =" + clientID)
+                                .get(0).get(0));
+                        // queryWithID(clientID, "ClientInfo", "clientId");
+                        new userWindow(Integer.parseInt(accountID));
                         frm.dispose();
                     } catch (Exception ex) {
                         System.out.println(ex);
