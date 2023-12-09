@@ -30,19 +30,15 @@ public class userWindow extends JFrame {
                 id = String.valueOf(
                         new database().customQueries("SELECT clientId FROM ClientInfo WHERE accountNumber = " + ID)
                                 .get(0).get(0));
-                // queryWithID(ID, "ClientInfo", "accountNumber").getFirst();
                 try {
                     dataCheck = new database().customQueries("SELECT * FROM Reservations WHERE clientID = " + id)
                             .get(0);
                 } catch (Exception err) {
                 }
 
-                // queryWithID(Integer.parseInt(id), "Reservations", "clientID");
                 this.setTitle("Welcome, " + String.valueOf(new database()
                         .customQueries("SELECT username FROM user_accounts WHERE accountID = " + ID).get(0).get(0))
                         + "!");
-
-                // queryWithID(ID, "user_accounts", "accountID").get(1) + "!");
 
             } catch (Exception e) {
                 System.out.println("ERROR: " + e);
@@ -51,14 +47,12 @@ public class userWindow extends JFrame {
                 try {
                     String name = String.valueOf(new database()
                             .customQueries("SELECT username FROM user_accounts WHERE accountID = " + ID).get(0).get(0));
-                    // queryWithID(ID, "user_accounts", "accountID").get(1);
                     user.setText(name);
 
                     JPasswordField pass = new JPasswordField();
                     pass.setText(String.valueOf(
                             new database().customQueries("SELECT username FROM user_accounts WHERE accountID = " + ID)
                                     .get(0).get(0)));
-                    // queryWithID(ID, "user_accounts", "accountID").get(2));
                     JFrame frm_form = new JFrame();
                     frm_form.add(new personalInfoForm(user, pass, frm_form));
                     frm_form.setSize(600, 550);
@@ -74,7 +68,6 @@ public class userWindow extends JFrame {
             if (dataCheck.size() == 0 || id.equals("")) {
                 this.setSize(650, 900);
                 pnl_main.setLayout(new BorderLayout());
-                // System.out.println("YOURE IN!!");
                 pnl_main.add(new menuBar().menuB(), BorderLayout.NORTH);
                 JPanel pnl_form = new JPanel();
 
@@ -91,7 +84,6 @@ public class userWindow extends JFrame {
 
                 pnl_main.setLayout(new BorderLayout());
                 JPanel pnl_layout = new JPanel();
-                // pnl_layout.setBackground(Color.GRAY);
 
                 JPanel pnl_table = new JPanel();
                 String[] column = { "ReservationID", "Type of reservation", "Package ID", "Check in Date",
@@ -295,7 +287,6 @@ class reservationForm extends JInternalFrame {
         String[][] checkSchedList;
         try {
             LinkedList<ArrayList<Object>> data = new database().customQueries("SELECT * FROM Reservations");
-            // queries("Reservations");
             System.out.println(data.size());
             JPanel reservedDates = new JPanel();
             String[] columns = {
@@ -380,8 +371,6 @@ class reservationForm extends JInternalFrame {
                         pnl_price.add(new JLabel("Total price: " + String.valueOf(new database()
                                 .customQueries("SELECT price FROM Packages WHERE packageId = " + packageToID).get(0)
                                 .get(0))
-                        // .queryWithID(Integer.parseInt(packageToID), "Packages",
-                        // "packageId").getLast()
                                 + " x days stayed"));
 
                         pnl_price.setVisible(false);
@@ -423,7 +412,6 @@ class reservationForm extends JInternalFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     LinkedList<ArrayList<Object>> data = new database().customQueries("SELECT * FROM Reservations");
-                    // queries("Reservations");
                     LinkedList<ArrayList<Object>> relatedData = new LinkedList<ArrayList<Object>>();
                     String packageToID;
                     String packageID = String.valueOf(packagesToChoose.getSelectedItem());
@@ -485,16 +473,6 @@ class reservationForm extends JInternalFrame {
                                     String.valueOf(monthsToChoose2.getSelectedItem()) + "-" +
                                     String.valueOf(daysToChoose2.getSelectedItem()) + "', " +
                                     id + ")");
-
-                    // insertReservation(String.valueOf(types.getSelectedItem()),
-                    // String.valueOf(packagesToChoose.getSelectedItem()),
-                    // String.valueOf(datesToChoose.getSelectedItem()) + "-" +
-                    // String.valueOf(monthsToChoose.getSelectedItem()) + "-" +
-                    // String.valueOf(daysToChoose.getSelectedItem()),
-                    // String.valueOf(datesToChoose2.getSelectedItem()) + "-" +
-                    // String.valueOf(monthsToChoose2.getSelectedItem()) + "-" +
-                    // String.valueOf(daysToChoose2.getSelectedItem()),
-                    // String.valueOf(ID));
                     JOptionPane.showMessageDialog(new JFrame(),
                             "RESERVATION SUCCESSFULL.");
                     frm.dispose();
