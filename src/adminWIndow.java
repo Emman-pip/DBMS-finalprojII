@@ -299,12 +299,19 @@ class addRecordsForm extends JPanel {
         btn_reserve.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    new database().insertReservation2(
-                            txt_type.getText(),
-                            txt_package.getText(),
-                            txt_checkIn.getText(),
-                            txt_depart.getText(),
-                            txt_clientID.getText());
+                    new database().customActionQuery("INSERT INTO \n"
+                            + "Reservations(typeOfReservation, packageID, checkinDate, departureDate, clientID) \n"
+                            + //
+                            "VALUES ('" + txt_type.getText() + "', " + txt_package.getText() + ", '"
+                            + txt_checkIn.getText() + "', '" + txt_depart.getText()
+                            + "', " + txt_clientID.getText() + ")");
+
+                    // insertReservation2(
+                    // txt_type.getText(),
+                    // txt_package.getText(),
+                    // txt_checkIn.getText(),
+                    // txt_depart.getText(),
+                    // txt_clientID.getText());
                     for (JTextField txt : txt_reservation) {
                         txt.setEnabled(false);
                         btn_reserve.setEnabled(false);
